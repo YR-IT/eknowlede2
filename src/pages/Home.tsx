@@ -80,7 +80,8 @@ const Home = () => {
               
               <div className="relative z-10 h-full flex items-center">
                 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full">
-                  <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+                <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center text-center lg:text-left">
+
                     {/* Content */}
                     <div className="text-white">
                       <div className="flex items-center space-x-3 mb-6">
@@ -92,15 +93,17 @@ const Home = () => {
                         </span>
                       </div>
                       
-                      <h1 className="text-5xl md:text-7xl font-bold mb-6 leading-tight">
-                        {slide.title}
-                      </h1>
+                      <h1 className="text-3xl sm:text-5xl md:text-6xl lg:text-7xl font-bold mb-4 sm:mb-6 leading-tight">
+  {slide.title}
+</h1>
+
+<p className="text-base sm:text-lg md:text-xl lg:text-2xl mb-6 sm:mb-8 text-white/90 leading-relaxed">
+  {slide.description}
+</p>
+
                       
-                      <p className="text-xl md:text-2xl mb-8 text-white/90 leading-relaxed">
-                        {slide.description}
-                      </p>
-                      
-                      <div className="flex flex-col sm:flex-row gap-6">
+<div className="flex flex-col sm:flex-row justify-center lg:justify-start gap-4 sm:gap-6">
+
                         <button className="group bg-white text-gray-900 px-8 py-4 rounded-full text-lg font-semibold hover:shadow-2xl transform hover:scale-105 transition-all duration-300">
                           Start Learning Now
                           <ChevronRight className="inline-block ml-2 h-5 w-5 group-hover:translate-x-1 transition-transform duration-300" />
@@ -118,11 +121,12 @@ const Home = () => {
                     {/* Image */}
                     <div className="relative">
                       <div className="relative overflow-hidden rounded-3xl shadow-2xl transform rotate-3 hover:rotate-0 transition-transform duration-500">
-                        <img
-                          src={slide.image}
-                          alt={slide.title}
-                          className="w-full h-96 object-cover"
-                        />
+                      <img
+  src={slide.image}
+  alt={slide.title}
+  className="w-full h-60 sm:h-80 md:h-96 object-cover"
+/>
+
                         <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent"></div>
                       </div>
                       
@@ -143,21 +147,23 @@ const Home = () => {
 
         {/* Navigation Arrows */}
         <button
-          onClick={prevSlide}
-          className="absolute left-8 top-1/2 transform -translate-y-1/2 z-20 p-3 bg-white/20 backdrop-blur-md text-white rounded-full hover:bg-white/30 transition-all duration-300 group"
-        >
-          <ChevronLeft className="h-6 w-6 group-hover:scale-110 transition-transform duration-300" />
-        </button>
-        
-        <button
-          onClick={nextSlide}
-          className="absolute right-8 top-1/2 transform -translate-y-1/2 z-20 p-3 bg-white/20 backdrop-blur-md text-white rounded-full hover:bg-white/30 transition-all duration-300 group"
-        >
-          <ChevronRight className="h-6 w-6 group-hover:scale-110 transition-transform duration-300" />
-        </button>
+  onClick={prevSlide}
+  className="absolute left-4 sm:left-8 top-1/2 transform -translate-y-1/2 z-20 p-2 sm:p-3 bg-white/20 backdrop-blur-md text-white rounded-full hover:bg-white/30 transition-all duration-300 group"
+>
+  <ChevronLeft className="h-5 w-5 sm:h-6 sm:w-6 group-hover:scale-110 transition-transform duration-300" />
+</button>
+
+<button
+  onClick={nextSlide}
+  className="absolute right-4 sm:right-8 top-1/2 transform -translate-y-1/2 z-20 p-2 sm:p-3 bg-white/20 backdrop-blur-md text-white rounded-full hover:bg-white/30 transition-all duration-300 group"
+>
+  <ChevronRight className="h-5 w-5 sm:h-6 sm:w-6 group-hover:scale-110 transition-transform duration-300" />
+</button>
+
 
         {/* Slide Indicators */}
-        <div className="absolute bottom-8 left-1/2 transform -translate-x-1/2 z-20 flex space-x-3">
+        <div className="absolute bottom-4 sm:bottom-8 left-1/2 transform -translate-x-1/2 z-20 flex space-x-2 sm:space-x-3">
+
           {slides.map((_, index) => (
             <button
               key={index}
