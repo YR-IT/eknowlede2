@@ -37,7 +37,7 @@ const Testimonials = () => {
   
 
   return (
-    <section className="py-20 bg-gradient-to-br from-indigo-900 via-purple-900 to-pink-900 text-white relative overflow-hidden">
+    <section className="py-12 bg-gradient-to-br from-indigo-900 via-purple-900 to-pink-900 text-white relative overflow-hidden">
       {/* Background Animation */}
       <div className="absolute inset-0">
         <div className="absolute top-20 left-20 w-40 h-40 bg-gradient-to-r from-cyan-400/20 to-blue-500/20 rounded-full animate-pulse"></div>
@@ -45,25 +45,25 @@ const Testimonials = () => {
       </div>
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-        <div className="text-center mb-16">
+        <div className="text-center mb-12">
           <h2 className="text-5xl md:text-6xl font-bold mb-6 bg-gradient-to-r from-cyan-400 via-blue-400 to-purple-400 text-transparent bg-clip-text">
             What Our Students Say
           </h2>
-          <p className="text-xl text-gray-300 max-w-3xl mx-auto">
+          <p className="text-lg text-gray-300 max-w-3xl mx-auto">
             Join thousands of successful learners who have transformed their careers with E-Knowledge.
           </p>
         </div>
 
         <div className="relative max-w-4xl mx-auto">
           <div className="bg-white/10 backdrop-blur-md rounded-3xl p-12 text-center border border-white/20 shadow-2xl">
-            <Quote className="h-16 w-16 text-cyan-400 mx-auto mb-8" />
+            <Quote className="h-12 w-12 text-cyan-400 mx-auto mb-8" />
 
             <div className="mb-8">
-              <p className="text-2xl md:text-3xl text-gray-100 mb-8 leading-relaxed font-light">
+              <p className="text-xl md:text-2xl text-gray-100 mb-4 leading-relaxed font-light">
                 "{testimonials[currentTestimonial].content}"
               </p>
 
-              <div className="flex justify-center mb-6">
+              <div className="flex justify-center mb-4">
                 {[...Array(testimonials[currentTestimonial].rating)].map((_, i) => (
                   <Star key={i} className="h-8 w-8 text-amber-400 fill-current" />
                 ))}
@@ -77,10 +77,10 @@ const Testimonials = () => {
                 className="w-20 h-20 rounded-full object-cover border-4 border-cyan-400 shadow-lg"
               />
               <div className="text-left">
-                <h4 className="text-2xl font-bold text-white">
+                <h4 className="text-xl font-bold text-white">
                   {testimonials[currentTestimonial].name}
                 </h4>
-                <p className="text-cyan-300 text-lg">
+                <p className="text-cyan-300 text-base">
                   {testimonials[currentTestimonial].role}
                 </p>
               </div>
