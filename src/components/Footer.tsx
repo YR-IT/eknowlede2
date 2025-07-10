@@ -67,19 +67,34 @@ const Footer = () => {
           <div>
             <h3 className="text-lg font-semibold mb-4 text-pink-400">Contact Info</h3>
             <div className="space-y-3">
-              <div className="flex items-center space-x-3">
-                <Mail className="h-5 w-5 text-cyan-400" />
-                <span className="text-gray-300">contact@eknowledge.com</span>
-              </div>
-              <div className="flex items-center space-x-3">
-                <Phone className="h-5 w-5 text-purple-400" />
-                <span className="text-gray-300">+1 (555) 123-4567</span>
-              </div>
-              <div className="flex items-center space-x-3">
-                <MapPin className="h-5 w-5 text-pink-400" />
-                <span className="text-gray-300">123 Education St, Learning City</span>
-              </div>
-            </div>
+  <div className="flex items-center space-x-3">
+    <Mail className="h-5 w-5 text-cyan-400" />
+    <a href="mailto:info@aicc.ind.in" className="text-gray-300 hover:underline">
+      info@aicc.ind.in
+    </a>
+  </div>
+  <div className="flex items-center space-x-3">
+    <Phone className="h-5 w-5 text-purple-400" />
+    <a href="tel:+919990733308" className="text-gray-300 hover:underline">
+      +91-99907 33308
+    </a>
+  </div>
+  <div className="flex items-center space-x-3">
+    <MapPin className="h-5 w-5 text-pink-400" />
+    <a
+      href="https://www.google.com/maps/search/?api=1&query=Unit+No.+339,+3rd+Floor,+Tower+B-3,+Spaze+Itech-Park,+Sector-49,+Sohna+Road,+Gurgaon+122001+HR+India"
+      target="_blank"
+      rel="noopener noreferrer"
+      className="text-gray-300 hover:text-gray-100"
+    >
+      Unit No. 339, 3rd Floor, <br />
+      Tower B-3, Spaze Itech-Park <br />
+      Sector-49, Sohna Road, <br />
+      Gurgaon – 122001 (HR) <br />
+      India
+    </a>
+  </div>
+</div>
           </div>
         </div>
 
