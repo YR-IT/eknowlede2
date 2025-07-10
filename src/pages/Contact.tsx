@@ -28,21 +28,25 @@ const Contact = () => {
     {
       icon: Mail,
       title: "Email Us",
-      details: "contact@eknowledge.com",
+      details: "info@aicc.ind.in",
       subtext: "We'll respond within 24 hours",
       color: "from-blue-500 to-indigo-600"
     },
     {
       icon: Phone,
       title: "Call Us",
-      details: "+1 (555) 123-4567",
+      details: "+91 9990733308",
       subtext: "Mon-Fri, 9 AM - 6 PM EST",
       color: "from-green-500 to-emerald-600"
     },
     {
       icon: MapPin,
       title: "Visit Us",
-      details: "123 Education Street",
+      details: `Unit No. 339, 3rd Floor,
+Tower B-3, Spaze Itech-Park
+Sector-49, Sohna Road,
+Gurgaon – 122001 (HR)
+India`,
       subtext: "Learning City, LC 12345",
       color: "from-purple-500 to-pink-600"
     },
@@ -68,14 +72,11 @@ const Contact = () => {
       question: "Can I access courses on mobile?",
       answer: "Absolutely! Our platform is fully responsive and we also have mobile apps for iOS and Android for learning on the go."
     },
-    {
-      question: "What if I'm not satisfied with a course?",
-      answer: "We offer a 30-day money-back guarantee. If you're not satisfied with your purchase, contact us for a full refund."
-    }
+    
   ];
 
   return (
-    <div className="pt-24 pb-20">
+    <div className="pt-24 pb-10">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Hero Section */}
         <div className="text-center mb-16">
@@ -104,11 +105,13 @@ const Contact = () => {
             </div>
           ))}
         </div>
-
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-start">
           {/* Contact Form */}
           <div className="bg-white rounded-2xl shadow-lg p-8">
-            <h2 className="text-2xl font-bold text-gray-900 mb-6">Send us a Message</h2>
+          <h2 className="text-3xl text-center font-bold text-gray-900 mb-8">
+  Send us a Message
+</h2>
+
             
             <form onSubmit={handleSubmit} className="space-y-6">
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
@@ -182,13 +185,15 @@ const Contact = () => {
                 ></textarea>
               </div>
               
-              <button
-                type="submit"
-                className="w-full bg-gradient-to-r from-indigo-600 to-purple-600 text-white py-4 px-6 rounded-lg font-semibold hover:shadow-lg transform hover:scale-105 transition-all duration-300 flex items-center justify-center space-x-2"
-              >
-                <Send className="h-5 w-5" />
-                <span>Send Message</span>
-              </button>
+              <div className="flex justify-center">
+  <button
+    type="submit"
+    className="w-full md:w-1/2 bg-gradient-to-r from-indigo-600 to-purple-600 text-white py-4 px-6 rounded-lg font-semibold hover:shadow-lg transform hover:scale-105 transition-all duration-300 flex items-center justify-center space-x-2"
+  >
+    <Send className="h-5 w-5" />
+    <span>Send Message</span>
+  </button>
+</div>
             </form>
           </div>
 
