@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
 import { Play, Award, GraduationCap, ArrowRight } from 'lucide-react';
+import { useEffect } from 'react';
+
 
 type VideoCardProps = {
   title: string;
@@ -78,18 +80,37 @@ const VideoCard: React.FC<VideoCardProps> = ({ title, duration = "00:46", videoU
       </div>
       
       {/* Course Title and Button */}
-        <div className="text-center flex-1 flex flex-col justify-between">
-          <h4 className="text-sm sm:text-base md:text-lg font-semibold text-navy-800 leading-tight mb-4 px-1 min-h-[3.5rem] flex items-center justify-center">{title}</h4>
-          <button className={`px-4 sm:px-6 py-2 sm:py-3 bg-gradient-to-r from-navy-600 to-blue-600 text-white rounded-full text-sm sm:text-base font-medium transition-all duration-300 hover:from-navy-700 hover:to-blue-700 hover:shadow-lg ${isHovered ? 'transform scale-105' : ''}`}>
-          ENROLL NOW
-          </button>
-        </div>
+       {/* Course Title and Button */}
+<div className="flex-1 flex flex-col justify-between">
+  {/* Centered Title */}
+  <div className="flex-1 flex items-center justify-center px-2">
+    <h4 className="text-sm sm:text-base md:text-lg font-semibold text-navy-800 text-center leading-tight">
+      {title}
+    </h4>
+  </div>
+
+  {/* Button fixed at bottom */}
+  <div className="mt-4">
+    <button
+      className={`w-full px-4 sm:px-6 py-2 sm:py-3 bg-gradient-to-r from-navy-600 to-blue-600 text-white rounded-full text-sm sm:text-base font-medium transition-all duration-300 hover:from-navy-700 hover:to-blue-700 hover:shadow-lg ${
+        isHovered ? 'transform scale-105' : ''
+      }`}
+    >
+      ENROLL NOW
+    </button>
+  </div>
+</div>
+
       </div>
     </div>
   );
 };
 
 const Courses: React.FC = () => {
+  useEffect(() => {
+  window.scrollTo(0, 0);
+}, []);
+
  
   const videoTopics = [
     "INCO TERMS",
@@ -118,7 +139,9 @@ const Courses: React.FC = () => {
 
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-50 via-blue-50 to-navy-50">
+    <div className="pt-10 min-h-screen bg-gradient-to-br from-slate-50 via-blue-50 to-navy-50">
+
+
       
       {/* Hero Section - Full Screen */}
       <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-navy-900 via-blue-900 to-slate-900 relative overflow-hidden">
