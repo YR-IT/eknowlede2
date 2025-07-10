@@ -102,20 +102,20 @@ const Home = () => {
 </p>
 
                       
-<div className="flex flex-col sm:flex-row justify-center lg:justify-start gap-4 sm:gap-6">
+<div className="flex flex-col sm:flex-row gap-4 sm:gap-6 mt-4 z-10 relative">
+  <button className="group bg-white text-gray-900 px-6 py-3 sm:px-8 sm:py-4 rounded-full text-base sm:text-lg font-semibold hover:shadow-2xl transform hover:scale-105 transition-all duration-300 whitespace-nowrap">
+    Start Learning Now
+    <ChevronRight className="inline-block ml-2 h-5 w-5 group-hover:translate-x-1 transition-transform duration-300" />
+  </button>
 
-                        <button className="group bg-white text-gray-900 px-8 py-4 rounded-full text-lg font-semibold hover:shadow-2xl transform hover:scale-105 transition-all duration-300">
-                          Start Learning Now
-                          <ChevronRight className="inline-block ml-2 h-5 w-5 group-hover:translate-x-1 transition-transform duration-300" />
-                        </button>
-                        
-                        <button className="group flex items-center space-x-3 text-white hover:text-white/80 transition-colors duration-300">
-                          <div className="p-3 bg-white/20 backdrop-blur-md rounded-full group-hover:bg-white/30 group-hover:scale-110 transition-all duration-300">
-                            <Play className="h-6 w-6" />
-                          </div>
-                          <span className="font-medium">Watch Preview</span>
-                        </button>
-                      </div>
+  <button className="group flex items-center justify-center sm:justify-start space-x-3 text-white hover:text-white/80 transition-colors duration-300">
+    <div className="p-2 sm:p-3 bg-white/20 backdrop-blur-md rounded-full group-hover:bg-white/30 group-hover:scale-110 transition-all duration-300">
+      <Play className="h-5 w-5 sm:h-6 sm:w-6" />
+    </div>
+    <span className="text-sm sm:text-base font-medium whitespace-nowrap">Watch Preview</span>
+  </button>
+</div>
+
                     </div>
 
                     {/* Image */}
@@ -131,12 +131,14 @@ const Home = () => {
                       </div>
                       
                       {/* Floating Elements */}
-                      <div className="absolute -top-6 -right-6 bg-white/90 backdrop-blur-md p-4 rounded-2xl shadow-lg animate-bounce">
-                        <Star className="h-6 w-6 text-amber-500" />
-                      </div>
-                      <div className="absolute -bottom-6 -left-6 bg-white/90 backdrop-blur-md p-4 rounded-2xl shadow-lg animate-pulse">
-                        <Users className="h-6 w-6 text-emerald-500" />
-                      </div>
+                      <div className="absolute -top-6 -right-6 sm:-top-6 sm:-right-6 right-2 top-2 bg-white/90 backdrop-blur-md p-3 sm:p-4 rounded-2xl shadow-lg animate-bounce">
+  <Star className="h-5 w-5 sm:h-6 sm:w-6 text-amber-500" />
+</div>
+
+<div className="absolute -bottom-6 -left-6 sm:-bottom-6 sm:-left-6 left-2 bottom-2 bg-white/90 backdrop-blur-md p-3 sm:p-4 rounded-2xl shadow-lg animate-pulse">
+  <Users className="h-5 w-5 sm:h-6 sm:w-6 text-emerald-500" />
+</div>
+
                     </div>
                   </div>
                 </div>
@@ -146,23 +148,27 @@ const Home = () => {
         </div>
 
         {/* Navigation Arrows */}
-        <button
+       {/* Previous Button */}
+<button
   onClick={prevSlide}
-  className="absolute left-4 sm:left-8 top-1/2 transform -translate-y-1/2 z-20 p-2 sm:p-3 bg-white/20 backdrop-blur-md text-white rounded-full hover:bg-white/30 transition-all duration-300 group"
+  className="absolute left-2 sm:left-8 top-1/2 transform -translate-y-1/2 z-20 p-2 sm:p-3 bg-white/20 backdrop-blur-md text-white rounded-full hover:bg-white/30 transition-all duration-300 group"
 >
-  <ChevronLeft className="h-5 w-5 sm:h-6 sm:w-6 group-hover:scale-110 transition-transform duration-300" />
+  <ChevronLeft className="h-4 w-4 sm:h-6 sm:w-6 group-hover:scale-110 transition-transform duration-300" />
 </button>
 
+{/* Next Button */}
 <button
   onClick={nextSlide}
-  className="absolute right-4 sm:right-8 top-1/2 transform -translate-y-1/2 z-20 p-2 sm:p-3 bg-white/20 backdrop-blur-md text-white rounded-full hover:bg-white/30 transition-all duration-300 group"
+  className="absolute right-2 sm:right-8 top-1/2 transform -translate-y-1/2 z-20 p-2 sm:p-3 bg-white/20 backdrop-blur-md text-white rounded-full hover:bg-white/30 transition-all duration-300 group"
 >
-  <ChevronRight className="h-5 w-5 sm:h-6 sm:w-6 group-hover:scale-110 transition-transform duration-300" />
+  <ChevronRight className="h-4 w-4 sm:h-6 sm:w-6 group-hover:scale-110 transition-transform duration-300" />
 </button>
+
 
 
         {/* Slide Indicators */}
         <div className="absolute bottom-4 sm:bottom-8 left-1/2 transform -translate-x-1/2 z-20 flex space-x-2 sm:space-x-3">
+
 
           {slides.map((_, index) => (
             <button
