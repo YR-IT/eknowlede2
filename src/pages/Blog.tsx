@@ -84,7 +84,7 @@ const Blog = () => {
 
   return (
     <section className="bg-gray-50 min-h-screen pt-24 pb-20 px-4 sm:px-6 lg:px-8">
-      <div className="max-w-7xl mx-auto">
+      
         <div className="relative overflow-hidden bg-gradient-to-br from-blue-50 via-white to-purple-50 py-16 px-6 rounded-xl mb-16 shadow-md">
           <div className="absolute inset-0 -z-10 opacity-30 bg-[radial-gradient(ellipse_at_top_left,_var(--tw-gradient-stops))] from-purple-200 via-transparent to-transparent"></div>
           <div className="text-center">
@@ -104,7 +104,7 @@ const Blog = () => {
             >
               Dive into industry insights, learning tips, and inspiring stories curated just for you.
             </motion.p>
-          </div>
+
         </div>
 
         {/* Search and Filter */}
