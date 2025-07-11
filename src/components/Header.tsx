@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { Link, useLocation } from "react-router-dom";
-import { Menu, X, BookOpen, Download } from "lucide-react";
+import { Menu, X, Search, Download } from "lucide-react";
+import logo from "../images/e-learning-app-removebg-preview.png";
 
 const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -8,9 +9,7 @@ const Header = () => {
   const location = useLocation();
 
   useEffect(() => {
-    const handleScroll = () => {
-      setIsScrolled(window.scrollY > 50);
-    };
+    const handleScroll = () => setIsScrolled(window.scrollY > 30);
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
@@ -23,96 +22,93 @@ const Header = () => {
     { name: "Contact", path: "/contact" },
   ];
 
-  // 🔧 Force header background on specific pages (like /courses)
-  const forceHeaderBackground = location.pathname === "/courses";
-  const headerClass = (isScrolled || forceHeaderBackground)
-    ? "bg-white/95 backdrop-blur-md shadow-xl"
-    : "bg-transparent";
+  const headerClass = isScrolled
+    ? "bg-white shadow-md backdrop-blur-md"
+    : "bg-white";
 
   return (
-    <header
-      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${headerClass}`}
-    >
+    <header className={`fixed top-0 w-full z-50 transition-all duration-300 ${headerClass}`}>
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex justify-between items-center h-16">
+        <div className="flex justify-between items-center h-20">
           {/* Logo */}
-          <Link to="/" className="flex items-center space-x-2 group">
-            <div className="relative">
-              <BookOpen className="sm:h-8 sm:w-8 w-6 h-6 text-cyan-600 group-hover:text-purple-600 transition-all duration-300" />
-              <div className="absolute -inset-1 bg-gradient-to-r from-cyan-600 to-purple-600 rounded-full opacity-0 group-hover:opacity-20 transition-opacity duration-300"></div>
-            </div>
-            <span className="text-lg sm:text-2xl font-bold bg-gradient-to-r from-cyan-600 via-blue-600 to-purple-600 text-transparent bg-clip-text group-hover:from-purple-600 group-hover:to-pink-600 transition-all duration-300">
-              E-Knowledge
-            </span>
+          <Link to="/" className="flex items-center space-x-3">
+            <img
+              src={logo}
+              alt="E-Knowledge Logo"
+              className="h-14 w-auto object-contain"
+            />
           </Link>
 
-          {/* Desktop Navigation */}
-          <nav className="hidden md:flex items-center space-x-8">
-            {navItems.map((item) => (
-              <Link
-                key={item.name}
-                to={item.path}
-                className={`relative px-3 py-2 text-sm font-medium transition-all duration-300 hover:text-transparent hover:bg-gradient-to-r hover:from-cyan-600 hover:to-purple-600 hover:bg-clip-text group ${
-                  location.pathname === item.path
-                    ? "text-transparent bg-gradient-to-r from-cyan-600 to-purple-600 bg-clip-text"
-                    : "text-gray-700"
-                }`}
-              >
-                {item.name}
-                <span
-                  className={`absolute bottom-0 left-0 h-0.5 bg-gradient-to-r from-cyan-600 to-purple-600 transition-all duration-300 ${
-                    location.pathname === item.path
-                      ? "w-full"
-                      : "w-0 group-hover:w-full"
+          {/* Navigation */}
+          <nav className="hidden md:flex items-center space-x-6 lg:space-x-8">
+            {navItems.map((item) => {
+              const isActive = location.pathname === item.path;
+              return (
+                <Link
+                  key={item.name}
+                  to={item.path}
+                  className={`relative text-sm font-bold uppercase tracking-wide transition-all duration-300 transform hover:scale-105 group ${
+                    isActive ? "text-orange-600" : "text-gray-800"
                   }`}
-                ></span>
-              </Link>
-            ))}
+                >
+                  {item.name}
+                  <span
+                    className={`absolute left-1/2 transform -translate-x-1/2 -bottom-1 h-[2px] rounded-full transition-all duration-300 bg-orange-500 ${
+                      isActive
+                        ? "w-6"
+                        : "w-0 group-hover:w-6"
+                    }`}
+                  ></span>
+                </Link>
+              );
+            })}
           </nav>
 
-          {/* Download Button */}
+          {/* Right Side (Search + CTA) */}
           <div className="hidden md:flex items-center space-x-4">
-            <button className="flex items-center space-x-2 bg-gradient-to-r from-cyan-600 via-blue-600 to-purple-600 text-white px-6 py-2 rounded-full hover:shadow-xl hover:from-purple-600 hover:to-pink-600 transform hover:scale-105 transition-all duration-300">
-              <Download className="h-4 w-4" />
-              <span className="font-medium">Download App</span>
+            <button className="p-2 rounded-full border border-gray-300 hover:bg-gray-100 transition hover:scale-110 hover:shadow-sm">
+              <Search className="h-5 w-5 text-gray-700 group-hover:animate-pulse" />
+            </button>
+            <button className="px-5 py-2 rounded-full bg-gradient-to-r from-orange-500 to-pink-500 text-white font-semibold shadow-md hover:shadow-orange-200 hover:scale-105 transform transition-all duration-300">
+              Download App
             </button>
           </div>
 
-          {/* Mobile Menu Button */}
+          {/* Mobile Menu Toggle */}
           <button
             onClick={() => setIsMenuOpen(!isMenuOpen)}
-            className="md:hidden p-2 rounded-lg hover:bg-gray-100 transition-colors duration-200"
+            className="md:hidden p-2 rounded-lg text-gray-700 hover:bg-gray-100 transition"
           >
             {isMenuOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
           </button>
         </div>
+      </div>
 
-        {/* Mobile Menu */}
-        <div
-          className={`md:hidden fixed top-16 left-0 right-0 z-40 transition-all duration-300 ${
-            isMenuOpen ? "max-h-96 opacity-100" : "max-h-0 opacity-0"
-          } overflow-hidden bg-white shadow-md`}
-        >
-          <div className="py-4 space-y-2 px-4">
-            {navItems.map((item) => (
-              <Link
-                key={item.name}
-                to={item.path}
-                className={`block px-4 py-2 text-base font-medium rounded-lg transition-colors duration-200 ${
-                  location.pathname === item.path
-                    ? "text-cyan-600 bg-cyan-50"
-                    : "text-gray-900 hover:bg-gray-100"
-                }`}
-                onClick={() => setIsMenuOpen(false)}
-              >
-                {item.name}
-              </Link>
-            ))}
-            <button className="w-full mt-4 flex items-center justify-center space-x-2 bg-gradient-to-r from-cyan-600 via-blue-600 to-purple-600 text-white px-6 py-2 rounded-full">
-              <Download className="h-4 w-4" />
-              <span className="font-medium">Download App</span>
-            </button>
-          </div>
+      {/* Mobile Menu */}
+      <div
+        className={`md:hidden bg-white shadow-md transition-all duration-300 ${
+          isMenuOpen ? "max-h-96 opacity-100" : "max-h-0 opacity-0"
+        } overflow-hidden`}
+      >
+        <div className="px-4 py-4 space-y-3">
+          {navItems.map((item) => (
+            <Link
+              key={item.name}
+              to={item.path}
+              onClick={() => setIsMenuOpen(false)}
+              className={`block px-4 py-2 rounded-lg text-base font-semibold uppercase transition-colors duration-200 ${
+                location.pathname === item.path
+                  ? "text-orange-600 bg-orange-50"
+                  : "text-gray-800 hover:bg-gray-100"
+              }`}
+            >
+              {item.name}
+            </Link>
+          ))}
+          <button className="w-full mt-3 flex items-center justify-center gap-2 bg-gradient-to-r from-orange-500 to-pink-500 text-white py-2 rounded-full font-semibold hover:scale-105 transition-transform">
+            <Download className="h-4 w-4" />
+            Download App
+          </button>
         </div>
       </div>
     </header>
