@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { Calendar, User, ArrowRight, Search, Tag } from 'lucide-react';
+import { motion } from 'framer-motion';
 
 const Blog = () => {
   const [selectedTag, setSelectedTag] = useState('All');
@@ -82,50 +83,58 @@ const Blog = () => {
   const regularPosts = filteredPosts.filter(post => !post.featured);
 
   return (
-    <div className="pt-24 pb-20">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        {/* Hero Section */}
-        <div className="text-center mb-16">
-          <h1 className="text-5xl md:text-6xl font-bold bg-gradient-to-r from-indigo-600 to-purple-600 text-transparent bg-clip-text mb-6">
-            Latest Insights
-          </h1>
-          <p className="text-xl text-gray-600 max-w-3xl mx-auto mb-8">
-            Stay updated with the latest trends, tips, and insights from the world of online learning and technology.
-          </p>
+    <section className="bg-gray-50 min-h-screen pt-24 pb-20 px-4 sm:px-6 lg:px-8">
+      <div className="max-w-7xl mx-auto">
+        <div className="relative overflow-hidden bg-gradient-to-br from-blue-50 via-white to-purple-50 py-16 px-6 rounded-xl mb-16 shadow-md">
+          <div className="absolute inset-0 -z-10 opacity-30 bg-[radial-gradient(ellipse_at_top_left,_var(--tw-gradient-stops))] from-purple-200 via-transparent to-transparent"></div>
+          <div className="text-center">
+            <motion.h2
+              initial={{ opacity: 0, y: -30 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8 }}
+              className="text-5xl md:text-6xl font-extrabold text-gray-900 tracking-tight mb-4"
+            >
+              Explore Our <span className="text-transparent bg-clip-text bg-gradient-to-r from-purple-600 to-indigo-600">Blog</span>
+            </motion.h2>
+            <motion.p
+              initial={{ opacity: 0, y: 10 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.2, duration: 0.8 }}
+              className="text-xl text-gray-700 max-w-2xl mx-auto leading-relaxed"
+            >
+              Dive into industry insights, learning tips, and inspiring stories curated just for you.
+            </motion.p>
+          </div>
         </div>
 
         {/* Search and Filter */}
-        <div className="mb-12">
-          <div className="flex flex-col lg:flex-row gap-6 items-center justify-between">
-            {/* Search Bar */}
-            <div className="relative w-full lg:w-96">
-              <Search className="absolute left-4 top-1/2 transform -translate-y-1/2 text-gray-400 h-5 w-5" />
-              <input
-                type="text"
-                placeholder="Search articles..."
-                value={searchTerm}
-                onChange={(e) => setSearchTerm(e.target.value)}
-                className="w-full pl-12 pr-4 py-3 border border-gray-300 rounded-full focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition-all duration-300"
-              />
-            </div>
+        <div className="mb-12 flex flex-col lg:flex-row gap-6 items-center justify-between">
+          <div className="relative w-full lg:w-96">
+            <Search className="absolute left-4 top-1/2 transform -translate-y-1/2 text-gray-400 h-5 w-5" />
+            <input
+              type="text"
+              placeholder="Search articles..."
+              value={searchTerm}
+              onChange={(e) => setSearchTerm(e.target.value)}
+              className="w-full pl-12 pr-4 py-3 border border-gray-300 rounded-full focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition-all duration-300"
+            />
+          </div>
 
-            {/* Tag Filter */}
-            <div className="flex flex-wrap gap-2">
-              {tags.map((tag) => (
-                <button
-                  key={tag}
-                  onClick={() => setSelectedTag(tag)}
-                  className={`px-4 py-2 rounded-full font-medium transition-all duration-300 flex items-center space-x-2 ${
-                    selectedTag === tag
-                      ? 'bg-gradient-to-r from-indigo-600 to-purple-600 text-white shadow-lg'
-                      : 'bg-white text-gray-700 hover:bg-gray-50 border border-gray-300'
-                  }`}
-                >
-                  <Tag className="h-4 w-4" />
-                  <span>{tag}</span>
-                </button>
-              ))}
-            </div>
+          <div className="flex flex-wrap gap-2">
+            {tags.map((tag) => (
+              <button
+                key={tag}
+                onClick={() => setSelectedTag(tag)}
+                className={`px-4 py-2 rounded-full font-medium transition-all duration-300 flex items-center space-x-2 ${
+                  selectedTag === tag
+                    ? 'bg-gradient-to-r from-indigo-600 to-purple-600 text-white shadow-lg'
+                    : 'bg-white text-gray-700 hover:bg-gray-50 border border-gray-300'
+                }`}
+              >
+                <Tag className="h-4 w-4" />
+                <span>{tag}</span>
+              </button>
+            ))}
           </div>
         </div>
 
@@ -141,15 +150,12 @@ const Blog = () => {
                     </span>
                     <span className="text-indigo-600 font-medium">{featuredPost.tag}</span>
                   </div>
-                  
                   <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
                     {featuredPost.title}
                   </h2>
-                  
                   <p className="text-lg text-gray-600 mb-6">
                     {featuredPost.excerpt}
                   </p>
-                  
                   <div className="flex items-center space-x-6 mb-6">
                     <div className="flex items-center space-x-2">
                       <User className="h-4 w-4 text-gray-500" />
@@ -161,13 +167,11 @@ const Blog = () => {
                     </div>
                     <span className="text-gray-500">{featuredPost.readTime}</span>
                   </div>
-                  
                   <button className="group bg-gradient-to-r from-indigo-600 to-purple-600 text-white px-6 py-3 rounded-full font-semibold hover:shadow-lg transform hover:scale-105 transition-all duration-300 flex items-center space-x-2">
                     <span>Read More</span>
                     <ArrowRight className="h-4 w-4 group-hover:translate-x-1 transition-transform duration-300" />
                   </button>
                 </div>
-                
                 <div className="relative">
                   <img
                     src={featuredPost.image}
@@ -184,10 +188,12 @@ const Blog = () => {
         {/* Blog Posts Grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
           {regularPosts.map((post, index) => (
-            <article
+            <motion.article
               key={post.id}
               className="group bg-white rounded-2xl shadow-lg hover:shadow-2xl transform hover:scale-105 transition-all duration-300 overflow-hidden"
-              style={{ animationDelay: `${index * 0.1}s` }}
+              initial={{ opacity: 0, y: 30 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: index * 0.1 }}
             >
               <div className="relative overflow-hidden">
                 <img
@@ -202,16 +208,13 @@ const Blog = () => {
                   </span>
                 </div>
               </div>
-
               <div className="p-6">
                 <h3 className="text-xl font-bold text-gray-900 mb-3 group-hover:text-indigo-600 transition-colors duration-300 line-clamp-2">
                   {post.title}
                 </h3>
-                
                 <p className="text-gray-600 mb-4 line-clamp-3">
                   {post.excerpt}
                 </p>
-                
                 <div className="flex items-center justify-between text-sm text-gray-500 mb-4">
                   <div className="flex items-center space-x-2">
                     <User className="h-4 w-4" />
@@ -219,51 +222,29 @@ const Blog = () => {
                   </div>
                   <span>{post.readTime}</span>
                 </div>
-                
                 <div className="flex items-center justify-between">
                   <div className="flex items-center space-x-2 text-sm text-gray-500">
                     <Calendar className="h-4 w-4" />
                     <span>{new Date(post.date).toLocaleDateString()}</span>
                   </div>
-                  
                   <button className="group text-indigo-600 hover:text-purple-600 font-medium flex items-center space-x-1 transition-colors duration-300">
                     <span>Read More</span>
                     <ArrowRight className="h-4 w-4 group-hover:translate-x-1 transition-transform duration-300" />
                   </button>
                 </div>
               </div>
-            </article>
+            </motion.article>
           ))}
         </div>
 
+        {/* No results */}
         {filteredPosts.length === 0 && (
           <div className="text-center py-12">
             <p className="text-xl text-gray-600">No articles found matching your criteria.</p>
           </div>
         )}
-
-        {/* Newsletter Signup */}
-        <div className="mt-20 bg-gradient-to-r from-indigo-600 to-purple-600 rounded-2xl p-12 text-white text-center">
-          <h2 className="text-3xl font-bold mb-4">
-            Stay Updated with Our Newsletter
-          </h2>
-          <p className="text-xl mb-8 opacity-90">
-            Get the latest articles, tips, and insights delivered directly to your inbox.
-          </p>
-          
-          <div className="max-w-md mx-auto flex flex-col sm:flex-row gap-4">
-            <input
-              type="email"
-              placeholder="Enter your email"
-              className="flex-1 px-4 py-3 rounded-full text-gray-900 focus:outline-none focus:ring-2 focus:ring-white"
-            />
-            <button className="bg-white text-indigo-600 px-6 py-3 rounded-full font-semibold hover:shadow-lg transform hover:scale-105 transition-all duration-300">
-              Subscribe
-            </button>
-          </div>
-        </div>
       </div>
-    </div>
+    </section>
   );
 };
 
