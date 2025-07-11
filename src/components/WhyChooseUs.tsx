@@ -33,7 +33,7 @@ const WhyChooseUS = () => {
   return (
     <>
       {/* Stats Section */}
-      <section className="py-20 bg-gradient-to-r from-slate-50 via-blue-50 to-indigo-50">
+      {/* <section className="py-20 bg-gradient-to-b from-gray-50 to-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
             {stats.map((stat, index) => (
@@ -51,36 +51,37 @@ const WhyChooseUS = () => {
             ))}
           </div>
         </div>
-      </section>
+      </section> */}
 
       {/* Features Section */}
-      <section className="py-16 bg-gradient-to-br from-purple-50 via-pink-50 to-orange-50">
+      <section className="py-16 bg-gradient-to-b from-gray-50 to-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
-            <h2 className="text-3xl md:text-6xl font-bold bg-gradient-to-r from-purple-600 via-pink-600 to-orange-600 text-transparent bg-clip-text mb-6">
+            <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold bg-gradient-to-r from-purple-600 via-pink-600 to-orange-600 text-transparent bg-clip-text mb-6">
               Why Choose E-Knowledge?
             </h2>
-            <p className="text-lg sm:text-xl text-gray-600 max-w-3xl mx-auto">
+            <p className="text-base sm:text-xl text-gray-600 max-w-3xl mx-auto">
               Experience the future of online learning with our innovative platform designed for success.
             </p>
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            {features.map((feature, index) => (
-              <div
-                key={index}
-                className="group bg-white rounded-3xl p-8 shadow-xl hover:shadow-2xl transform hover:scale-105 hover:-rotate-1 transition-all duration-300"
-              >
-                <div
-                  className={`sm:w-20 sm:h-20 h-16 w-16 bg-gradient-to-r ${feature.color} rounded-2xl flex items-center justify-center mb-6 group-hover:rotate-12 group-hover:scale-110 transition-all duration-300 shadow-lg`}
-                >
-                  <feature.icon className="sm:h-10 sm:w-10 h-8 w-8 text-white" />
-                </div>
-                <h3 className="text-2xl font-bold text-gray-900 mb-4">{feature.title}</h3>
-                <p className="text-gray-600 leading-relaxed">{feature.description}</p>
-              </div>
-            ))}
-          </div>
+  {features.map((feature, index) => (
+    <div
+      key={index}
+      className="group bg-white rounded-3xl p-8 shadow-xl hover:shadow-2xl transform hover:scale-105 hover:-rotate-1 transition-all duration-300 flex flex-col items-center text-center border-2 border-gray-100"
+    >
+      <div
+        className={`sm:w-16 sm:h-16 h-16 w-16 bg-gradient-to-r ${feature.color} rounded-2xl flex items-center justify-center mb-6 group-hover:rotate-12 group-hover:scale-110 transition-all duration-300 shadow-lg`}
+      >
+        <feature.icon className="sm:h-8 sm:w-8 h-8 w-8 text-white" />
+      </div>
+      <h3 className="text-2xl font-bold text-gray-900 mb-4">{feature.title}</h3>
+      <p className="text-gray-600 leading-relaxed">{feature.description}</p>
+    </div>
+  ))}
+</div>
+
         </div>
       </section>
     </>

@@ -3,6 +3,7 @@ import { Play, Star, Users, ChevronRight, ChevronLeft, Sparkles, Zap, Target } f
 import WhyChooseUS from '../components/WhyChooseUs';
 import Testimonials from '../components/Testimonials';
 import CallToAction from '../components/CallToAction';
+import GetStarted from '../components/GetStarted';
 
 const Home = () => {
   const [currentSlide, setCurrentSlide] = useState(0);
@@ -183,6 +184,8 @@ const Home = () => {
           ))}
         </div>
       </section>
+
+          <GetStarted />
 
       <WhyChooseUS />
 
