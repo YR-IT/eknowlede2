@@ -76,39 +76,52 @@ India`,
   ];
 
   return (
-    <div className="pt-24 pb-10">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        {/* Hero Section */}
-        <div className="bg-blue-200 py-16 px-6 rounded-2xl shadow-md text-center mb-16">
-  <h1 className="text-5xl md:text-6xl font-bold bg-gradient-to-r from-indigo-600 to-purple-600 text-transparent bg-clip-text mb-6">
+    <div className="pt-16 pb-10">
+       {/* Hero Section */}
+       <div className="bg-gradient-to-r from-cyan-600 via-blue-500 to-purple-600 py-20 px-6 shadow-md text-center mb-16 relative overflow-hidden">
+
+  <h1 className="text-4xl md:text-7xl font-bold text-white mb-4">
     Get in Touch
   </h1>
-  <p className="text-xl text-gray-700 max-w-3xl mx-auto mb-8">
+  <p className="text-xl text-gray-100 max-w-3xl mx-auto mb-6">
     Have questions? We'd love to hear from you. Send us a message and we'll respond as soon as possible.
   </p>
+  <p className="text-lg text-white mb-8 font-medium">
+    📚 Empowering minds, connecting knowledge — your learning journey starts here.
+  </p>
+  <a
+  href="#contact-form"
+  onClick={(e) => {
+    e.preventDefault();
+    document.getElementById('contact-form')?.scrollIntoView({ behavior: 'smooth' });
+  }}
+  className="inline-block cursor-pointer bg-white text-gray-700 font-semibold px-6 py-3 rounded-full shadow hover:shadow-lg hover:bg-gray-100 transition"
+>
+  Contact Our Team
+</a>
 </div>
 
-
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Contact Methods */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-16">
-          {contactInfo.map((info, index) => (
-            <div
-              key={index}
-              className="group bg-white rounded-2xl p-6 shadow-lg hover:shadow-2xl transform hover:scale-105 transition-all duration-300"
-              style={{ animationDelay: `${index * 0.1}s` }}
-            >
-              <div className={`w-12 h-12 bg-gradient-to-r ${info.color} rounded-xl flex items-center justify-center mb-4 group-hover:rotate-6 transition-transform duration-300`}>
-                <info.icon className="h-6 w-6 text-white" />
-              </div>
-              <h3 className="text-lg font-semibold text-gray-900 mb-2">{info.title}</h3>
-              <p className="text-indigo-600 font-medium mb-1">{info.details}</p>
-              <p className="text-sm text-gray-500">{info.subtext}</p>
-            </div>
-          ))}
-        </div>
+  {contactInfo.map((info, index) => (
+    <div
+      key={index}
+      className="group bg-white rounded-2xl p-6 shadow-lg hover:shadow-2xl transform hover:scale-105 transition-all duration-300 flex flex-col items-center text-center"
+      style={{ animationDelay: `${index * 0.1}s` }}
+    >
+      <div className={`w-12 h-12 bg-gradient-to-r ${info.color} rounded-xl flex items-center justify-center mb-4 group-hover:rotate-6 transition-transform duration-300`}>
+        <info.icon className="h-6 w-6 text-white" />
+      </div>
+      <h3 className="text-lg font-semibold text-gray-900 mb-2">{info.title}</h3>
+      <p className="text-indigo-600 font-medium mb-1">{info.details}</p>
+      <p className="text-sm text-gray-500">{info.subtext}</p>
+    </div>
+  ))}
+</div>
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-start">
           {/* Contact Form */}
-          <div className="bg-white rounded-2xl shadow-lg p-8">
+          <div id="contact-form" className="bg-white rounded-2xl shadow-lg p-8">
           <h2 className="text-3xl text-center font-bold text-gray-900 mb-8">
   Send us a Message
 </h2>
@@ -189,7 +202,7 @@ India`,
               <div className="flex justify-center">
   <button
     type="submit"
-    className="w-full md:w-1/2 bg-gradient-to-r from-indigo-600 to-purple-600 text-white py-4 px-6 rounded-lg font-semibold hover:shadow-lg transform hover:scale-105 transition-all duration-300 flex items-center justify-center space-x-2"
+    className="w-full md:w-1/2 bg-gray-500 text-white py-4 px-6 rounded-lg font-semibold hover:shadow-lg transform hover:scale-105 transition-all duration-300 flex items-center justify-center space-x-2"
   >
     <Send className="h-5 w-5" />
     <span>Send Message</span>
