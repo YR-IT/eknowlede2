@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 
 const CallToAction = () => {
   return (
@@ -12,12 +13,16 @@ const CallToAction = () => {
         </p>
 
         <div className="flex flex-col sm:flex-row gap-6 justify-center">
+          <Link to="/contact">
           <button className="bg-white text-blue-600 sm:px-8 sm:py-4 px-5 py-4  rounded-full text-xl font-bold hover:shadow-2xl transform hover:scale-105 transition-all duration-300">
             Get Started Free
           </button>
+          </Link>
+          <Link to="/courses">
           <button className="border-3 border-white text-white px-8 py-4 rounded-full text-xl font-bold hover:bg-white hover:text-blue-600 transition-all duration-300">
             View All Courses
           </button>
+          </Link>
         </div>
       </div>
     </section>

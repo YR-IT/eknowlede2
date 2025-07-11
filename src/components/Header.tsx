@@ -66,13 +66,21 @@ const Header = () => {
 
           {/* Right Side (Search + CTA) */}
           <div className="hidden md:flex items-center space-x-4">
-            <button className="p-2 rounded-full border border-gray-300 hover:bg-gray-100 transition hover:scale-110 hover:shadow-sm">
-              <Search className="h-5 w-5 text-gray-700 group-hover:animate-pulse" />
-            </button>
-            <button className="px-5 py-2 rounded-full bg-gradient-to-r from-orange-500 to-pink-500 text-white font-semibold shadow-md hover:shadow-orange-200 hover:scale-105 transform transition-all duration-300">
-              Download App
-            </button>
-          </div>
+  {/* <button className="p-2 rounded-full border border-gray-300 hover:bg-gray-100 transition hover:scale-110 hover:shadow-sm">
+    <Search className="h-5 w-5 text-gray-700 group-hover:animate-pulse" />
+  </button> */}
+
+  <a
+    href="https://play.google.com/store/apps/details?id=co.davos.yuoty"
+    target="_blank"
+    rel="noopener noreferrer"
+  >
+    <button className="flex items-center px-5 py-2 rounded-full bg-gradient-to-r from-orange-500 to-pink-500 text-white font-semibold shadow-md hover:shadow-orange-200 hover:scale-105 transform transition-all duration-300 space-x-2">
+  <Download className="h-4 w-4" />
+  <span>Download App</span>
+</button>
+  </a>
+</div>
 
           {/* Mobile Menu Toggle */}
           <button
@@ -105,10 +113,16 @@ const Header = () => {
               {item.name}
             </Link>
           ))}
+           <a
+    href="https://play.google.com/store/apps/details?id=co.davos.yuoty"
+    target="_blank"
+    rel="noopener noreferrer"
+  >
           <button className="w-full mt-3 flex items-center justify-center gap-2 bg-gradient-to-r from-orange-500 to-pink-500 text-white py-2 rounded-full font-semibold hover:scale-105 transition-transform">
             <Download className="h-4 w-4" />
             Download App
           </button>
+          </a>
         </div>
       </div>
     </header>
