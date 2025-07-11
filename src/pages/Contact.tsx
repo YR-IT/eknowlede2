@@ -47,7 +47,7 @@ Tower B-3, Spaze Itech-Park
 Sector-49, Sohna Road,
 Gurgaon – 122001 (HR)
 India`,
-      subtext: "Learning City, LC 12345",
+      subtext: "",
       color: "from-purple-500 to-pink-600"
     },
     {
@@ -79,14 +79,15 @@ India`,
     <div className="pt-24 pb-10">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Hero Section */}
-        <div className="text-center mb-16">
-          <h1 className="text-5xl md:text-6xl font-bold bg-gradient-to-r from-indigo-600 to-purple-600 text-transparent bg-clip-text mb-6">
-            Get in Touch
-          </h1>
-          <p className="text-xl text-gray-600 max-w-3xl mx-auto mb-8">
-            Have questions? We'd love to hear from you. Send us a message and we'll respond as soon as possible.
-          </p>
-        </div>
+        <div className="bg-blue-200 py-16 px-6 rounded-2xl shadow-md text-center mb-16">
+  <h1 className="text-5xl md:text-6xl font-bold bg-gradient-to-r from-indigo-600 to-purple-600 text-transparent bg-clip-text mb-6">
+    Get in Touch
+  </h1>
+  <p className="text-xl text-gray-700 max-w-3xl mx-auto mb-8">
+    Have questions? We'd love to hear from you. Send us a message and we'll respond as soon as possible.
+  </p>
+</div>
+
 
         {/* Contact Methods */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-16">
@@ -199,7 +200,7 @@ India`,
 
           {/* FAQ Section */}
           <div>
-            <h2 className="text-2xl font-bold text-gray-900 mb-6">Frequently Asked Questions</h2>
+            <h2 className="text-2xl font-bold text-gray-900 mb-6 text-center">Frequently Asked Questions</h2>
             
             <div className="space-y-4">
               {faqs.map((faq, index) => (
@@ -214,8 +215,8 @@ India`,
             </div>
 
             {/* Quick Stats */}
-            <div className="mt-8 bg-gradient-to-r from-indigo-50 to-purple-50 rounded-xl p-6">
-              <h3 className="text-lg font-semibold text-gray-900 mb-4">Why Students Choose Us</h3>
+            <div className="mt-8 bg-gradient-to-r from-indigo-50 to-purple-50 rounded-xl p-6 border-2 border-gray-200">
+              <h3 className="text-lg font-semibold text-gray-900 mb-4 text-center">Why Students Choose Us</h3>
               <div className="grid grid-cols-2 gap-4">
                 <div className="text-center">
                   <div className="flex items-center justify-center mb-2">
