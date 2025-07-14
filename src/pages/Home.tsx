@@ -69,7 +69,7 @@ const Home = () => {
 
   return (
     <div className="pt-16">
-      <section className="relative w-full h-screen flex items-center justify-center bg-black text-white">
+      <section className="relative w-full h-[90vh] flex items-center justify-center bg-black text-white">
         <img
           src={slides[currentSlide].image}
           alt="Slide Background"
@@ -100,15 +100,18 @@ const Home = () => {
               Start Learning Now
               <ChevronRight className="inline-block ml-2 h-4 w-4" />
             </button>
-            <a
-              href="https://play.google.com/store/apps/details?id=co.davos.yuoty"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="flex items-center text-white hover:text-white/80 text-sm"
-            >
-              <Download className="h-4 w-4 mr-2" />
-              Download App
-            </a>
+            <div className="flex justify-center">
+  <a
+    href="https://play.google.com/store/apps/details?id=co.davos.yuoty"
+    target="_blank"
+    rel="noopener noreferrer"
+    className="flex items-center text-white hover:text-white/80 text-sm"
+  >
+    <Download className="h-4 w-4 mr-2" />
+    Download App
+  </a>
+</div>
+
           </div>
         </div>
 
