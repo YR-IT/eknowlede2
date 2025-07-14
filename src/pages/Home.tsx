@@ -75,7 +75,7 @@ const Home = () => {
           alt="Slide Background"
           className="absolute inset-0 w-full h-full object-cover z-0"
         />
-        <div className="absolute inset-0 bg-black/50 z-0" />
+        <div className="absolute inset-0 bg-black/50 backdrop-blur-sm z-0" />
 
         <div className="relative z-10 max-w-3xl px-4 text-center mx-auto flex flex-col justify-center items-center text-white h-full">
           <div className="flex justify-center items-center gap-3 mb-4">
@@ -91,6 +91,9 @@ const Home = () => {
           </h1>
           <p className="text-base md:text-lg text-white/90 mb-6">
             {slides[currentSlide].description}
+          </p>
+          <p className="text-sm md:text-base text-white/80 mb-8 max-w-xl">
+            Explore curated lessons, industry projects, hands-on practice, and expert mentorship to accelerate your growth. Learn anytime, anywhere at your own pace with our innovative platform.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <button className="bg-white text-gray-900 px-6 py-3 rounded-full text-sm font-semibold hover:shadow-md transition">
