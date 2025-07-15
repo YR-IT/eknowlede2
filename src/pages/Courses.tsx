@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Play, Award, GraduationCap, ArrowRight } from 'lucide-react';
+import { motion } from 'framer-motion';
 
 const VideoCard: React.FC<{
   title: string;
@@ -88,37 +89,73 @@ const Courses: React.FC = () => {
   const videoUrls: Record<string, string | null> = {};
 
   return (
-    <div className="pt-10 min-h-screen bg-gradient-to-br from-slate-50 via-blue-50 to-navy-50">
-      <div className="min-h-[50vh] flex items-start justify-center pt-10 sm:pt-16 bg-blue-900 relative overflow-hidden">
-        <div className="relative z-10 w-full max-w-5xl px-4">
-          <div className="flex items-center justify-center mb-4 sm:mb-6">
-            <div className="relative">
-              <div className="w-12 h-12 sm:w-16 sm:h-16 bg-gradient-to-r from-amber-400 via-yellow-500 to-orange-500 rounded-full flex items-center justify-center shadow-2xl">
-                <GraduationCap className="w-6 h-6 sm:w-8 sm:h-8 text-white" />
+    <div className="pt-0 min-h-screen bg-gradient-to-br from-slate-50 via-blue-50 to-navy-50">
+      {/* Header Section with Element Animations */}
+      <div className="relative bg-gradient-to-br from-blue-900 via-blue-800 to-indigo-900 text-white overflow-hidden">
+        <div className="absolute inset-0 opacity-30 bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-blue-600 via-indigo-700 to-blue-900" />
+        <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 flex flex-col md:flex-row items-center justify-between gap-12">
+          
+          <div className="max-w-2xl">
+            <motion.div
+              className="flex items-center gap-4 mb-6"
+              initial={{ opacity: 0, y: -20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6 }}
+            >
+              <div className="w-14 h-14 bg-gradient-to-r from-amber-400 via-yellow-500 to-orange-500 rounded-full flex items-center justify-center shadow-lg">
+                <GraduationCap className="w-7 h-7 text-white" />
               </div>
-              <div className="absolute -top-1 -right-1 w-4 h-4 sm:w-6 sm:h-6 bg-gradient-to-r from-emerald-400 to-blue-500 rounded-full flex items-center justify-center">
-                <Award className="w-2 h-2 sm:w-3 sm:h-3 text-white" />
+              <div className="w-6 h-6 bg-gradient-to-br from-emerald-400 to-blue-500 rounded-full flex items-center justify-center shadow-md">
+                <Award className="w-3 h-3 text-white" />
               </div>
+            </motion.div>
+
+            <motion.h1
+              className="text-4xl sm:text-5xl font-extrabold leading-tight mb-4"
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8, delay: 0.1 }}
+            >
+              Certificate Course On
+              <span className="block bg-gradient-to-r from-amber-400 to-orange-500 bg-clip-text text-transparent">
+                Export Management
+              </span>
+            </motion.h1>
+
+            <motion.p
+              className="text-lg text-white/90 mb-6"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ duration: 0.7, delay: 0.2 }}
+            >
+              Developed by the <span className="font-semibold text-amber-300">All India Chamber of Commerce (AICC)</span>, recognized by the Government of India.
+            </motion.p>
+
+            <motion.button
+              className="inline-flex items-center gap-2 px-6 py-3 rounded-full bg-gradient-to-r from-amber-400 to-orange-500 text-black font-bold hover:scale-105 transition-transform"
+              initial={{ opacity: 0, scale: 0.9 }}
+              animate={{ opacity: 1, scale: 1 }}
+              transition={{ duration: 0.5, delay: 0.4 }}
+            >
+              <span>ENROLL NOW</span>
+              <ArrowRight className="w-5 h-5" />
+            </motion.button>
+          </div>
+
+          {/* Optional Icons (No Animation Applied) */}
+          <div className="hidden md:flex flex-col items-center gap-6">
+            <div className="w-24 h-24 bg-white/10 border border-white/20 rounded-2xl flex items-center justify-center shadow-lg">
+              <GraduationCap className="w-10 h-10 text-amber-400" />
+            </div>
+            <div className="w-20 h-20 bg-white/10 border border-white/20 rounded-2xl flex items-center justify-center shadow-lg">
+              <Award className="w-8 h-8 text-emerald-400" />
             </div>
           </div>
 
-          <h1 className="text-3xl md:text-5xl font-bold text-white text-center">
-            CERTIFICATE COURSE ON
-            <span className="block bg-gradient-to-r from-amber-400 to-orange-500 bg-clip-text text-transparent mt-2">
-              EXPORT MANAGEMENT
-            </span>
-          </h1>
-
-          <div className="w-20 h-1 bg-gradient-to-r from-amber-400 to-orange-500 mx-auto mt-4 mb-8" />
-
-          <div className="flex justify-center">
-            <div className="bg-white/10 backdrop-blur-lg rounded-2xl p-5 border border-white/20 shadow-2xl max-w-2xl text-center text-white text-base leading-relaxed">
-              This <span className="font-semibold text-amber-300">Certificate Course in Exports</span> is developed by the <span className="font-semibold text-blue-300">All India Chamber of Commerce (AICC)</span>, recognized by the Government of India.
-            </div>
-          </div>
         </div>
       </div>
 
+      {/* Course Content Section (No Animations) */}
       <div className="py-16 px-4 sm:px-6 lg:px-8">
         <div className="max-w-7xl mx-auto">
           <div className="text-center mb-12">
