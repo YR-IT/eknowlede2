@@ -97,9 +97,9 @@ const Blog = () => {
             initial={{ opacity: 0, y: -30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8 }}
-            className="text-3xl sm:text-4xl md:text-5xl font-extrabold text-gray-900 tracking-tight mb-4"
+            className="text-3xl sm:text-4xl md:text-6xl font-bold text-gray-900 tracking-tight mb-4"
           >
-            Explore Our <span className="text-transparent bg-clip-text bg-gradient-to-r from-purple-600 to-indigo-600">Blog</span>
+            Explore Our <span className="text-transparent bg-clip-text bg-gradient-to-r from-purple-600 to-indigo-600">Blogs</span>
           </motion.h2>
           <motion.p
             initial={{ opacity: 0, y: 10 }}
