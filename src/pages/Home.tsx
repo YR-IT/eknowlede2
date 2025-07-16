@@ -1,149 +1,109 @@
+import { ChevronRight, Download } from "lucide-react";
 import { useState, useEffect } from "react";
-import {
-  
-  ChevronRight,
-  ChevronLeft,
-  Sparkles,
-  Zap,
-  Target,
-  Download,
-} from "lucide-react";
 import WhyChooseUS from "../components/WhyChooseUs";
 import Testimonials from "../components/Testimonials";
 import CallToAction from "../components/CallToAction";
 import GetStarted from "../components/GetStarted";
 
+const slides = [
+  {
+    title: "Certificate Course on Export Management",
+    subtitle: "eKnowledge – An AICC Initiative",
+    description:
+      "eKnowledge is an online platform for the Export Management course in the most efficient and transparent manner.",
+    image:
+      "https://images.pexels.com/photos/3184325/pexels-photo-3184325.jpeg?auto=compress&cs=tinysrgb&w=800",
+  },
+  {
+    title: "Empowering Your Online Career",
+    subtitle: "Global Learning Platform",
+    description:
+      "Join a community of learners and get certified with expert-led courses, real-world projects, and mentorship.",
+    image:
+      "https://images.pexels.com/photos/3184338/pexels-photo-3184338.jpeg?auto=compress&cs=tinysrgb&w=800",
+  },
+  {
+    title: "Master Export Management Today",
+    subtitle: "Structured & Practical Learning",
+    description:
+      "Step-by-step modules, hands-on assignments, and expert support — everything you need to excel.",
+    image:
+      "https://images.pexels.com/photos/3184304/pexels-photo-3184304.jpeg?auto=compress&cs=tinysrgb&w=800",
+  },
+];
+
 const Home = () => {
   const [currentSlide, setCurrentSlide] = useState(0);
-
-  const slides = [
-    {
-      title: "Master the Future of Technology",
-      subtitle: "AI & Machine Learning",
-      description:
-        "Dive deep into artificial intelligence, neural networks, and cutting-edge machine learning algorithms that are shaping tomorrow's world.",
-      image:
-        "https://images.pexels.com/photos/8386440/pexels-photo-8386440.jpeg?auto=compress&cs=tinysrgb&w=1200",
-      gradient: "from-sky-400 via-blue-500 to-indigo-600",
-      icon: Sparkles,
-    },
-    {
-      title: "Build Amazing Web Experiences",
-      subtitle: "Full-Stack Development",
-      description:
-        "Create stunning, responsive websites and powerful web applications using the latest frameworks and technologies.",
-      image:
-        "https://images.pexels.com/photos/11035471/pexels-photo-11035471.jpeg?auto=compress&cs=tinysrgb&w=1200",
-      gradient: "from-emerald-500 via-teal-600 to-blue-700",
-      icon: Zap,
-    },
-    {
-      title: "Launch Your Digital Empire",
-      subtitle: "Digital Marketing & Business",
-      description:
-        "Master the art of digital marketing, social media strategy, and online business growth to build your empire.",
-      image:
-        "https://images.pexels.com/photos/7688336/pexels-photo-7688336.jpeg?auto=compress&cs=tinysrgb&w=1200",
-      gradient: "from-rose-500 via-pink-600 to-orange-500",
-      icon: Target,
-    },
-  ];
-
-    useEffect(() => {
-    window.scrollTo(0, 0);
-  }, []);
-
 
   useEffect(() => {
     const timer = setInterval(() => {
       setCurrentSlide((prev) => (prev + 1) % slides.length);
-    }, 5000);
+    }, 6000);
     return () => clearInterval(timer);
   }, []);
 
-  const nextSlide = () => {
-    setCurrentSlide((prev) => (prev + 1) % slides.length);
-  };
-
-  const prevSlide = () => {
-    setCurrentSlide((prev) => (prev - 1 + slides.length) % slides.length);
-  };
-
-  const SlideIcon = slides[currentSlide].icon;
-
   return (
     <div className="pt-16">
-      <section className="relative w-full h-[90vh] flex items-center justify-center bg-black text-white">
-        <img
-          src={slides[currentSlide].image}
-          alt="Slide Background"
-          className="absolute inset-0 w-full h-full object-cover z-0"
-        />
-        <div className="absolute inset-0 bg-black/50 backdrop-blur-sm z-0" />
+      {/* Hero Section */}
+      <section className="w-full bg-gradient-to-r from-green-100 via-white to-blue-100 py-12 md:py-20 transition-all duration-700">
+  <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col-reverse md:flex-row items-center gap-10 md:gap-16">
+    
+    {/* Left: Text */}
+    <div className="w-full md:w-1/2 text-center md:text-left">
+      <span className="inline-block mb-3 text-sm font-semibold px-4 py-1 bg-white rounded-full text-gray-700 shadow">
+        {slides[currentSlide].subtitle}
+      </span>
+      <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold text-gray-900 leading-snug">
+        {slides[currentSlide].title}
+      </h1>
+      <p className="text-base sm:text-lg text-gray-700 mt-4 mb-6">
+        {slides[currentSlide].description}
+      </p>
+      <div className="flex flex-col sm:flex-row items-center justify-center md:justify-start gap-4">
+        <button className="bg-pink-600 hover:bg-pink-700 text-white px-6 py-3 rounded-full font-semibold text-sm shadow transition">
+          Start Learning
+          <ChevronRight className="inline ml-2 w-4 h-4" />
+        </button>
+        <a
+          href="https://play.google.com/store/apps/details?id=co.davos.yuoty"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="flex items-center text-pink-600 hover:text-pink-700 font-medium text-sm"
+        >
+          <Download className="h-4 w-4 mr-2" />
+          Download App
+        </a>
+      </div>
+    </div>
 
-        <div className="relative z-10 max-w-3xl px-4 text-center mx-auto flex flex-col justify-center items-center text-white h-full">
-          <div className="flex justify-center items-center gap-3 mb-4">
-            <div className="p-2 bg-white/20 rounded-full">
-              <SlideIcon className="h-6 w-6" />
-            </div>
-            <span className="text-sm font-medium bg-white/20 px-4 py-1.5 rounded-full">
-              {slides[currentSlide].subtitle}
-            </span>
-          </div>
-          <h1 className="text-4xl md:text-6xl font-bold mb-4">
-            {slides[currentSlide].title}
-          </h1>
-          <p className="text-base md:text-lg text-white/90 mb-6">
-            {slides[currentSlide].description}
-          </p>
-          <p className="text-sm md:text-base text-white/80 mb-8 max-w-xl">
-            Explore curated lessons, industry projects, hands-on practice, and expert mentorship to accelerate your growth. Learn anytime, anywhere at your own pace with our innovative platform.
-          </p>
-          <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <button className="bg-white text-gray-900 px-6 py-3 rounded-full text-sm font-semibold hover:shadow-md transition">
-              Start Learning Now
-              <ChevronRight className="inline-block ml-2 h-4 w-4" />
-            </button>
-            <div className="flex justify-center">
-  <a
-    href="https://play.google.com/store/apps/details?id=co.davos.yuoty"
-    target="_blank"
-    rel="noopener noreferrer"
-    className="flex items-center text-white hover:text-white/80 text-sm"
-  >
-    <Download className="h-4 w-4 mr-2" />
-    Download App
-  </a>
+    {/* Right: Image */}
+    <div className="md:w-1/2 flex justify-center items-center">
+  <div className="w-full max-w-sm h-[250px] overflow-hidden rounded-2xl shadow-lg">
+    <img
+      src={slides[currentSlide].image}
+      alt="Hero Slide"
+      className="w-full h-full object-cover"
+    />
+  </div>
+</div>
 </div>
 
-          </div>
-        </div>
+  {/* Dots */}
+  <div className="mt-8 flex justify-center items-center gap-3">
+    {slides.map((_, idx) => (
+      <span
+        key={idx}
+        onClick={() => setCurrentSlide(idx)}
+        className={`w-3 h-3 rounded-full cursor-pointer transition-all duration-300 ${
+          idx === currentSlide ? "bg-pink-600 scale-110" : "bg-gray-300"
+        }`}
+      />
+    ))}
+  </div>
+</section>
 
-        <div className="absolute bottom-10 left-1/2 transform -translate-x-1/2 flex items-center gap-2 z-10">
-          <button
-            onClick={prevSlide}
-            className="p-2 bg-white/20 rounded-full hover:bg-white/40"
-          >
-            <ChevronLeft className="h-4 w-4 text-white" />
-          </button>
-          {slides.map((_, i) => (
-            <span
-              key={i}
-              onClick={() => setCurrentSlide(i)}
-              className={`h-2 w-2 rounded-full cursor-pointer transition-all ${
-                i === currentSlide ? "bg-white scale-110" : "bg-white/50"
-              }`}
-            ></span>
-          ))}
-          <button
-            onClick={nextSlide}
-            className="p-2 bg-white/20 rounded-full hover:bg-white/40"
-          >
-            <ChevronRight className="h-4 w-4 text-white" />
-          </button>
-        </div>
-      </section>
 
+      {/* Additional Sections */}
       <GetStarted />
       <WhyChooseUS />
       <Testimonials />
