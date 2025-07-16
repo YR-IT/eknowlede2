@@ -1,10 +1,16 @@
-import React, { useState } from 'react';
+import  { useState } from 'react';
 import { Calendar, User, ArrowRight, Search, Tag } from 'lucide-react';
 import { motion } from 'framer-motion';
+import  { useEffect } from 'react';
+
 
 const Blog = () => {
   const [selectedTag, setSelectedTag] = useState('All');
   const [searchTerm, setSearchTerm] = useState('');
+  useEffect(() => {
+  window.scrollTo(0, 0);
+}, []);
+
 
   const tags = ['All', 'Technology', 'Career', 'Learning Tips', 'Industry News', 'Success Stories'];
 

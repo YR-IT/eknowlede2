@@ -1,7 +1,13 @@
 
 import { Check, Award, Users, Clock, BookOpen, Download, Star } from 'lucide-react';
+import  { useEffect } from 'react';
+
 
 const Pricing = () => {
+   useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
+  
   return (
  <div className="min-h-screen bg-gradient-to-br from-slate-50 to-blue-50 mt-18">
 

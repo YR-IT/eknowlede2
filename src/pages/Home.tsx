@@ -1,7 +1,6 @@
 import { useState, useEffect } from "react";
 import {
-  Star,
-  Users,
+  
   ChevronRight,
   ChevronLeft,
   Sparkles,
@@ -49,6 +48,11 @@ const Home = () => {
       icon: Target,
     },
   ];
+
+    useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
+
 
   useEffect(() => {
     const timer = setInterval(() => {

@@ -1,5 +1,7 @@
-import React, { useState } from 'react';
+import  { useState } from 'react';
 import { Mail, Phone, MapPin, Send, MessageCircle, Clock, Globe } from 'lucide-react';
+import  { useEffect } from 'react';
+
 
 const Contact = () => {
   const [formData, setFormData] = useState({
@@ -8,6 +10,10 @@ const Contact = () => {
     subject: '',
     message: ''
   });
+  useEffect(() => {
+  window.scrollTo(0, 0);
+}, []);
+
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
     setFormData({
