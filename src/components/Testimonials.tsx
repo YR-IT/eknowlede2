@@ -37,7 +37,7 @@ const Testimonials = () => {
   
 
   return (
-    <section className="py-12 bg-gradient-to-br from-indigo-900 via-purple-900 to-pink-900 text-white relative overflow-hidden">
+    <section className="py-8 bg-gradient-to-br from-indigo-900 via-purple-900 to-pink-900 text-white relative overflow-hidden">
       {/* Background Animation */}
       <div className="absolute inset-0">
         <div className="absolute top-20 left-20 w-40 h-40 bg-gradient-to-r from-cyan-400/20 to-blue-500/20 rounded-full animate-pulse"></div>
@@ -45,27 +45,27 @@ const Testimonials = () => {
       </div>
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-        <div className="text-center mb-12">
-          <h2 className="text-5xl md:text-6xl font-bold mb-6 bg-gradient-to-r from-cyan-400 via-blue-400 to-purple-400 text-transparent bg-clip-text">
+        <div className="text-center mb-8">
+          <h2 className="text-4xl md:text-6xl font-bold mb-6 bg-gradient-to-r from-cyan-400 via-blue-400 to-purple-400 text-transparent bg-clip-text">
             What Our Students Say
           </h2>
-          <p className="text-lg text-gray-300 max-w-3xl mx-auto">
+          <p className="sm:text-lg text-base text-gray-300 max-w-3xl mx-auto">
             Join thousands of successful learners who have transformed their careers with E-Knowledge.
           </p>
         </div>
 
         <div className="relative max-w-4xl mx-auto">
-          <div className="bg-white/10 backdrop-blur-md rounded-3xl p-12 text-center border border-white/20 shadow-2xl">
-            <Quote className="h-12 w-12 text-cyan-400 mx-auto mb-8" />
+          <div className="bg-white/10 backdrop-blur-md rounded-3xl p-6 text-center border border-white/20 shadow-2xl">
+            <Quote className="h-12 w-12 text-cyan-400 mx-auto mb-6" />
 
-            <div className="mb-8">
-              <p className="text-xl md:text-2xl text-gray-100 mb-4 leading-relaxed font-light">
+            <div className="mb-6">
+              <p className="text-lg md:text-2xl text-gray-100 mb-4 leading-relaxed font-light">
                 "{testimonials[currentTestimonial].content}"
               </p>
 
               <div className="flex justify-center mb-4">
                 {[...Array(testimonials[currentTestimonial].rating)].map((_, i) => (
-                  <Star key={i} className="h-8 w-8 text-amber-400 fill-current" />
+                  <Star key={i} className="h-6 w-6 text-amber-400 fill-current" />
                 ))}
               </div>
             </div>
@@ -88,12 +88,12 @@ const Testimonials = () => {
           </div>
 
           {/* Testimonial Indicators */}
-          <div className="flex justify-center space-x-3 mt-8">
+          <div className="flex justify-center space-x-3 mt-6">
             {testimonials.map((_, index) => (
               <button
                 key={index}
                 onClick={() => setCurrentTestimonial(index)}
-                className={`w-4 h-4 rounded-full transition-all duration-300 ${
+                className={`w-3 h-3 rounded-full transition-all duration-300 ${
                   index === currentTestimonial
                     ? "bg-cyan-400 scale-125 shadow-lg"
                     : "bg-white/30 hover:bg-white/50"
