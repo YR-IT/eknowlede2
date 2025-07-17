@@ -48,12 +48,12 @@ const Header = () => {
                   key={item.name}
                   to={item.path}
                   className={`relative text-sm font-bold uppercase tracking-wide transition-all duration-300 transform hover:scale-105 group ${
-                    isActive ? "text-orange-600" : "text-gray-800"
+                    isActive ? "text-[#C21E53]" : "text-gray-800"
                   }`}
                 >
                   {item.name}
                   <span
-                    className={`absolute left-1/2 transform -translate-x-1/2 -bottom-1 h-[2px] rounded-full transition-all duration-300 bg-orange-500 ${
+                    className={`absolute left-1/2 transform -translate-x-1/2 -bottom-1 h-[2px] rounded-full transition-all duration-300 bg-[#C21E53] ${
                       isActive
                         ? "w-6"
                         : "w-0 group-hover:w-6"
@@ -75,7 +75,7 @@ const Header = () => {
     target="_blank"
     rel="noopener noreferrer"
   >
-    <button className="flex items-center px-5 py-2 rounded-full bg-gradient-to-r from-orange-500 to-pink-500 text-white font-semibold shadow-md hover:shadow-orange-200 hover:scale-105 transform transition-all duration-300 space-x-2">
+    <button className="flex items-center px-5 py-2 rounded-full bg-[#C21E53] text-white font-semibold shadow-md hover:scale-105 transform transition-all duration-300 space-x-2">
   <Download className="h-4 w-4" />
   <span>Download App</span>
 </button>
@@ -106,7 +106,7 @@ const Header = () => {
               onClick={() => setIsMenuOpen(false)}
               className={`block px-4 py-2 rounded-lg text-base font-semibold uppercase transition-colors duration-200 ${
                 location.pathname === item.path
-                  ? "text-orange-600 bg-orange-50"
+                  ? "text-[#C21E53] bg-[#C21E53]/10"
                   : "text-gray-800 hover:bg-gray-100"
               }`}
             >
@@ -118,7 +118,7 @@ const Header = () => {
     target="_blank"
     rel="noopener noreferrer"
   >
-          <button className="w-full mt-3 flex items-center justify-center gap-2 bg-gradient-to-r from-orange-500 to-pink-500 text-white py-2 rounded-full font-semibold hover:scale-105 transition-transform">
+          <button className="w-full mt-3 flex items-center justify-center gap-2 bg-[#C21E53] text-white py-2 rounded-full font-semibold hover:scale-105 transition-transform">
             <Download className="h-4 w-4" />
             Download App
           </button>

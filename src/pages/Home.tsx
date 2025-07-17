@@ -46,7 +46,7 @@ const Home = () => {
   return (
     <div className="pt-16 bg-white">
       {/* Hero Section */}
-      <section className="w-full h-[90vh] bg-[#0d0f23] relative overflow-hidden flex items-center py-12 md:py-24 text-white transition-all duration-700">
+      <section className="w-full h-[90vh] bg-[#0d0f23] relative overflow-hidden flex items-center py-12 md:py-24 text-white transition-all duration-700 px-4">
         {/* Background Grid & Particles */}
         <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,_var(--tw-gradient-stops))] from-[#1a1c3b] via-[#0d0f23] to-[#0d0f23] z-0" />
         <div className="absolute w-full h-full z-0">
@@ -56,7 +56,7 @@ const Home = () => {
         </div>
 
         {/* Content */}
-        <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col-reverse md:flex-row items-center gap-12">
+        <div className="relative max-w-7xl z-10 container mx-auto px-4 flex flex-col-reverse md:flex-row items-center gap-12">
           {/* Left: Text */}
           <div className="w-full md:w-1/2 text-center md:text-left">
             <AnimatePresence mode="wait">
@@ -66,7 +66,7 @@ const Home = () => {
                 animate={{ opacity: 1, y: 0 }}
                 exit={{ opacity: 0, y: 10 }}
                 transition={{ duration: 0.5 }}
-                className="inline-block mb-4 text-base font-semibold px-5 py-2 bg-pink-600/10 border border-pink-600 rounded-full text-pink-400"
+                className="inline-block mb-4 text-sm md:text-base font-semibold px-5 py-2 bg-pink-600/10 border border-pink-500 rounded-full text-pink-400"
               >
                 {slides[currentSlide].subtitle}
               </motion.span>
@@ -77,7 +77,7 @@ const Home = () => {
                 animate={{ opacity: 1, y: 0 }}
                 exit={{ opacity: 0, y: 20 }}
                 transition={{ duration: 0.6 }}
-                className="text-4xl sm:text-6xl md:text-7xl font-bold tracking-tight leading-tight"
+                className="text-3xl sm:text-5xl md:text-6xl font-bold tracking-tight leading-relaxed text-balance"
               >
                 {slides[currentSlide].title}
               </motion.h1>
@@ -88,7 +88,7 @@ const Home = () => {
                 animate={{ opacity: 1, y: 0 }}
                 exit={{ opacity: 0, y: -10 }}
                 transition={{ duration: 0.6, delay: 0.2 }}
-                className="text-lg sm:text-xl mt-6 text-gray-300 leading-snug"
+                className="text-base sm:text-lg md:text-xl mt-6 text-gray-300 leading-snug"
               >
                 {slides[currentSlide].description}
               </motion.p>
@@ -99,9 +99,9 @@ const Home = () => {
                 animate={{ opacity: 1 }}
                 exit={{ opacity: 0 }}
                 transition={{ duration: 0.6, delay: 0.4 }}
-                className="mt-8 flex flex-col sm:flex-row items-center justify-center md:justify-start gap-6"
+                className="mt-8 flex flex-col sm:flex-row sm:flex-wrap items-center justify-center md:justify-start gap-6 w-full"
               >
-                <button className="bg-orange-500 hover:bg-orange-600 text-white px-8 py-4 rounded-full font-semibold text-base shadow-lg transition-all duration-300">
+                <button className="bg-[#C21E53] text-white px-5 py-2 rounded-full font-semibold text-base shadow-lg transition-all duration-300 ">
                   Start Learning
                   <ChevronRight className="inline ml-2 w-5 h-5" />
                 </button>
@@ -109,7 +109,7 @@ const Home = () => {
                   href="https://play.google.com/store/apps/details?id=co.davos.yuoty"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="flex items-center text-orange-400 hover:text-orange-300 font-medium text-base"
+                  className="flex items-center text-white font-medium text-base"
                 >
                   <Download className="h-5 w-5 mr-2" />
                   Download App
@@ -125,9 +125,9 @@ const Home = () => {
             animate={{ opacity: 1, scale: 1 }}
             exit={{ opacity: 0, scale: 0.95 }}
             transition={{ duration: 0.6 }}
-            className="md:w-1/2 flex justify-center items-center"
+            className="md:w-1/2 w-full flex justify-center items-center"
           >
-            <div className="w-full max-w-md h-[300px] overflow-hidden rounded-2xl shadow-xl">
+            <div className="w-full max-w-md max-w-full aspect-video overflow-hidden rounded-2xl shadow-xl">
               <img
                 src={slides[currentSlide].image}
                 alt="Hero Slide"
@@ -138,13 +138,13 @@ const Home = () => {
         </div>
 
         {/* Dots */}
-        <div className="absolute bottom-12 left-0 right-0 flex justify-center items-center gap-4 z-10">
+        <div className="absolute bottom-8 left-0 right-0 flex justify-center items-center gap-4 z-10">
           {slides.map((_, idx) => (
             <span
               key={idx}
               onClick={() => setCurrentSlide(idx)}
-              className={`w-4 h-4 rounded-full cursor-pointer transition-all duration-300 ${
-                idx === currentSlide ? "bg-orange-500 scale-125" : "bg-gray-500"
+              className={`w-3 h-3 sm:w-4 sm:h-4 rounded-full cursor-pointer transition-all duration-300 ${
+                idx === currentSlide ? "bg-[#C21E53] scale-125" : "bg-gray-500"
               }`}
             />
           ))}
