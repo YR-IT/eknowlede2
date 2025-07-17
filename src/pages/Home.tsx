@@ -127,7 +127,7 @@ const Home = () => {
             transition={{ duration: 0.6 }}
             className="md:w-1/2 w-full flex justify-center items-center"
           >
-            <div className="w-full max-w-md max-w-full aspect-video overflow-hidden rounded-2xl shadow-xl">
+            <div className="w-full max-w-lg max-w-full aspect-video overflow-hidden rounded-2xl shadow-xl">
               <img
                 src={slides[currentSlide].image}
                 alt="Hero Slide"
