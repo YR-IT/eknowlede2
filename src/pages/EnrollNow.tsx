@@ -1,39 +1,155 @@
+import React from 'react';
+import { Clock, PlayCircle, FileText, Download, Smartphone, ChevronDown, Tag, Users, BookOpen, Shield, Award, Lock } from 'lucide-react';
+import  { useEffect } from 'react';
 
-import { Clock, PlayCircle, FileText, Download, Smartphone, ChevronDown, Tag, Users, BookOpen, Shield, Award } from 'lucide-react';
 
-function EnrollNow() {
-  return (
-    <div className="min-h-screen bg-gray-50">
-      {/* Header */}
-      <header className="bg-white shadow-sm border-b sticky top-0 z-50">
-        <div className="w-full px-4 sm:px-6 lg:px-12">
-          <div className="flex items-center justify-between h-14 sm:h-16">
-            <div className="flex items-center space-x-2 sm:space-x-3">
-              <div className="w-10 h-10 bg-gradient-to-r from-blue-600 to-blue-700 rounded-lg flex items-center justify-center">
-                <BookOpen className="w-6 h-6 text-white" />
-              </div>
-              <div>
-                <h1 className="text-base sm:text-lg font-semibold text-gray-900">eKnowledge</h1>
-                <p className="text-xs sm:text-sm text-gray-600 hidden sm:block">An AICC initiative</p>
-              </div>
-            </div>
-            
-            <div className="flex items-center space-x-2 sm:space-x-4">
-              <button className="hidden sm:flex items-center space-x-2 px-3 sm:px-4 py-2 bg-gray-900 text-white rounded-lg hover:bg-gray-800 transition-colors">
-                <Smartphone className="w-4 h-4" />
-                <span className="text-xs sm:text-sm">Android App</span>
-              </button>
-              <button className="hidden sm:flex items-center space-x-2 px-3 sm:px-4 py-2 bg-gray-900 text-white rounded-lg hover:bg-gray-800 transition-colors">
-                <Download className="w-4 h-4" />
-                <span className="text-xs sm:text-sm">App Store</span>
-              </button>
-              <button className="px-4 sm:px-6 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors text-sm">
-                Login
-              </button>
+function EnrollNow()
+
+ {
+    
+    
+  const [activeTab, setActiveTab] = React.useState('OVERVIEW');
+
+  const courseContent = [
+    {
+      id: 1,
+      title: "How to start Exports - Step Wise Procedure",
+      type: "PDF",
+      icon: "pdf",
+      locked: true
+    },
+    {
+      id: 2,
+      title: "A note on Export Documentation",
+      type: "PDF", 
+      icon: "pdf",
+      locked: true
+    },
+    {
+      id: 3,
+      title: "Deep Insight into Export Documentation",
+      type: "PDF",
+      icon: "pdf", 
+      locked: true
+    },
+    {
+      id: 4,
+      title: "Understanding Export Documentation",
+      type: "PDF",
+      icon: "pdf",
+      locked: true
+    },
+    {
+      id: 5,
+      title: "Exports Made Easy",
+      type: "Video",
+      icon: "video",
+      locked: true
+    },
+    {
+      id: 6,
+      title: "Module 1",
+      type: "Test",
+      icon: "test",
+      locked: true
+    }
+  ];
+  useEffect(() => {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }, []);
+  const getIcon = (type: string) => {
+    switch(type) {
+      case 'pdf':
+        return (
+          <div className="w-10 h-10 bg-red-100 rounded-lg flex items-center justify-center">
+            <div className="w-6 h-6 bg-red-500 rounded text-white text-xs font-bold flex items-center justify-center">
+              PDF
             </div>
           </div>
+        );
+      case 'video':
+        return (
+          <div className="w-10 h-10 bg-blue-100 rounded-lg flex items-center justify-center">
+            <PlayCircle className="w-6 h-6 text-blue-600" />
+          </div>
+        );
+      case 'test':
+        return (
+          <div className="w-10 h-10 bg-blue-500 rounded-lg flex items-center justify-center">
+            <div className="w-6 h-6 bg-blue-600 rounded text-white text-xs font-bold flex items-center justify-center">
+              A
+            </div>
+          </div>
+        );
+      default:
+        return (
+          <div className="w-10 h-10 bg-gray-100 rounded-lg flex items-center justify-center">
+            <FileText className="w-6 h-6 text-gray-600" />
+          </div>
+        );
+    }
+    
+  };
+  
+
+  return (
+    <div className="min-h-screen bg-gray-50">
+     {/* Header */}
+<header className="bg-white shadow-sm border-b sticky top-0 z-50">
+  <div className="w-full px-4 sm:px-6 lg:px-12">
+    <div className="flex items-center justify-between h-14 sm:h-16">
+      <div className="flex items-center space-x-2 sm:space-x-3">
+        <div className="w-24 h-24">
+          <img
+            src="/src/images/e-learning-app-removebg-preview.png"
+            alt="eKnowledge Logo"
+            className="w-full h-full object-contain rounded-lg"
+          />
         </div>
-      </header>
+        <div>
+          <h1 className="text-base sm:text-lg font-semibold text-gray-900">
+            eKnowledge - An AICC initiative
+          </h1>
+        </div>
+      </div>
+
+      <div className="flex items-center space-x-2 sm:space-x-4">
+        {/* Android App */}
+        <a
+          href="https://play.google.com/store/apps/details?id=co.davos.yuoty"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="hidden sm:flex items-center space-x-2 px-3 sm:px-4 py-2 bg-gray-900 text-white rounded-lg hover:bg-gray-800 transition-colors"
+        >
+          <Smartphone className="w-4 h-4" />
+          <span className="text-xs sm:text-sm">Android App</span>
+        </a>
+
+        {/* App Store */}
+        <a
+          href=""
+          target="_blank"
+          rel="noopener noreferrer"
+          className="hidden sm:flex items-center space-x-2 px-3 sm:px-4 py-2 bg-gray-900 text-white rounded-lg hover:bg-gray-800 transition-colors"
+        >
+          <Download className="w-4 h-4" />
+          <span className="text-xs sm:text-sm">App Store</span>
+        </a>
+
+        {/* Login */}
+        <a
+          href="https://web.classplusapp.com/login?orgCode=yuoty"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="px-4 sm:px-6 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors text-sm"
+        >
+          Login
+        </a>
+      </div>
+    </div>
+  </div>
+</header>
+
 
       {/* Main Content */}
       <main className="w-full px-4 sm:px-6 lg:px-12 py-4 sm:py-8">
@@ -71,53 +187,101 @@ function EnrollNow() {
             <div className="bg-white rounded-xl shadow-sm mb-6 lg:mb-8">
               <div className="border-b border-gray-200">
                 <nav className="flex overflow-x-auto">
-                  <button className="px-4 sm:px-8 py-3 sm:py-4 text-blue-600 border-b-2 border-blue-600 font-semibold bg-blue-50 whitespace-nowrap">
+                  <button 
+                    onClick={() => setActiveTab('OVERVIEW')}
+                    className={`px-4 sm:px-8 py-3 sm:py-4 font-semibold whitespace-nowrap transition-colors ${
+                      activeTab === 'OVERVIEW' 
+                        ? 'text-blue-600 border-b-2 border-blue-600 bg-blue-50' 
+                        : 'text-gray-600 hover:text-gray-900 hover:bg-gray-50'
+                    }`}
+                  >
                     OVERVIEW
                   </button>
-                  <button className="px-4 sm:px-8 py-3 sm:py-4 text-gray-600 hover:text-gray-900 font-semibold hover:bg-gray-50 transition-colors whitespace-nowrap">
+                  <button 
+                    onClick={() => setActiveTab('CONTENT')}
+                    className={`px-4 sm:px-8 py-3 sm:py-4 font-semibold whitespace-nowrap transition-colors ${
+                      activeTab === 'CONTENT' 
+                        ? 'text-blue-600 border-b-2 border-blue-600 bg-blue-50' 
+                        : 'text-gray-600 hover:text-gray-900 hover:bg-gray-50'
+                    }`}
+                  >
                     CONTENT
                   </button>
                 </nav>
               </div>
 
               <div className="p-4 sm:p-6 lg:p-8">
-                <h2 className="text-xl sm:text-2xl font-bold text-gray-900 mb-4 sm:mb-6">About This Course</h2>
-                <div className="prose prose-sm sm:prose-base lg:prose-lg text-gray-700 max-w-none">
-                  <p className="mb-4 sm:mb-6 leading-relaxed">
-                    This is a Certificate Course in Exports, developed by All India Chamber of Commerce (AICC), which is a National Chamber 
-                    of Commerce duly recognized and licenced by Govt of India. The Course has been developed by the Research Team of 
-                    AICC. The technical support has been provided by DGFT, Govt of India.
-                  </p>
-                  <p className="mb-4 sm:mb-6 leading-relaxed">
-                    The course covers all the steps involved in Exporting a Product from India and gives working knowledge on Export Documentation. 
-                    The Steps and Documentation are explained through Videos and PDF and Slides. The duration of the course is 3 months. At the end of the course, 
-                    participants will receive a comprehensive certificate validating their expertise in export management.
-                  </p>
-                  <p className="mb-4 sm:mb-6 leading-relaxed">
-                    This comprehensive program is designed for professionals, entrepreneurs, and students who want to understand the intricacies 
-                    of international trade and export procedures from India.
-                  </p>
-                </div>
-                
-                <h3 className="text-lg sm:text-xl font-semibold text-gray-900 mb-4 mt-6 sm:mt-8">What You'll Learn</h3>
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4 mb-4 sm:mb-6">
-                  <div className="flex items-start space-x-3">
-                    <div className="w-2 h-2 bg-teal-500 rounded-full mt-2"></div>
-                    <span className="text-sm sm:text-base text-gray-700">Export documentation procedures</span>
-                  </div>
-                  <div className="flex items-start space-x-3">
-                    <div className="w-2 h-2 bg-teal-500 rounded-full mt-2"></div>
-                    <span className="text-sm sm:text-base text-gray-700">International trade regulations</span>
-                  </div>
-                  <div className="flex items-start space-x-3">
-                    <div className="w-2 h-2 bg-teal-500 rounded-full mt-2"></div>
-                    <span className="text-sm sm:text-base text-gray-700">Export financing and insurance</span>
-                  </div>
-                  <div className="flex items-start space-x-3">
-                    <div className="w-2 h-2 bg-teal-500 rounded-full mt-2"></div>
-                    <span className="text-sm sm:text-base text-gray-700">Market research and analysis</span>
-                  </div>
-                </div>
+                {activeTab === 'OVERVIEW' ? (
+                  <>
+                    <h2 className="text-xl sm:text-2xl font-bold text-gray-900 mb-4 sm:mb-6">About This Course</h2>
+                    <div className="prose prose-sm sm:prose-base lg:prose-lg text-gray-700 max-w-none">
+                      <p className="mb-4 sm:mb-6 leading-relaxed">
+                        This is a Certificate Course in Exports, developed by All India Chamber of Commerce (AICC), which is a National Chamber 
+                        of Commerce duly recognized and licenced by Govt of India. The Course has been developed by the Research Team of 
+                        AICC. The technical support has been provided by DGFT, Govt of India.
+                      </p>
+                      <p className="mb-4 sm:mb-6 leading-relaxed">
+                        The course covers all the steps involved in Exporting a Product from India and gives working knowledge on Export Documentation. 
+                        The Steps and Documentation are explained through Videos and PDF and Slides. The duration of the course is 3 months. At the end of the course, 
+                        participants will receive a comprehensive certificate validating their expertise in export management.
+                      </p>
+                      <p className="mb-4 sm:mb-6 leading-relaxed">
+                        This comprehensive program is designed for professionals, entrepreneurs, and students who want to understand the intricacies 
+                        of international trade and export procedures from India.
+                      </p>
+                    </div>
+                    
+                    <h3 className="text-lg sm:text-xl font-semibold text-gray-900 mb-4 mt-6 sm:mt-8">What You'll Learn</h3>
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4 mb-4 sm:mb-6">
+                      <div className="flex items-start space-x-3">
+                        <div className="w-2 h-2 bg-teal-500 rounded-full mt-2"></div>
+                        <span className="text-sm sm:text-base text-gray-700">Export documentation procedures</span>
+                      </div>
+                      <div className="flex items-start space-x-3">
+                        <div className="w-2 h-2 bg-teal-500 rounded-full mt-2"></div>
+                        <span className="text-sm sm:text-base text-gray-700">International trade regulations</span>
+                      </div>
+                      <div className="flex items-start space-x-3">
+                        <div className="w-2 h-2 bg-teal-500 rounded-full mt-2"></div>
+                        <span className="text-sm sm:text-base text-gray-700">Export financing and insurance</span>
+                      </div>
+                      <div className="flex items-start space-x-3">
+                        <div className="w-2 h-2 bg-teal-500 rounded-full mt-2"></div>
+                        <span className="text-sm sm:text-base text-gray-700">Market research and analysis</span>
+                      </div>
+                    </div>
+                  </>
+                ) : (
+                  <>
+                    <h2 className="text-xl sm:text-2xl font-bold text-gray-900 mb-4 sm:mb-6">Course Content</h2>
+                    <div className="space-y-4">
+                      {courseContent.map((item) => (
+                        <div key={item.id} className="flex items-center justify-between p-4 border border-gray-200 rounded-lg hover:bg-gray-50 transition-colors">
+                          <div className="flex items-center space-x-4">
+                            {getIcon(item.icon)}
+                            <div>
+                              <h3 className="font-medium text-gray-900 text-sm sm:text-base">{item.title}</h3>
+                              <p className="text-xs sm:text-sm text-gray-500">{item.type}</p>
+                            </div>
+                          </div>
+                          {item.locked && (
+                            <Lock className="w-5 h-5 text-gray-400" />
+                          )}
+                        </div>
+                      ))}
+                    </div>
+                    
+                    <div className="mt-6 p-4 bg-blue-50 rounded-lg border border-blue-200">
+                      <div className="flex items-start space-x-3">
+                        <Shield className="w-5 h-5 text-blue-600 mt-0.5" />
+                        <div>
+                          <h4 className="font-semibold text-blue-900 mb-1 text-sm sm:text-base">Course Access</h4>
+                          <p className="text-sm text-blue-700">Purchase this course to unlock all materials and get lifetime access to the content.</p>
+                        </div>
+                      </div>
+                    </div>
+                  </>
+                )}
               </div>
             </div>
 

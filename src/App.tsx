@@ -1,5 +1,4 @@
-
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route, useLocation } from 'react-router-dom';
 import Header from './components/Header';
 import Footer from './components/Footer';
 import ScrollToTop from './components/ScrollToTop';
@@ -10,27 +9,39 @@ import Blog from './pages/Blog';
 import Contact from './pages/Contact';
 import EnrollNow from './pages/EnrollNow';
 
+// Main App Component
 function App() {
- 
   return (
     <Router>
-      <div className="min-h-screen bg-gradient-to-br from-slate-50 via-blue-50 to-indigo-100">
-        <Header />
-        <main>
-          <Routes>
-            <Route path="/" element={<Home />} />
-            <Route path="/courses" element={<Courses />} />
-            <Route path="/pricing" element={<Pricing />} />
-            <Route path="/blog" element={<Blog />} />
-            <Route path="/contact" element={<Contact />} />
-             <Route path="/enroll" element={<EnrollNow />} /> 
-          </Routes>
-        </main>
-        <Footer />
-        <ScrollToTop />
-      </div>
+      <ScrollToTop />
+      <AppLayout />
     </Router>
   );
 }
+
+// New layout component that controls Header/Footer visibility
+const AppLayout = () => {
+  const location = useLocation();
+  const isEnrollPage = location.pathname === '/enroll';
+
+  return (
+    <div className="min-h-screen bg-gradient-to-br from-slate-50 via-blue-50 to-indigo-100">
+      {!isEnrollPage && <Header />}
+      
+      <main>
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/courses" element={<Courses />} />
+          <Route path="/pricing" element={<Pricing />} />
+          <Route path="/blog" element={<Blog />} />
+          <Route path="/contact" element={<Contact />} />
+          <Route path="/enroll" element={<EnrollNow />} />
+        </Routes>
+      </main>
+
+      {!isEnrollPage && <Footer />}
+    </div>
+  );
+};
 
 export default App;
