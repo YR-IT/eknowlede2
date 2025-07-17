@@ -33,28 +33,28 @@ const Contact = () => {
       title: "Email Us",
       details: "info@aicc.ind.in",
       subtext: "We'll respond within 24 hours",
-      color: "from-purple-500 to-purple-600"
+      color: "from-[#7a0025] to-[#9D1C1C]"
     },
     {
       icon: Phone,
       title: "Call Us",
       details: "+91 9990733308",
       subtext: "Mon-Fri, 9 AM - 6 PM IST",
-      color: "from-purple-400 to-purple-500"
+      color: "from-[#8B1E1E] to-[#A32222]"
     },
     {
       icon: MapPin,
       title: "Visit Us",
       details: `Unit No. 339, 3rd Floor,\nTower B-3, Spaze Itech-Park\nSector-49, Sohna Road,\nGurgaon – 122001 (HR)\nIndia`,
       subtext: "",
-      color: "from-purple-600 to-fuchsia-600"
+      color: "from-[#9D1C1C] to-[#C93030]"
     },
     {
       icon: MessageCircle,
       title: "Live Chat",
       details: "Available 24/7",
       subtext: "Get instant support",
-      color: "from-fuchsia-500 to-purple-600"
+      color: "from-[#A42020] to-[#D63D3D]"
     }
   ];
 
@@ -76,11 +76,11 @@ const Contact = () => {
   return (
     <div className="pt-16 pb-10" style={{ backgroundColor: '#FFF4EC' }}>
       {/* Hero */}
-      <div className="bg-gradient-to-r from-purple-700 via-purple-800 to-fuchsia-800 py-20 px-6 text-center text-white mb-16 shadow-md">
+      <div className="bg-gradient-to-r from-[#7a0025] via-[#9D1C1C] to-[#B3303A] py-20 px-6 text-center text-white mb-16 shadow-md">
         <span className="inline-block bg-white/20 text-white px-4 py-1 rounded-full text-sm mb-4 font-semibold tracking-wide">
           📜 Professional Certification
         </span>
-        <h1 className="text-4xl md:text-6xl font-extrabold mb-4">Buy Certificate Course on <span className="text-pink-200">Export Management</span></h1>
+        <h1 className="text-4xl md:text-6xl font-extrabold mb-4">Buy Certificate Course on <span className="text-orange-200">Export Management</span></h1>
         <p className="text-xl max-w-3xl mx-auto mb-6 opacity-90 font-medium">
           Master the fundamentals of international trade and export operations with our comprehensive certification program.
         </p>
@@ -90,7 +90,7 @@ const Contact = () => {
             e.preventDefault();
             document.getElementById('contact-form')?.scrollIntoView({ behavior: 'smooth' });
           }}
-          className="inline-block bg-white text-purple-800 font-bold px-6 py-3 rounded-full shadow hover:bg-purple-100 transition"
+          className="inline-block bg-white text-[#7a0025] font-bold px-6 py-3 rounded-full shadow hover:bg-red-100 transition"
         >
           Contact Our Team
         </a>
@@ -108,7 +108,7 @@ const Contact = () => {
                 <info.icon className="h-6 w-6 text-white" />
               </div>
               <h3 className="text-lg font-semibold text-gray-800 mb-2">{info.title}</h3>
-              <p className="text-[#9D1876] font-medium whitespace-pre-line">{info.details}</p>
+              <p className="text-[#7a0025] font-medium whitespace-pre-line">{info.details}</p>
               <p className="text-sm text-gray-500">{info.subtext}</p>
             </div>
           ))}
@@ -129,7 +129,7 @@ const Contact = () => {
                     value={formData.name}
                     onChange={handleChange}
                     required
-                    className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#9D1876]"
+                    className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#7a0025]"
                     placeholder="Your full name"
                   />
                 </div>
@@ -141,7 +141,7 @@ const Contact = () => {
                     value={formData.email}
                     onChange={handleChange}
                     required
-                    className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#9D1876]"
+                    className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#7a0025]"
                     placeholder="your.email@example.com"
                   />
                 </div>
@@ -154,7 +154,7 @@ const Contact = () => {
                   value={formData.subject}
                   onChange={handleChange}
                   required
-                  className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#9D1876]"
+                  className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#7a0025]"
                 >
                   <option value="">Select a subject</option>
                   <option value="general">General Inquiry</option>
@@ -173,7 +173,7 @@ const Contact = () => {
                   onChange={handleChange}
                   required
                   rows={6}
-                  className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#9D1876] resize-none"
+                  className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#7a0025] resize-none"
                   placeholder="Tell us how we can help you..."
                 ></textarea>
               </div>
@@ -181,7 +181,7 @@ const Contact = () => {
               <div className="flex justify-center">
                 <button
                   type="submit"
-                  className="w-full md:w-1/2 bg-[#9D1876] text-white py-4 px-6 rounded-lg font-bold hover:bg-[#7d125e] shadow hover:shadow-lg transform hover:scale-105 transition-all duration-300 flex items-center justify-center space-x-2"
+                  className="w-full md:w-1/2 bg-[#7a0025] text-white py-4 px-6 rounded-lg font-bold hover:bg-[#5c001b] shadow hover:shadow-lg transform hover:scale-105 transition-all duration-300 flex items-center justify-center space-x-2"
                 >
                   <Send className="h-5 w-5" />
                   <span>Send Message</span>
@@ -203,20 +203,20 @@ const Contact = () => {
             </div>
 
             {/* Stats */}
-            <div className="mt-8 bg-gradient-to-r from-purple-50 to-pink-100 rounded-xl p-6 border-2 border-purple-200">
+            <div className="mt-8 bg-gradient-to-r from-[#FFE8E8] to-[#FFF4F4] rounded-xl p-6 border-2 border-[#FFCCCC]">
               <h3 className="text-lg font-semibold text-gray-800 mb-4 text-center">Why Students Choose Us</h3>
               <div className="grid grid-cols-2 gap-4">
                 <div className="text-center">
                   <div className="flex items-center justify-center mb-2">
-                    <Clock className="h-5 w-5 text-[#9D1876] mr-2" />
-                    <span className="text-2xl font-bold text-[#9D1876]">24/7</span>
+                    <Clock className="h-5 w-5 text-[#7a0025] mr-2" />
+                    <span className="text-2xl font-bold text-[#7a0025]">24/7</span>
                   </div>
                   <p className="text-sm text-gray-600">Support Available</p>
                 </div>
                 <div className="text-center">
                   <div className="flex items-center justify-center mb-2">
-                    <Globe className="h-5 w-5 text-[#9D1876] mr-2" />
-                    <span className="text-2xl font-bold text-[#9D1876]">190+</span>
+                    <Globe className="h-5 w-5 text-[#7a0025] mr-2" />
+                    <span className="text-2xl font-bold text-[#7a0025]">190+</span>
                   </div>
                   <p className="text-sm text-gray-600">Countries Served</p>
                 </div>
