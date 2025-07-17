@@ -33,28 +33,28 @@ const Contact = () => {
       title: "Email Us",
       details: "info@aicc.ind.in",
       subtext: "We'll respond within 24 hours",
-      color: "from-[#7a0025] to-[#9D1C1C]"
+      color: "from-[#C21E53] to-[#C21E53]"
     },
     {
       icon: Phone,
       title: "Call Us",
       details: "+91 9990733308",
       subtext: "Mon-Fri, 9 AM - 6 PM IST",
-      color: "from-[#8B1E1E] to-[#A32222]"
+      color: "from-[#C21E53] to-[#C21E53]"
     },
     {
       icon: MapPin,
       title: "Visit Us",
       details: `Unit No. 339, 3rd Floor,\nTower B-3, Spaze Itech-Park\nSector-49, Sohna Road,\nGurgaon – 122001 (HR)\nIndia`,
       subtext: "",
-      color: "from-[#9D1C1C] to-[#C93030]"
+      color: "from-[#C21E53] to-[#C21E53]"
     },
     {
       icon: MessageCircle,
       title: "Live Chat",
       details: "Available 24/7",
       subtext: "Get instant support",
-      color: "from-[#A42020] to-[#D63D3D]"
+      color: "from-[#C21E53] to-[#C21E53]"
     }
   ];
 
@@ -76,7 +76,7 @@ const Contact = () => {
   return (
     <div className="pt-16 pb-10" style={{ backgroundColor: '#FFF4EC' }}>
       {/* Hero */}
-      <div className="bg-gradient-to-r from-[#7a0025] via-[#9D1C1C] to-[#B3303A] py-20 px-6 text-center text-white mb-16 shadow-md">
+      <div className="bg-gradient-to-r from-[#C21E53] via-[#C21E53] to-[#C21E53] py-20 px-6 text-center text-white mb-16 shadow-md">
         <span className="inline-block bg-white/20 text-white px-4 py-1 rounded-full text-sm mb-4 font-semibold tracking-wide">
           📜 Professional Certification
         </span>
@@ -181,7 +181,7 @@ const Contact = () => {
               <div className="flex justify-center">
                 <button
                   type="submit"
-                  className="w-full md:w-1/2 bg-[#7a0025] text-white py-4 px-6 rounded-lg font-bold hover:bg-[#5c001b] shadow hover:shadow-lg transform hover:scale-105 transition-all duration-300 flex items-center justify-center space-x-2"
+                  className="w-full md:w-1/2 bg-[#C21E53] text-white py-4 px-6 rounded-lg font-bold hover:bg-[#C21E53] shadow hover:shadow-lg transform hover:scale-105 transition-all duration-300 flex items-center justify-center space-x-2"
                 >
                   <Send className="h-5 w-5" />
                   <span>Send Message</span>
