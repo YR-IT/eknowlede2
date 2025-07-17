@@ -32,12 +32,12 @@ const Header = () => {
         <div className="flex justify-between items-center h-20">
           {/* Logo */}
           <Link to="/" className="flex items-center space-x-3">
-            <img
-              src={logo}
-              alt="E-Knowledge Logo"
-              className="h-14 w-auto object-contain"
-            />
-          </Link>
+  <img
+    src={logo}
+    alt="E-Knowledge Logo"
+    className="h-10 w-auto sm:h-12 md:h-14 lg:h-16 object-contain"
+  />
+</Link>
 
           {/* Navigation */}
           <nav className="hidden md:flex items-center space-x-6 lg:space-x-8">

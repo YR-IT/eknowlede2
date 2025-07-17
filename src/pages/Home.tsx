@@ -56,7 +56,7 @@ const Home = () => {
         </div>
 
         {/* Content */}
-        <div className="relative max-w-7xl z-10 container mx-auto px-4 flex flex-col-reverse md:flex-row items-center gap-12">
+        <div className="relative max-w-7xl z-10 container mx-auto px-4 flex flex-col-reverse md:flex-row items-center gap-8 md:gap-12">
           {/* Left: Text */}
           <div className="w-full md:w-1/2 text-center md:text-left">
             <AnimatePresence mode="wait">
@@ -88,7 +88,7 @@ const Home = () => {
                 animate={{ opacity: 1, y: 0 }}
                 exit={{ opacity: 0, y: -10 }}
                 transition={{ duration: 0.6, delay: 0.2 }}
-                className="text-base sm:text-lg md:text-xl mt-6 text-gray-300 leading-snug"
+                className="text-base sm:text-lg md:text-xl mt-4 text-gray-300 leading-snug"
               >
                 {slides[currentSlide].description}
               </motion.p>
@@ -99,7 +99,7 @@ const Home = () => {
                 animate={{ opacity: 1 }}
                 exit={{ opacity: 0 }}
                 transition={{ duration: 0.6, delay: 0.4 }}
-                className="mt-8 flex flex-col sm:flex-row sm:flex-wrap items-center justify-center md:justify-start gap-6 w-full"
+                className="mt-4 md:mt-8 flex flex-col sm:flex-row sm:flex-wrap items-center justify-center md:justify-start gap-4 w-full"
               >
                 <button className="bg-[#C21E53] text-white px-5 py-2 rounded-full font-semibold text-base shadow-lg transition-all duration-300 ">
                   Start Learning
