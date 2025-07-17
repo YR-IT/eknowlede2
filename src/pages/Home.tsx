@@ -46,7 +46,7 @@ const Home = () => {
   return (
     <div className="pt-16 bg-white">
       {/* Hero Section */}
-      <section className="w-full h-[90vh] bg-[#0d0f23] relative overflow-hidden flex items-center py-12 md:py-24 text-white transition-all duration-700">
+      <section className="w-full min-h-screen bg-[#0d0f23] relative overflow-hidden flex items-center py-12 md:py-24 text-white transition-all duration-700">
         {/* Background Grid & Particles */}
         <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,_var(--tw-gradient-stops))] from-[#1a1c3b] via-[#0d0f23] to-[#0d0f23] z-0" />
         <div className="absolute w-full h-full z-0">
