@@ -1,7 +1,5 @@
-import  { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Mail, Phone, MapPin, Send, MessageCircle, Clock, Globe } from 'lucide-react';
-import  { useEffect } from 'react';
-
 
 const Contact = () => {
   const [formData, setFormData] = useState({
@@ -10,10 +8,10 @@ const Contact = () => {
     subject: '',
     message: ''
   });
-  useEffect(() => {
-  window.scrollTo(0, 0);
-}, []);
 
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
     setFormData({
@@ -25,8 +23,7 @@ const Contact = () => {
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     console.log('Form submitted:', formData);
-    // Handle form submission here
-    alert('Thank you for your message! We\'ll get back to you soon.');
+    alert("Thank you for your message! We'll get back to you soon.");
     setFormData({ name: '', email: '', subject: '', message: '' });
   };
 
@@ -36,32 +33,28 @@ const Contact = () => {
       title: "Email Us",
       details: "info@aicc.ind.in",
       subtext: "We'll respond within 24 hours",
-      color: "from-blue-500 to-indigo-600"
+      color: "from-purple-500 to-purple-600"
     },
     {
       icon: Phone,
       title: "Call Us",
       details: "+91 9990733308",
-      subtext: "Mon-Fri, 9 AM - 6 PM EST",
-      color: "from-green-500 to-emerald-600"
+      subtext: "Mon-Fri, 9 AM - 6 PM IST",
+      color: "from-purple-400 to-purple-500"
     },
     {
       icon: MapPin,
       title: "Visit Us",
-      details: `Unit No. 339, 3rd Floor,
-Tower B-3, Spaze Itech-Park
-Sector-49, Sohna Road,
-Gurgaon – 122001 (HR)
-India`,
+      details: `Unit No. 339, 3rd Floor,\nTower B-3, Spaze Itech-Park\nSector-49, Sohna Road,\nGurgaon – 122001 (HR)\nIndia`,
       subtext: "",
-      color: "from-purple-500 to-pink-600"
+      color: "from-purple-600 to-fuchsia-600"
     },
     {
       icon: MessageCircle,
       title: "Live Chat",
       details: "Available 24/7",
       subtext: "Get instant support",
-      color: "from-orange-500 to-red-600"
+      color: "from-fuchsia-500 to-purple-600"
     }
   ];
 
@@ -78,107 +71,90 @@ India`,
       question: "Can I access courses on mobile?",
       answer: "Absolutely! Our platform is fully responsive and we also have mobile apps for iOS and Android for learning on the go."
     },
-    
   ];
 
   return (
-    <div className="pt-16 pb-10">
-       {/* Hero Section */}
-       <div className="bg-gradient-to-r from-cyan-600 via-blue-500 to-purple-600 py-20 px-6 shadow-md text-center mb-16 relative overflow-hidden">
-
-  <h1 className="text-4xl md:text-7xl font-bold text-white mb-4">
-    Get in Touch
-  </h1>
-  <p className="text-xl text-gray-100 max-w-3xl mx-auto mb-6">
-    Have questions? We'd love to hear from you. Send us a message and we'll respond as soon as possible.
-  </p>
-  <p className="text-lg text-white mb-8 font-medium">
-    📚 Empowering minds, connecting knowledge — your learning journey starts here.
-  </p>
-  <a
-  href="#contact-form"
-  onClick={(e) => {
-    e.preventDefault();
-    document.getElementById('contact-form')?.scrollIntoView({ behavior: 'smooth' });
-  }}
-  className="inline-block cursor-pointer bg-white text-gray-700 font-semibold px-6 py-3 rounded-full shadow hover:shadow-lg hover:bg-gray-100 transition"
->
-  Contact Our Team
-</a>
-</div>
-
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        {/* Contact Methods */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-16">
-  {contactInfo.map((info, index) => (
-    <div
-      key={index}
-      className="group bg-white rounded-2xl p-6 shadow-lg hover:shadow-2xl transform hover:scale-105 transition-all duration-300 flex flex-col items-center text-center"
-      style={{ animationDelay: `${index * 0.1}s` }}
-    >
-      <div className={`w-12 h-12 bg-gradient-to-r ${info.color} rounded-xl flex items-center justify-center mb-4 group-hover:rotate-6 transition-transform duration-300`}>
-        <info.icon className="h-6 w-6 text-white" />
+    <div className="pt-16 pb-10" style={{ backgroundColor: '#FFF4EC' }}>
+      {/* Hero */}
+      <div className="bg-gradient-to-r from-purple-700 via-purple-800 to-fuchsia-800 py-20 px-6 text-center text-white mb-16 shadow-md">
+        <span className="inline-block bg-white/20 text-white px-4 py-1 rounded-full text-sm mb-4 font-semibold tracking-wide">
+          📜 Professional Certification
+        </span>
+        <h1 className="text-4xl md:text-6xl font-extrabold mb-4">Buy Certificate Course on <span className="text-pink-200">Export Management</span></h1>
+        <p className="text-xl max-w-3xl mx-auto mb-6 opacity-90 font-medium">
+          Master the fundamentals of international trade and export operations with our comprehensive certification program.
+        </p>
+        <a
+          href="#contact-form"
+          onClick={(e) => {
+            e.preventDefault();
+            document.getElementById('contact-form')?.scrollIntoView({ behavior: 'smooth' });
+          }}
+          className="inline-block bg-white text-purple-800 font-bold px-6 py-3 rounded-full shadow hover:bg-purple-100 transition"
+        >
+          Contact Our Team
+        </a>
       </div>
-      <h3 className="text-lg font-semibold text-gray-900 mb-2">{info.title}</h3>
-      <p className="text-indigo-600 font-medium mb-1">{info.details}</p>
-      <p className="text-sm text-gray-500">{info.subtext}</p>
-    </div>
-  ))}
-</div>
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-start">
-          {/* Contact Form */}
-          <div id="contact-form" className="bg-white rounded-2xl shadow-lg p-8">
-          <h2 className="text-3xl text-center font-bold text-gray-900 mb-8">
-  Send us a Message
-</h2>
 
-            
+      {/* Contact Cards */}
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-16">
+          {contactInfo.map((info, index) => (
+            <div
+              key={index}
+              className="group bg-white rounded-2xl p-6 shadow-lg hover:shadow-2xl transform hover:scale-105 transition-all duration-300 text-center"
+            >
+              <div className={`w-12 h-12 bg-gradient-to-r ${info.color} rounded-xl flex items-center justify-center mb-4`}>
+                <info.icon className="h-6 w-6 text-white" />
+              </div>
+              <h3 className="text-lg font-semibold text-gray-800 mb-2">{info.title}</h3>
+              <p className="text-[#9D1876] font-medium whitespace-pre-line">{info.details}</p>
+              <p className="text-sm text-gray-500">{info.subtext}</p>
+            </div>
+          ))}
+        </div>
+
+        {/* Form and FAQ */}
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-start">
+          {/* Form */}
+          <div id="contact-form" className="bg-white rounded-2xl shadow-lg p-8">
+            <h2 className="text-3xl text-center font-bold text-gray-800 mb-8">Send us a Message</h2>
             <form onSubmit={handleSubmit} className="space-y-6">
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <div>
-                  <label htmlFor="name" className="block text-sm font-medium text-gray-700 mb-2">
-                    Full Name
-                  </label>
+                  <label className="block text-sm font-medium text-gray-700 mb-2">Full Name</label>
                   <input
                     type="text"
-                    id="name"
                     name="name"
                     value={formData.name}
                     onChange={handleChange}
                     required
-                    className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition-all duration-300"
+                    className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#9D1876]"
                     placeholder="Your full name"
                   />
                 </div>
-                
                 <div>
-                  <label htmlFor="email" className="block text-sm font-medium text-gray-700 mb-2">
-                    Email Address
-                  </label>
+                  <label className="block text-sm font-medium text-gray-700 mb-2">Email Address</label>
                   <input
                     type="email"
-                    id="email"
                     name="email"
                     value={formData.email}
                     onChange={handleChange}
                     required
-                    className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition-all duration-300"
+                    className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#9D1876]"
                     placeholder="your.email@example.com"
                   />
                 </div>
               </div>
-              
+
               <div>
-                <label htmlFor="subject" className="block text-sm font-medium text-gray-700 mb-2">
-                  Subject
-                </label>
+                <label className="block text-sm font-medium text-gray-700 mb-2">Subject</label>
                 <select
-                  id="subject"
                   name="subject"
                   value={formData.subject}
                   onChange={handleChange}
                   required
-                  className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition-all duration-300"
+                  className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#9D1876]"
                 >
                   <option value="">Select a subject</option>
                   <option value="general">General Inquiry</option>
@@ -188,66 +164,59 @@ India`,
                   <option value="partnership">Partnership</option>
                 </select>
               </div>
-              
+
               <div>
-                <label htmlFor="message" className="block text-sm font-medium text-gray-700 mb-2">
-                  Message
-                </label>
+                <label className="block text-sm font-medium text-gray-700 mb-2">Message</label>
                 <textarea
-                  id="message"
                   name="message"
                   value={formData.message}
                   onChange={handleChange}
                   required
                   rows={6}
-                  className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition-all duration-300 resize-none"
+                  className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#9D1876] resize-none"
                   placeholder="Tell us how we can help you..."
                 ></textarea>
               </div>
-              
+
               <div className="flex justify-center">
-  <button
-    type="submit"
-    className="w-full md:w-1/2 bg-gray-500 text-white py-4 px-6 rounded-lg font-semibold hover:shadow-lg transform hover:scale-105 transition-all duration-300 flex items-center justify-center space-x-2"
-  >
-    <Send className="h-5 w-5" />
-    <span>Send Message</span>
-  </button>
-</div>
+                <button
+                  type="submit"
+                  className="w-full md:w-1/2 bg-[#9D1876] text-white py-4 px-6 rounded-lg font-bold hover:bg-[#7d125e] shadow hover:shadow-lg transform hover:scale-105 transition-all duration-300 flex items-center justify-center space-x-2"
+                >
+                  <Send className="h-5 w-5" />
+                  <span>Send Message</span>
+                </button>
+              </div>
             </form>
           </div>
 
-          {/* FAQ Section */}
+          {/* FAQs */}
           <div>
-            <h2 className="text-2xl font-bold text-gray-900 mb-6 text-center">Frequently Asked Questions</h2>
-            
+            <h2 className="text-2xl font-bold text-gray-800 mb-6 text-center">Frequently Asked Questions</h2>
             <div className="space-y-4">
               {faqs.map((faq, index) => (
-                <div
-                  key={index}
-                  className="bg-white rounded-xl shadow-lg p-6 hover:shadow-xl transition-shadow duration-300"
-                >
-                  <h3 className="text-lg font-semibold text-gray-900 mb-3">{faq.question}</h3>
+                <div key={index} className="bg-white rounded-xl shadow-lg p-6 hover:shadow-xl transition-shadow duration-300">
+                  <h3 className="text-lg font-semibold text-gray-800 mb-3">{faq.question}</h3>
                   <p className="text-gray-600 leading-relaxed">{faq.answer}</p>
                 </div>
               ))}
             </div>
 
-            {/* Quick Stats */}
-            <div className="mt-8 bg-gradient-to-r from-indigo-50 to-purple-50 rounded-xl p-6 border-2 border-gray-200">
-              <h3 className="text-lg font-semibold text-gray-900 mb-4 text-center">Why Students Choose Us</h3>
+            {/* Stats */}
+            <div className="mt-8 bg-gradient-to-r from-purple-50 to-pink-100 rounded-xl p-6 border-2 border-purple-200">
+              <h3 className="text-lg font-semibold text-gray-800 mb-4 text-center">Why Students Choose Us</h3>
               <div className="grid grid-cols-2 gap-4">
                 <div className="text-center">
                   <div className="flex items-center justify-center mb-2">
-                    <Clock className="h-5 w-5 text-indigo-600 mr-2" />
-                    <span className="text-2xl font-bold text-indigo-600">24/7</span>
+                    <Clock className="h-5 w-5 text-[#9D1876] mr-2" />
+                    <span className="text-2xl font-bold text-[#9D1876]">24/7</span>
                   </div>
                   <p className="text-sm text-gray-600">Support Available</p>
                 </div>
                 <div className="text-center">
                   <div className="flex items-center justify-center mb-2">
-                    <Globe className="h-5 w-5 text-purple-600 mr-2" />
-                    <span className="text-2xl font-bold text-purple-600">190+</span>
+                    <Globe className="h-5 w-5 text-[#9D1876] mr-2" />
+                    <span className="text-2xl font-bold text-[#9D1876]">190+</span>
                   </div>
                   <p className="text-sm text-gray-600">Countries Served</p>
                 </div>
@@ -256,21 +225,19 @@ India`,
           </div>
         </div>
 
-        {/* Map Section (Placeholder) */}
-    {/* Google Map Embed */}
-<div className="mt-16 rounded-2xl overflow-hidden shadow-lg">
-  <iframe
-    title="Google Map"
-    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3502.3531942224574!2d77.03637017536292!3d28.618603375675642!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x390d051278bda26b%3A0x7ccf2233b69c77ef!2sUnit%20No.%20339%2C%203rd%20Floor%2C%20Tower%20B-3%2C%20Spaze%20IT%20Tech%20Park%2C%20Sohna%20Rd%2C%20Sector%2049%2C%20Gurugram%2C%20Haryana%20122018!5e0!3m2!1sen!2sin!4v1720584694192!5m2!1sen!2sin"
-    width="100%"
-    height="400"
-    style={{ border: 0 }}
-    allowFullScreen
-    loading="lazy"
-    referrerPolicy="no-referrer-when-downgrade"
-  ></iframe>
-</div>
-
+        {/* Map */}
+        <div className="mt-16 rounded-2xl overflow-hidden shadow-lg">
+          <iframe
+            title="Google Map"
+            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3502.3531942224574!2d77.03637017536292!3d28.618603375675642!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x390d051278bda26b%3A0x7ccf2233b69c77ef!2sUnit%20No.%20339%2C%203rd%20Floor%2C%20Tower%20B-3%2C%20Spaze%20IT%20Tech%20Park!5e0!3m2!1sen!2sin!4v1720584694192!5m2!1sen!2sin"
+            width="100%"
+            height="400"
+            style={{ border: 0 }}
+            allowFullScreen
+            loading="lazy"
+            referrerPolicy="no-referrer-when-downgrade"
+          ></iframe>
+        </div>
       </div>
     </div>
   );
