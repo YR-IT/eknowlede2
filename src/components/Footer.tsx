@@ -19,14 +19,13 @@ const Footer = () => {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 pt-8">
           {/* Logo and Description */}
           <div className="lg:col-span-1">
-            <div className="flex items-center space-x-2 mb-4">
+            <div className="flex items-center space-x-2 mb-6">
               <img src={logo} alt="E-Knowledge Logo" className="h-20 w-64" />
             </div>
             <p className="text-white/80 mb-6">
-              Empowering learners worldwide with cutting-edge online education
-              and professional development courses.
+              eKnowledge - An AICC initiative is an online platform for managing data associated with its tutoring classes in the most efficient and transparent manner.
             </p>
-            <div className="flex space-x-4">
+            {/* <div className="flex space-x-4">
               {[
                 { Icon: Facebook },
                 { Icon: Twitter },
@@ -39,7 +38,7 @@ const Footer = () => {
                   </div>
                 </div>
               ))}
-            </div>
+            </div> */}
           </div>
 
           {/* Quick Links */}
