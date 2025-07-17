@@ -57,7 +57,7 @@ const WhyChooseUS = () => {
       <section className="py-16 bg-gradient-to-b from-gray-50 to-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
-            <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold bg-gradient-to-r from-purple-600 via-pink-600 to-orange-600 text-transparent bg-clip-text mb-6">
+            <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold text-black mb-6">
               Why Choose E-Knowledge?
             </h2>
             <p className="text-base sm:text-xl text-gray-600 max-w-3xl mx-auto">

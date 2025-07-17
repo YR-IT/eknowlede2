@@ -42,10 +42,10 @@ const Testimonials = () => {
   }, []);
 
   return (
-    <section className="py-14 bg-pink-50 text-gray-800 relative overflow-hidden border-t border-pink-100">
+    <section className="py-8 bg-pink-50 text-gray-800 relative overflow-hidden border-t border-pink-100">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-        <div className="text-center mb-12">
-          <h2 className="text-4xl md:text-6xl font-extrabold text-gray-900">
+        <div className="text-center mb-8">
+          <h2 className="text-4xl md:text-5xl font-bold text-gray-900">
             What Our Students Say
           </h2>
           <p className="sm:text-lg text-base text-gray-600 max-w-3xl mx-auto mt-4">
@@ -55,9 +55,9 @@ const Testimonials = () => {
 
         <div className="relative max-w-4xl mx-auto">
           <div className="bg-white rounded-3xl p-6 md:p-10 text-center border border-gray-200 shadow-lg">
-            <Quote className="h-12 w-12 text-pink-500 mx-auto mb-6" />
+            <Quote className="h-12 w-12 text-pink-500 mx-auto mb-2" />
 
-            <div className="mb-6">
+            <div className="mb-2">
               <p className="text-lg md:text-2xl text-gray-700 mb-4 leading-relaxed font-light">
                 "{testimonials[currentTestimonial].content}"
               </p>

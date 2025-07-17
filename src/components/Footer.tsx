@@ -48,39 +48,21 @@ const Footer = () => {
               Quick Links
             </h3>
             <ul className="space-y-2">
-              {["Home", "Courses", "Pricing", "Blog", "Contact"].map((item) => (
-                <li key={item}>
-                  <Link
-                    to={item === "Home" ? "/" : `/${item.toLowerCase()}`}
-                    className="text-white/80 hover:text-yellow-300 hover:translate-x-2 transition-all duration-300 inline-block"
-                  >
-                    {item}
-                  </Link>
-                </li>
-              ))}
-            </ul>
-          </div>
-
-          {/* Courses */}
-          <div>
-            <h3 className="text-lg font-semibold mb-4 text-white/90">
-              Popular Courses
-            </h3>
-            <ul className="space-y-2">
               {[
-                "Web Development",
-                "Data Science",
-                "AI & Machine Learning",
-                "Digital Marketing",
-                "Cloud Computing",
-              ].map((course) => (
-                <li key={course}>
-                  <a
-                    href="#"
+                { name: "Home", path: "/" },
+                { name: "Courses", path: "/courses" },
+                { name: "Pricing", path: "/pricing" },
+                { name: "Blog", path: "/blog" },
+                { name: "Contact", path: "/contact" },
+                { name: "Buy Now", path: "/enroll" },
+              ].map((item) => (
+                <li key={item.name}>
+                  <Link
+                    to={item.path}
                     className="text-white/80 hover:text-yellow-300 hover:translate-x-2 transition-all duration-300 inline-block"
                   >
-                    {course}
-                  </a>
+                    {item.name}
+                  </Link>
                 </li>
               ))}
             </ul>
@@ -127,14 +109,47 @@ const Footer = () => {
               </div>
             </div>
           </div>
+
+          <div className="flex flex-col items-center bg-white/5 p-4 rounded-lg">
+  <h3 className="text-lg font-semibold mb-4 text-white/90 text-center">
+    Download App From
+  </h3>
+
+  <a
+    href="https://play.google.com/store/apps/details?id=co.davos.yuoty"
+    target="_blank"
+    rel="noopener noreferrer"
+  >
+    <img
+      src="https://upload.wikimedia.org/wikipedia/commons/7/78/Google_Play_Store_badge_EN.svg"
+      alt="Download on Google Play"
+      className="h-14 mb-2"
+    />
+  </a>
+
+  <span className="text-white/60 text-xs my-2">OR</span>
+
+  <div className="flex flex-col items-center bg-white/10 p-2 rounded-md">
+    <img
+      src="/playstore_qr.png"
+      alt="QR code to download app"
+      className="h-24 rounded-md border border-white/30"
+    />
+    <p className="text-xs text-white/70 mt-2 text-center max-w-[150px]">
+      Scan the QR code to download the app instantly.
+    </p>
+  </div>
+</div>
+
         </div>
 
         {/* Bottom Bar */}
         <div className="border-t border-white/20 mt-12 pt-4">
-  <p className="text-white/70 text-sm text-center">
-    Copyright © 2022 All India Chamber of Commerce | All Rights Reserved with All India Chamber of Commerce
-  </p>
-</div>
+          <p className="text-white/70 text-sm text-center">
+            Copyright © 2022 All India Chamber of Commerce | All Rights Reserved
+            with All India Chamber of Commerce
+          </p>
+        </div>
       </div>
     </footer>
   );

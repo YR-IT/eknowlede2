@@ -80,8 +80,11 @@ const Contact = () => {
         <span className="inline-block bg-white/20 text-white px-4 py-1 rounded-full text-sm mb-4 font-semibold tracking-wide">
           📜 Professional Certification
         </span>
-        <h1 className="text-4xl md:text-6xl font-extrabold mb-4">Buy Certificate Course on <span className="text-orange-200">Export Management</span></h1>
-        <p className="text-xl max-w-3xl mx-auto mb-6 opacity-90 font-medium">
+        <h1 className="max-w-4xl mx-auto text-4xl md:text-6xl font-bold mb-4 text-center">
+  Buy Certificate Course on <span className="text-orange-200">Export Management</span>
+</h1>
+
+        <p className="text-xl max-w-3xl mx-auto mb-6 opacity-90">
           Master the fundamentals of international trade and export operations with our comprehensive certification program.
         </p>
         <a
@@ -90,7 +93,7 @@ const Contact = () => {
             e.preventDefault();
             document.getElementById('contact-form')?.scrollIntoView({ behavior: 'smooth' });
           }}
-          className="inline-block bg-white text-[#7a0025] font-bold px-6 py-3 rounded-full shadow hover:bg-red-100 transition"
+          className="inline-block bg-white text-[#7a0025] font-semibold px-4 py-2 rounded-full shadow hover:bg-red-100 transition"
         >
           Contact Our Team
         </a>
@@ -181,7 +184,7 @@ const Contact = () => {
               <div className="flex justify-center">
                 <button
                   type="submit"
-                  className="w-full md:w-1/2 bg-[#C21E53] text-white py-4 px-6 rounded-lg font-bold hover:bg-[#C21E53] shadow hover:shadow-lg transform hover:scale-105 transition-all duration-300 flex items-center justify-center space-x-2"
+                  className=" bg-[#C21E53] text-white py-3 px-4 rounded-lg font-semibold hover:bg-[#C21E53] shadow hover:shadow-lg transform hover:scale-105 transition-all duration-300 flex items-center justify-center space-x-2"
                 >
                   <Send className="h-5 w-5" />
                   <span>Send Message</span>
