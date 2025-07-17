@@ -1,0 +1,280 @@
+
+import { Clock, PlayCircle, FileText, Download, Smartphone, ChevronDown, Tag, Users, BookOpen, Shield, Award } from 'lucide-react';
+
+function EnrollNow() {
+  return (
+    <div className="min-h-screen bg-gray-50">
+      {/* Header */}
+      <header className="bg-white shadow-sm border-b sticky top-0 z-50">
+        <div className="w-full px-4 sm:px-6 lg:px-12">
+          <div className="flex items-center justify-between h-14 sm:h-16">
+            <div className="flex items-center space-x-2 sm:space-x-3">
+              <div className="w-10 h-10 bg-gradient-to-r from-blue-600 to-blue-700 rounded-lg flex items-center justify-center">
+                <BookOpen className="w-6 h-6 text-white" />
+              </div>
+              <div>
+                <h1 className="text-base sm:text-lg font-semibold text-gray-900">eKnowledge</h1>
+                <p className="text-xs sm:text-sm text-gray-600 hidden sm:block">An AICC initiative</p>
+              </div>
+            </div>
+            
+            <div className="flex items-center space-x-2 sm:space-x-4">
+              <button className="hidden sm:flex items-center space-x-2 px-3 sm:px-4 py-2 bg-gray-900 text-white rounded-lg hover:bg-gray-800 transition-colors">
+                <Smartphone className="w-4 h-4" />
+                <span className="text-xs sm:text-sm">Android App</span>
+              </button>
+              <button className="hidden sm:flex items-center space-x-2 px-3 sm:px-4 py-2 bg-gray-900 text-white rounded-lg hover:bg-gray-800 transition-colors">
+                <Download className="w-4 h-4" />
+                <span className="text-xs sm:text-sm">App Store</span>
+              </button>
+              <button className="px-4 sm:px-6 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors text-sm">
+                Login
+              </button>
+            </div>
+          </div>
+        </div>
+      </header>
+
+      {/* Main Content */}
+      <main className="w-full px-4 sm:px-6 lg:px-12 py-4 sm:py-8">
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 lg:gap-8">
+          {/* Course Content */}
+          <div className="lg:col-span-2 order-2 lg:order-1">
+            {/* Course Header */}
+            <div className="bg-white rounded-xl shadow-sm p-4 sm:p-6 lg:p-8 mb-6 lg:mb-8">
+              <div className="flex flex-wrap items-center gap-2 mb-4 sm:mb-6">
+                <span className="px-3 sm:px-4 py-1 sm:py-2 bg-blue-100 text-blue-700 rounded-full text-xs sm:text-sm font-medium flex items-center space-x-1">
+                  <Award className="w-4 h-4" />
+                  <span>Certificate Course</span>
+                </span>
+                <span className="px-3 sm:px-4 py-1 sm:py-2 bg-teal-100 text-teal-700 rounded-full text-xs sm:text-sm font-medium flex items-center space-x-1">
+                  <Shield className="w-4 h-4" />
+                  <span>Exports</span>
+                </span>
+              </div>
+              
+              <h1 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-gray-900 mb-4 sm:mb-6 leading-tight">Certificate Course on Export Management</h1>
+              
+              <div className="flex flex-wrap items-center gap-4 sm:gap-8 text-xs sm:text-sm text-gray-600">
+                <div className="flex items-center space-x-2">
+                  <FileText className="w-5 h-5 text-teal-600" />
+                  <span className="font-medium">TEST</span>
+                </div>
+                <div className="flex items-center space-x-2">
+                  <FileText className="w-5 h-5 text-teal-600" />
+                  <span className="font-medium">PDFs</span>
+                </div>
+              </div>
+            </div>
+
+            {/* Navigation Tabs */}
+            <div className="bg-white rounded-xl shadow-sm mb-6 lg:mb-8">
+              <div className="border-b border-gray-200">
+                <nav className="flex overflow-x-auto">
+                  <button className="px-4 sm:px-8 py-3 sm:py-4 text-blue-600 border-b-2 border-blue-600 font-semibold bg-blue-50 whitespace-nowrap">
+                    OVERVIEW
+                  </button>
+                  <button className="px-4 sm:px-8 py-3 sm:py-4 text-gray-600 hover:text-gray-900 font-semibold hover:bg-gray-50 transition-colors whitespace-nowrap">
+                    CONTENT
+                  </button>
+                </nav>
+              </div>
+
+              <div className="p-4 sm:p-6 lg:p-8">
+                <h2 className="text-xl sm:text-2xl font-bold text-gray-900 mb-4 sm:mb-6">About This Course</h2>
+                <div className="prose prose-sm sm:prose-base lg:prose-lg text-gray-700 max-w-none">
+                  <p className="mb-4 sm:mb-6 leading-relaxed">
+                    This is a Certificate Course in Exports, developed by All India Chamber of Commerce (AICC), which is a National Chamber 
+                    of Commerce duly recognized and licenced by Govt of India. The Course has been developed by the Research Team of 
+                    AICC. The technical support has been provided by DGFT, Govt of India.
+                  </p>
+                  <p className="mb-4 sm:mb-6 leading-relaxed">
+                    The course covers all the steps involved in Exporting a Product from India and gives working knowledge on Export Documentation. 
+                    The Steps and Documentation are explained through Videos and PDF and Slides. The duration of the course is 3 months. At the end of the course, 
+                    participants will receive a comprehensive certificate validating their expertise in export management.
+                  </p>
+                  <p className="mb-4 sm:mb-6 leading-relaxed">
+                    This comprehensive program is designed for professionals, entrepreneurs, and students who want to understand the intricacies 
+                    of international trade and export procedures from India.
+                  </p>
+                </div>
+                
+                <h3 className="text-lg sm:text-xl font-semibold text-gray-900 mb-4 mt-6 sm:mt-8">What You'll Learn</h3>
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4 mb-4 sm:mb-6">
+                  <div className="flex items-start space-x-3">
+                    <div className="w-2 h-2 bg-teal-500 rounded-full mt-2"></div>
+                    <span className="text-sm sm:text-base text-gray-700">Export documentation procedures</span>
+                  </div>
+                  <div className="flex items-start space-x-3">
+                    <div className="w-2 h-2 bg-teal-500 rounded-full mt-2"></div>
+                    <span className="text-sm sm:text-base text-gray-700">International trade regulations</span>
+                  </div>
+                  <div className="flex items-start space-x-3">
+                    <div className="w-2 h-2 bg-teal-500 rounded-full mt-2"></div>
+                    <span className="text-sm sm:text-base text-gray-700">Export financing and insurance</span>
+                  </div>
+                  <div className="flex items-start space-x-3">
+                    <div className="w-2 h-2 bg-teal-500 rounded-full mt-2"></div>
+                    <span className="text-sm sm:text-base text-gray-700">Market research and analysis</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            {/* Course Features */}
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-6 mb-6 lg:mb-8">
+              <div className="bg-white rounded-xl shadow-sm p-4 sm:p-6 hover:shadow-md transition-shadow">
+                <div className="flex items-center space-x-4 mb-4">
+                  <div className="w-12 h-12 bg-blue-100 rounded-lg flex items-center justify-center">
+                    <Clock className="w-6 h-6 text-blue-600" />
+                  </div>
+                  <div>
+                    <h3 className="font-semibold text-gray-900 text-base sm:text-lg">3 Month Validity</h3>
+                    <p className="text-sm sm:text-base text-gray-600">Full access for 3 months</p>
+                  </div>
+                </div>
+                <p className="text-sm sm:text-base text-gray-600">You will get this course for 3 full months with unlimited access to all materials</p>
+              </div>
+
+              <div className="bg-white rounded-xl shadow-sm p-4 sm:p-6 hover:shadow-md transition-shadow">
+                <div className="flex items-center space-x-4 mb-4">
+                  <div className="w-12 h-12 bg-teal-100 rounded-lg flex items-center justify-center">
+                    <PlayCircle className="w-6 h-6 text-teal-600" />
+                  </div>
+                  <div>
+                    <h3 className="font-semibold text-gray-900 text-base sm:text-lg">6 Learning Materials</h3>
+                    <p className="text-sm sm:text-base text-gray-600">Comprehensive resources</p>
+                  </div>
+                </div>
+                <p className="text-sm sm:text-base text-gray-600">5 Files, 1 Test - Everything you need to master export management</p>
+              </div>
+            </div>
+
+            {/* About Course Creator */}
+            <div className="bg-white rounded-xl shadow-sm p-4 sm:p-6 lg:p-8">
+              <h2 className="text-xl sm:text-2xl font-bold text-gray-900 mb-4 sm:mb-6">About Course Creator</h2>
+              
+              <div className="flex flex-col sm:flex-row items-start space-y-4 sm:space-y-0 sm:space-x-6">
+                <div className="w-12 h-12 sm:w-16 sm:h-16 bg-gradient-to-r from-teal-500 to-teal-600 rounded-full flex items-center justify-center flex-shrink-0">
+                  <Users className="w-6 h-6 sm:w-8 sm:h-8 text-white" />
+                </div>
+                <div className="flex-1">
+                  <h3 className="text-lg sm:text-xl font-semibold text-gray-900 mb-2">All India Chamber of Commerce</h3>
+                  <p className="text-sm sm:text-base text-gray-700 mb-4 leading-relaxed">
+                    It is a national chamber of commerce, recognized, registered and licenced by Govt of India. 
+                    AICC has been instrumental in promoting trade and commerce across India with decades of experience 
+                    in international business development.
+                  </p>
+                  
+                  <div className="flex flex-wrap items-center gap-4 sm:gap-8 text-xs sm:text-sm text-gray-600">
+                    <div className="flex items-center space-x-2">
+                      <Users className="w-5 h-5 text-teal-600" />
+                      <span className="font-medium">25+ Students</span>
+                    </div>
+                    <div className="flex items-center space-x-2">
+                      <BookOpen className="w-5 h-5 text-teal-600" />
+                      <span className="font-medium">2 Courses</span>
+                    </div>
+                    <div className="flex items-center space-x-2">
+                      <Award className="w-5 h-5 text-teal-600" />
+                      <span className="font-medium">Govt Recognized</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          {/* Sidebar */}
+          <div className="lg:col-span-1 order-1 lg:order-2">
+            <div className="bg-white rounded-xl shadow-sm p-4 sm:p-6 lg:sticky lg:top-24">
+              {/* Course Image */}
+              <div className="bg-gradient-to-br from-teal-500 to-teal-600 rounded-xl p-6 sm:p-8 mb-4 sm:mb-6 text-white relative overflow-hidden">
+                <div className="absolute top-0 right-0 w-32 h-32 bg-white bg-opacity-10 rounded-full -mr-16 -mt-16"></div>
+                <div className="absolute bottom-0 left-0 w-24 h-24 bg-white bg-opacity-10 rounded-full -ml-12 -mb-12"></div>
+                <div className="relative text-center">
+                  <h3 className="text-2xl sm:text-3xl font-bold mb-2">Exports</h3>
+                  <p className="text-lg sm:text-xl mb-3 sm:mb-4">Made Easy</p>
+                  <div className="text-xs sm:text-sm opacity-90">
+                    <p className="mb-1">DEVELOPED BY RESEARCH TEAM OF</p>
+                    <p className="font-semibold">ALL INDIA CHAMBER OF COMMERCE</p>
+                  </div>
+                </div>
+              </div>
+
+              <h3 className="text-lg sm:text-xl font-semibold text-gray-900 mb-4 sm:mb-6">Certificate Course on Export Management</h3>
+              
+              <div className="mb-4 sm:mb-6">
+                <div className="flex items-center justify-between mb-3">
+                  <span className="text-sm text-gray-600 font-medium">You Pay</span>
+                  <ChevronDown className="w-4 h-4 text-gray-400" />
+                </div>
+                <div className="text-3xl sm:text-4xl font-bold text-gray-900 mb-2">₹ 15,421</div>
+                <div className="text-sm text-gray-500">
+                  <span className="line-through">₹ 20,000</span>
+                  <span className="ml-2 text-teal-600 font-medium">23% OFF</span>
+                </div>
+              </div>
+
+              <button className="w-full bg-blue-600 text-white py-3 sm:py-4 px-6 rounded-xl font-semibold hover:bg-blue-700 transition-colors mb-4 text-base sm:text-lg">
+                Get this course
+              </button>
+
+              {/* Coupon Section */}
+              <div className="bg-teal-50 rounded-xl p-3 sm:p-4 mb-4 sm:mb-6 border border-teal-100">
+                <div className="flex items-start space-x-3">
+                  <Tag className="w-5 h-5 text-teal-600 mt-0.5" />
+                  <div className="flex-1">
+                    <h4 className="font-semibold text-gray-900 mb-1 text-sm sm:text-base">Have a coupon code?</h4>
+                    <p className="text-sm text-gray-600 mb-3">Click above to find available coupons and get extra discounts.</p>
+                    <button className="text-teal-600 hover:text-teal-700 font-semibold text-sm">Apply here</button>
+                  </div>
+                </div>
+              </div>
+
+              {/* Course Highlights */}
+              <div className="space-y-3 mb-4 sm:mb-6">
+                <div className="flex items-center space-x-3 text-sm text-gray-600">
+                  <Shield className="w-4 h-4 text-teal-600" />
+                  <span>Government recognized certificate</span>
+                </div>
+                <div className="flex items-center space-x-3 text-sm text-gray-600">
+                  <Clock className="w-4 h-4 text-teal-600" />
+                  <span>3 months full access</span>
+                </div>
+                <div className="flex items-center space-x-3 text-sm text-gray-600">
+                  <PlayCircle className="w-4 h-4 text-teal-600" />
+                  <span>Video lectures & PDFs</span>
+                </div>
+              </div>
+
+              <p className="text-xs text-gray-500 leading-relaxed text-center sm:text-left">
+                * Amount payable is inclusive of taxes. <a href="#" className="text-teal-600 hover:text-teal-700">Terms & Conditions</a> apply.
+              </p>
+            </div>
+          </div>
+        </div>
+      </main>
+
+      {/* Footer */}
+      <footer className="bg-gray-900 text-white mt-16">
+        <div className="w-full px-4 sm:px-6 lg:px-12 py-6 sm:py-8">
+          <div className="text-center">
+            <h3 className="text-xl sm:text-2xl font-bold mb-3 sm:mb-4">Have a query?</h3>
+            <p className="text-gray-300 mb-4 sm:mb-6 text-sm sm:text-base">Contact us and we will get back to you on your number</p>
+            <div className="flex flex-col sm:flex-row justify-center gap-3 sm:gap-4">
+              <button className="bg-teal-600 hover:bg-teal-700 px-6 py-2 rounded-lg font-semibold transition-colors text-sm sm:text-base">
+                Contact Us
+              </button>
+              <button className="bg-teal-600 hover:bg-teal-700 px-6 py-2 rounded-lg font-semibold transition-colors text-sm sm:text-base">
+                View Privacy Policy
+              </button>
+            </div>
+          </div>
+        </div>
+      </footer>
+    </div>
+  );
+}
+
+export default EnrollNow;

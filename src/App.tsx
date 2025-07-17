@@ -1,4 +1,4 @@
-import React from 'react';
+
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Header from './components/Header';
 import Footer from './components/Footer';
@@ -8,8 +8,10 @@ import Courses from './pages/Courses';
 import Pricing from './pages/Pricing';
 import Blog from './pages/Blog';
 import Contact from './pages/Contact';
+import EnrollNow from './pages/EnrollNow';
 
 function App() {
+ 
   return (
     <Router>
       <div className="min-h-screen bg-gradient-to-br from-slate-50 via-blue-50 to-indigo-100">
@@ -21,6 +23,7 @@ function App() {
             <Route path="/pricing" element={<Pricing />} />
             <Route path="/blog" element={<Blog />} />
             <Route path="/contact" element={<Contact />} />
+             <Route path="/enroll" element={<EnrollNow />} /> 
           </Routes>
         </main>
         <Footer />

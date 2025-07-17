@@ -1,10 +1,14 @@
 import { Check, Award, Users, Clock, BookOpen, Download, Star } from 'lucide-react';
 import { useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
+
 
 const Pricing = () => {
   useEffect(() => {
     window.scrollTo(0, 0);
   }, []);
+  const navigate = useNavigate();
+
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-orange-50 to-pink-50 pt-20">
@@ -57,9 +61,13 @@ const Pricing = () => {
                   <p className="text-base opacity-80">Per user, entire course</p>
                 </div>
 
-                <button className="w-full bg-white text-pink-600 py-3 rounded-xl text-lg font-bold hover:bg-gray-50 transition duration-200 shadow-lg hover:shadow-xl transform hover:-translate-y-1">
-                  GET STARTED NOW
-                </button>
+               <button
+  onClick={() => navigate('/enroll')}
+  className="w-full bg-white text-pink-600 py-3 rounded-xl text-lg font-bold hover:bg-gray-50 transition duration-200 shadow-lg hover:shadow-xl transform hover:-translate-y-1"
+>
+  GET STARTED NOW
+</button>
+
 
                 <div className="space-y-4 mt-8 text-left">
                   {[
