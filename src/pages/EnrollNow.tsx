@@ -6,7 +6,17 @@ import  { useEffect } from 'react';
 function EnrollNow()
 
  {
-    
+    const [showForm, setShowForm] = React.useState(false);
+
+const openForm = () => setShowForm(true);
+const closeForm = () => setShowForm(false);
+
+const [showContactForm, setShowContactForm] = React.useState(false);
+
+const openContactForm = () => setShowContactForm(true);
+const closeContactForm = () => setShowContactForm(false);
+
+
     
   const [activeTab, setActiveTab] = React.useState('OVERVIEW');
 
@@ -380,21 +390,35 @@ function EnrollNow()
                 </div>
               </div>
 
-              <button className="w-full bg-blue-600 text-white py-3 sm:py-4 px-6 rounded-xl font-semibold hover:bg-blue-700 transition-colors mb-4 text-base sm:text-lg">
-                Get this course
-              </button>
+<button
+  onClick={openForm}
+  className="w-full bg-blue-600 text-white py-3 sm:py-4 px-6 rounded-xl font-semibold hover:bg-blue-700 transition-colors mb-4 text-base sm:text-lg"
+>
+  Get this course
+</button>
 
-              {/* Coupon Section */}
-              <div className="bg-teal-50 rounded-xl p-3 sm:p-4 mb-4 sm:mb-6 border border-teal-100">
-                <div className="flex items-start space-x-3">
-                  <Tag className="w-5 h-5 text-teal-600 mt-0.5" />
-                  <div className="flex-1">
-                    <h4 className="font-semibold text-gray-900 mb-1 text-sm sm:text-base">Have a coupon code?</h4>
-                    <p className="text-sm text-gray-600 mb-3">Click above to find available coupons and get extra discounts.</p>
-                    <button className="text-teal-600 hover:text-teal-700 font-semibold text-sm">Apply here</button>
-                  </div>
-                </div>
-              </div>
+
+           {/* Coupon Section */}
+<div className="bg-teal-50 rounded-xl p-3 sm:p-4 mb-4 sm:mb-6 border border-teal-100">
+  <div className="flex items-start space-x-3">
+    <Tag className="w-5 h-5 text-teal-600 mt-0.5" />
+    <div className="flex-1">
+      <h4 className="font-semibold text-gray-900 mb-1 text-sm sm:text-base">Have a coupon code?</h4>
+      <p className="text-sm text-gray-600 mb-3">Click above to find available coupons and get extra discounts.</p>
+      
+      <div className="flex items-center space-x-2">
+        <input
+          type="text"
+          placeholder="Enter code"
+          className="border border-gray-300 rounded-md px-2 py-1 text-sm focus:outline-none focus:ring-2 focus:ring-teal-400"
+        />
+        <button className="text-teal-600 hover:text-teal-700 font-semibold text-sm">
+          Apply 
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
 
               {/* Course Highlights */}
               <div className="space-y-3 mb-4 sm:mb-6">
@@ -420,23 +444,164 @@ function EnrollNow()
         </div>
       </main>
 
-      {/* Footer */}
-      <footer className="bg-gray-900 text-white mt-16">
-        <div className="w-full px-4 sm:px-6 lg:px-12 py-6 sm:py-8">
-          <div className="text-center">
-            <h3 className="text-xl sm:text-2xl font-bold mb-3 sm:mb-4">Have a query?</h3>
-            <p className="text-gray-300 mb-4 sm:mb-6 text-sm sm:text-base">Contact us and we will get back to you on your number</p>
-            <div className="flex flex-col sm:flex-row justify-center gap-3 sm:gap-4">
-              <button className="bg-teal-600 hover:bg-teal-700 px-6 py-2 rounded-lg font-semibold transition-colors text-sm sm:text-base">
-                Contact Us
-              </button>
-              <button className="bg-teal-600 hover:bg-teal-700 px-6 py-2 rounded-lg font-semibold transition-colors text-sm sm:text-base">
-                View Privacy Policy
-              </button>
-            </div>
+     {/* Footer */}
+<footer className="bg-gray-900 text-white mt-16">
+  <div className="w-full px-4 sm:px-6 lg:px-12 py-6 sm:py-8">
+    <div className="text-center">
+      <h3 className="text-xl sm:text-2xl font-bold mb-3 sm:mb-4">Have a query?</h3>
+      <p className="text-gray-300 mb-4 sm:mb-6 text-sm sm:text-base">
+        Contact us and we will get back to you on your number
+      </p>
+      <div className="flex flex-col sm:flex-row justify-center gap-3 sm:gap-4">
+        {/* Contact Us Button */}
+        <button
+          onClick={openContactForm}
+          className="bg-blue-600 hover:bg-blue-700 text-white font-medium py-2 px-4 rounded text-sm sm:text-base w-full sm:w-auto"
+        >
+          Contact Us
+        </button>
+
+        {/* View Privacy Policy Button */}
+        <a
+          href="https://privacy-policy.courses.store/yuoty?defaultLanguage=EN" 
+          target="_blank"
+          rel="noopener noreferrer"
+          className="bg-teal-600 hover:bg-teal-700 text-white font-medium py-2 px-4 rounded text-sm sm:text-base w-full sm:w-auto text-center"
+        >
+          View Privacy Policy
+        </a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+
+     { /*get the course*/}
+  {showForm && (
+  <div className="fixed inset-0 bg-black bg-opacity-50 backdrop-blur-sm flex items-center justify-center z-50">
+    <div className="bg-white rounded-lg shadow-lg p-6 w-full max-w-md relative">
+      <button
+        onClick={closeForm}
+        className="absolute top-2 right-2 text-gray-500 hover:text-black text-xl"
+      >
+        ×
+      </button>
+      <h2 className="text-lg font-semibold mb-4">Please fill the details</h2>
+      <form className="space-y-4">
+        {/* Full Name */}
+        <div>
+          <label className="block text-sm font-medium text-gray-700 mb-1">
+            Full Name<span className="text-red-500">*</span>
+          </label>
+          <input
+            type="text"
+            placeholder="e.g. Harsh"
+            className="w-full border border-gray-300 px-4 py-2 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+          />
+        </div>
+
+        {/* Mobile Number */}
+        <div>
+          <label className="block text-sm font-medium text-gray-700 mb-1">
+            Mobile Number<span className="text-red-500">*</span>
+          </label>
+          <div className="flex items-center border border-gray-300 rounded-md px-3 py-2">
+            <span className="text-gray-500 mr-2">IN</span>
+            <input
+              type="tel"
+              placeholder="e.g. 81XXXXXXXX"
+              className="w-full outline-none"
+            />
           </div>
         </div>
-      </footer>
+
+        {/* Email */}
+        <div>
+          <label className="block text-sm font-medium text-gray-700 mb-1">Email</label>
+          <input
+            type="email"
+            placeholder="Enter your Email"
+            className="w-full border border-gray-300 px-4 py-2 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+          />
+        </div>
+
+        {/* State */}
+        <div>
+          <label className="block text-sm font-medium text-gray-700 mb-1">
+            State<span className="text-red-500">*</span>
+          </label>
+          <select className="w-full border border-gray-300 px-4 py-2 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500">
+            <option>Maharashtra</option>
+            <option>Delhi</option>
+            <option>Karnataka</option>
+            <option>Uttar Pradesh</option>
+            <option>Other</option>
+          </select>
+        </div>
+
+        {/* Submit Button (Enabled) */}
+        <button
+          type="submit"
+          className="w-full bg-blue-600 text-white font-semibold px-4 py-2 rounded-md hover:bg-blue-700 transition duration-200"
+        >
+          Verify via OTP
+        </button>
+      </form>
+    </div>
+  </div>
+)}
+{/*contactus*/}
+{showContactForm && (
+  <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 backdrop-blur-sm z-50">
+    <div className="bg-white rounded-lg p-6 w-full max-w-md relative shadow-lg">
+      <button
+        onClick={closeContactForm}
+        className="absolute top-2 right-2 text-gray-500 hover:text-black text-xl"
+      >
+        &times;
+      </button>
+      <h2 className="text-xl font-semibold mb-2">Tell us your query</h2>
+      <p className="text-gray-600 mb-4">We will get back to you shortly on your number</p>
+      <form className="space-y-4">
+        <div>
+          <label className="block text-sm font-medium text-gray-700">Full Name *</label>
+          <input
+            type="text"
+            placeholder="Enter your name"
+            className="mt-1 p-2 w-full border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-500"
+            required
+          />
+        </div>
+        <div>
+          <label className="block text-sm font-medium text-gray-700">Mobile Number *</label>
+          <input
+            type="tel"
+            placeholder="+91 9876543210"
+            className="mt-1 p-2 w-full border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-500"
+            required
+          />
+        </div>
+        <div>
+          <label className="block text-sm font-medium text-gray-700">Message</label>
+          <textarea
+            placeholder="Write your query..."
+            className="mt-1 p-2 w-full border border-gray-300 rounded resize-none focus:outline-none focus:ring-2 focus:ring-blue-500"
+            rows={3}
+          ></textarea>
+        </div>
+        <button
+          type="submit"
+          className="w-full bg-blue-600 text-white py-2 px-4 rounded hover:bg-blue-700"
+        >
+          Submit
+        </button>
+      </form>
+    </div>
+  </div>
+)}
+
+
+
     </div>
   );
 }
