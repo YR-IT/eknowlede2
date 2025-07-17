@@ -30,19 +30,19 @@ const VideoCard: React.FC<{
               Your browser does not support the video tag.
             </video>
           ) : (
-            <div className="absolute inset-0 bg-gradient-to-br from-blue-100 to-indigo-100 flex flex-col items-center justify-center text-center px-4">
-              <Play className="w-10 h-10 text-blue-700 mb-2" />
-              <h3 className="text-sm font-semibold text-blue-900 leading-snug">{title}</h3>
+            <div className="absolute inset-0 bg-gradient-to-br from-pink-100 to-rose-100 flex flex-col items-center justify-center text-center px-4">
+              <Play className="w-10 h-10 text-rose-700 mb-2" />
+              <h3 className="text-sm font-semibold text-rose-900 leading-snug">{title}</h3>
             </div>
           )}
-          <div className="absolute top-2 right-2 bg-white text-blue-700 text-xs font-semibold px-2 py-0.5 rounded shadow">
+          <div className="absolute top-2 right-2 bg-white text-rose-700 text-xs font-semibold px-2 py-0.5 rounded shadow">
             {duration}
           </div>
         </div>
 
         <div className="flex-1 flex flex-col justify-between">
           <h4 className="text-base font-bold text-gray-800 text-center mb-4 px-2">{title}</h4>
-          <button className="mt-auto bg-gradient-to-r from-blue-600 to-indigo-600 text-white py-2 rounded-full text-sm font-semibold shadow-md hover:from-blue-700 hover:to-indigo-700 transition-all">
+          <button className="mt-auto bg-gradient-to-r from-pink-600 to-rose-600 text-white py-2 rounded-full text-sm font-semibold shadow-md hover:from-pink-700 hover:to-rose-700 transition-all">
             ENROLL NOW
           </button>
         </div>
@@ -79,27 +79,26 @@ const Courses: React.FC = () => {
   const videoUrls: Record<string, string | null> = {};
 
   return (
-    <div className="pt-0 min-h-screen bg-gradient-to-br from-slate-50 via-blue-50 to-navy-50">
+    <div className="pt-0 min-h-screen bg-gradient-to-br from-rose-50 via-pink-50 to-fuchsia-50">
       {/* Header Section */}
-      <div className="relative bg-gradient-to-br from-blue-900 via-blue-800 to-indigo-900 text-white overflow-hidden">
-        <div className="absolute inset-0 opacity-30 bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-blue-600 via-indigo-700 to-blue-900" />
+      <div className="relative bg-gradient-to-br from-rose-900 via-pink-800 to-fuchsia-900 text-white overflow-hidden">
+        <div className="absolute inset-0 opacity-30 bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-pink-600 via-rose-700 to-fuchsia-900" />
         <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 flex flex-col-reverse md:flex-row items-center justify-between gap-12">
           {/* Text and CTA */}
           <div className="w-full md:w-2/3 text-center md:text-left mt-8 sm:mt-10">
-  <motion.div
-    className="flex items-center justify-center md:justify-start gap-4 mb-6"
-    initial={{ opacity: 0, y: -20 }}
-    animate={{ opacity: 1, y: 0 }}
-    transition={{ duration: 0.6 }}
-  >
-    <div className="w-12 h-12 sm:w-14 sm:h-14 p-2 bg-gradient-to-r from-amber-400 via-yellow-500 to-orange-500 rounded-full flex items-center justify-center shadow-lg">
-      <GraduationCap className="w-6 h-6 sm:w-7 sm:h-7 text-white" />
-    </div>
-    <div className="w-8 h-8 sm:w-10 sm:h-10 p-1 bg-gradient-to-br from-emerald-400 to-blue-500 rounded-full flex items-center justify-center shadow-md">
-      <Award className="w-4 h-4 sm:w-5 sm:h-5 text-white" />
-    </div>
-  </motion.div>
-
+            <motion.div
+              className="flex items-center justify-center md:justify-start gap-4 mb-6"
+              initial={{ opacity: 0, y: -20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6 }}
+            >
+              <div className="w-12 h-12 sm:w-14 sm:h-14 p-2 bg-gradient-to-r from-amber-400 via-yellow-500 to-orange-500 rounded-full flex items-center justify-center shadow-lg">
+                <GraduationCap className="w-6 h-6 sm:w-7 sm:h-7 text-white" />
+              </div>
+              <div className="w-8 h-8 sm:w-10 sm:h-10 p-1 bg-gradient-to-br from-emerald-400 to-pink-500 rounded-full flex items-center justify-center shadow-md">
+                <Award className="w-4 h-4 sm:w-5 sm:h-5 text-white" />
+              </div>
+            </motion.div>
 
             <motion.h1
               className="text-4xl sm:text-6xl font-bold leading-tight mb-4"
@@ -133,7 +132,7 @@ const Courses: React.FC = () => {
             </motion.button>
           </div>
 
-          {/* Icons Right Side (hide on small screens) */}
+          {/* Icons Right Side */}
           <div className="w-full md:w-1/3 hidden md:flex flex-col items-center gap-6">
             <div className="w-24 h-24 bg-white/10 border border-white/20 rounded-2xl flex items-center justify-center shadow-lg">
               <GraduationCap className="w-10 h-10 text-amber-400" />
@@ -149,7 +148,7 @@ const Courses: React.FC = () => {
       <div className="py-16 px-4 sm:px-6 lg:px-8">
         <div className="max-w-7xl mx-auto">
           <div className="text-center mb-12">
-            <h2 className="text-3xl sm:text-4xl font-bold text-navy-900 mb-4">COURSE CONTENT</h2>
+            <h2 className="text-3xl sm:text-4xl font-bold text-rose-900 mb-4">COURSE CONTENT</h2>
             <p className="text-lg text-gray-600">
               Comprehensive video lessons covering all aspects of export management and international trade
             </p>
@@ -161,7 +160,7 @@ const Courses: React.FC = () => {
             ))}
           </div>
 
-          <div className="text-center bg-blue-900 rounded-3xl p-10 mt-16 shadow-xl relative overflow-hidden">
+          <div className="text-center bg-rose-900 rounded-3xl p-10 mt-16 shadow-xl relative overflow-hidden">
             <div className="relative z-10">
               <div className="inline-flex items-center justify-center w-20 h-20 bg-gradient-to-r from-amber-400 to-orange-500 rounded-full mb-6">
                 <GraduationCap className="w-10 h-10 text-white" />
