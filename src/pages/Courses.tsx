@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Play, Award, GraduationCap, ArrowRight } from 'lucide-react';
 import { motion } from 'framer-motion';
+import { Link } from 'react-router-dom';
 
 const VideoCard: React.FC<{
   title: string;
@@ -8,7 +9,7 @@ const VideoCard: React.FC<{
   videoUrl?: string | null;
   className?: string;
 }> = ({ title, duration = "00:46", videoUrl = null, className = "" }) => {
-  const [isHovered, setIsHovered] = useState(false);
+  const [, setIsHovered] = useState(false);
   const [isPlaying, setIsPlaying] = useState(false);
 
   const handleVideoClick = () => {
@@ -40,12 +41,15 @@ const VideoCard: React.FC<{
           </div>
         </div>
 
-        <div className="flex-1 flex flex-col justify-between">
-          <h4 className="text-base font-bold text-gray-800 text-center mb-4 px-2">{title}</h4>
-          <button className="mt-auto bg-gradient-to-r from-pink-600 to-rose-600 text-white py-2 rounded-full text-sm font-semibold shadow-md hover:from-pink-700 hover:to-rose-700 transition-all">
-            ENROLL NOW
-          </button>
-        </div>
+    <div className="flex-1 flex flex-col justify-between">
+  <h4 className="text-base font-bold text-gray-800 text-center mb-4 px-2">{title}</h4>
+  
+  <Link to="/enroll" className="mt-auto">
+    <button className="w-full bg-gradient-to-r from-pink-600 to-rose-600 text-white py-2 rounded-full text-sm font-semibold shadow-md hover:from-pink-700 hover:to-rose-700 transition-all">
+      ENROLL NOW
+    </button>
+  </Link>
+</div>
       </div>
     </div>
   );
@@ -121,15 +125,17 @@ const Courses: React.FC = () => {
               Developed by the <span className="font-semibold text-amber-300">All India Chamber of Commerce (AICC)</span>, recognized by the Government of India.
             </motion.p>
 
-            <motion.button
-              className="inline-flex items-center gap-2 px-5 sm:px-6 py-3 rounded-full bg-gradient-to-r from-amber-400 to-orange-500 text-black font-bold hover:scale-105 transition-transform"
-              initial={{ opacity: 0, scale: 0.9 }}
-              animate={{ opacity: 1, scale: 1 }}
-              transition={{ duration: 0.5, delay: 0.4 }}
-            >
-              <span>ENROLL NOW</span>
-              <ArrowRight className="w-5 h-5" />
-            </motion.button>
+          <Link to="/enroll" className="inline-block">
+  <motion.button
+    className="inline-flex items-center gap-2 px-5 sm:px-6 py-3 rounded-full bg-gradient-to-r from-amber-400 to-orange-500 text-black font-bold hover:scale-105 transition-transform"
+    initial={{ opacity: 0, scale: 0.9 }}
+    animate={{ opacity: 1, scale: 1 }}
+    transition={{ duration: 0.5, delay: 0.4 }}
+  >
+    <span>ENROLL NOW</span>
+    <ArrowRight className="w-5 h-5" />
+  </motion.button>
+</Link>
           </div>
 
           {/* Icons Right Side */}
@@ -171,12 +177,14 @@ const Courses: React.FC = () => {
               <p className="text-white/80 text-lg mb-8 max-w-2xl mx-auto">
                 Join thousands of successful exporters who have transformed their business with our comprehensive certification program.
               </p>
-              <button className="bg-gradient-to-r from-amber-400 to-orange-500 text-black font-bold px-8 py-4 rounded-full hover:scale-105 transition-transform">
-                <div className="flex items-center gap-2">
-                  <span>ENROLL NOW</span>
-                  <ArrowRight className="w-5 h-5" />
-                </div>
-              </button>
+             <Link to="/enroll" className="inline-block">
+  <button className="bg-gradient-to-r from-amber-400 to-orange-500 text-black font-bold px-8 py-4 rounded-full hover:scale-105 transition-transform">
+    <div className="flex items-center gap-2">
+      <span>ENROLL NOW</span>
+      <ArrowRight className="w-5 h-5" />
+    </div>
+  </button>
+</Link>
             </div>
           </div>
         </div>
