@@ -111,7 +111,7 @@ const closeContactForm = () => setShowContactForm(false);
       <div className="flex items-center space-x-2 sm:space-x-3">
         <div className="w-24 h-24">
           <img
-            src="/src/images/e-learning-app-removebg-preview.png"
+            src="/public/e-learning-logo.jpg"
             alt="eKnowledge Logo"
             className="w-full h-full object-contain rounded-lg"
           />
