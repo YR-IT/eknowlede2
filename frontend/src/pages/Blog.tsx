@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import axios from 'axios';
 
 type Blog = {
-  id: number;
+  _id: string;
   title: string;
   excerpt: string;
   image: string;
@@ -10,12 +10,11 @@ type Blog = {
   date: string;
   tag: string;
   readTime: string;
+  featured?: boolean;
 };
+
 console.log("🌐 VITE_API_URL:", import.meta.env.VITE_API_URL);
 
-console.log("✅ BlogPage component rendered");
-
-// ✅ Dynamic API base from Vite env
 const API_BASE = import.meta.env.VITE_API_URL;
 
 const BlogPage = () => {
@@ -23,8 +22,6 @@ const BlogPage = () => {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    console.log("🌐 API_BASE =", API_BASE);
-
     axios
       .get(`${API_BASE}/api/blogs`)
       .then((response) => {
@@ -50,7 +47,7 @@ const BlogPage = () => {
       ) : (
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
           {blogs.map((post) => (
-            <div key={post.id} className="bg-white shadow p-4 rounded-lg">
+            <div key={post._id} className="bg-white shadow p-4 rounded-lg">
               <img
                 src={post.image}
                 alt={post.title}

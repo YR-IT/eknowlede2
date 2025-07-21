@@ -42,6 +42,7 @@ const AppLayout = () => {
           <Route path="/contact" element={<Contact />} />
           <Route path="/enroll" element={<EnrollNow />} />
           <Route path="/admin-dashboard" element={<AdminDashboard />} />
+          
         </Routes>
       </main>
 

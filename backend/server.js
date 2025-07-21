@@ -1,23 +1,27 @@
-const express = require('express');
-const cors = require('cors');
+import express from 'express';
+import cors from 'cors';
+import mongoose from 'mongoose';
+import dotenv from 'dotenv';
+import blogRoutes from './routes/blogRoutes.js'; // ✅ .js extension required
+
+dotenv.config(); // Load .env variables
 
 const app = express();
 const PORT = process.env.PORT || 3001;
 
-// ✅ Allow both local and deployed frontend origins
+// ✅ Allowed origins
 const allowedOrigins = [
-  'http://localhost:5173',           // Local dev
-  'https://eknowledge.vercel.app'    // Production (Vercel)
+  'http://localhost:5173',
+  'https://eknowledge.vercel.app'
 ];
 
-// ✅ CORS middleware with dynamic origin check
+// ✅ CORS
 app.use(cors({
   origin: function (origin, callback) {
-    if (!origin) return callback(null, true); // Allow Postman, curl, etc.
-    if (allowedOrigins.includes(origin)) {
-      return callback(null, true);
+    if (!origin || allowedOrigins.includes(origin)) {
+      callback(null, true);
     } else {
-      return callback(new Error('Not allowed by CORS'));
+      callback(new Error('Not allowed by CORS'));
     }
   },
   credentials: true
@@ -25,39 +29,19 @@ app.use(cors({
 
 app.use(express.json());
 
-// ✅ Dummy blog data
-const blogPosts = [
-  {
-    id: 1,
-    title: "The Future of Online Learning: Trends to Watch in 2024",
-    excerpt: "Discover the latest trends shaping the future of online education and how they'll impact learners worldwide.",
-    image: "https://images.pexels.com/photos/3184291/pexels-photo-3184291.jpeg?auto=compress&cs=tinysrgb&w=600",
-    author: "Sarah Johnson",
-    date: "2024-01-15",
-    tag: "Technology",
-    readTime: "5 min read"
-  },
-  {
-    id: 2,
-    title: "10 Essential Skills Every Developer Should Master in 2024",
-    excerpt: "From AI and machine learning to cloud computing, here are the skills that will define the next generation of developers.",
-    image: "https://images.pexels.com/photos/11035471/pexels-photo-11035471.jpeg?auto=compress&cs=tinysrgb&w=600",
-    author: "Michael Chen",
-    date: "2024-01-12",
-    tag: "Career",
-    readTime: "8 min read",
-    featured: true
-  }
-];
+// ✅ MongoDB connection
+mongoose.connect(process.env.MONGO_URI, {
+  useNewUrlParser: true,
+  useUnifiedTopology: true
+})
+.then(() => console.log("✅ MongoDB connected"))
+.catch(err => console.error("❌ MongoDB connection error:", err));
 
-// ✅ Test route
-app.get('/', (req, res) => {
-  res.send('Backend is working ✅');
-});
+// ✅ Routes
+app.use('/api/blogs', blogRoutes);
 
-// ✅ Blog API route
-app.get('/api/blogs', (req, res) => {
-  res.json(blogPosts);
+app.get("/", (req, res) => {
+  res.send("Backend is working ✅");
 });
 
 // ✅ Start server
