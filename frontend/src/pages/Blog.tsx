@@ -12,25 +12,35 @@ type Blog = {
   readTime: string;
 };
 
+// ✅ Dynamic API base from Vite env
+const API_BASE = import.meta.env.VITE_API_URL;
+
 const BlogPage = () => {
   const [blogs, setBlogs] = useState<Blog[]>([]);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    axios.get('/api/blogs')
+    axios.get(`${API_BASE}/api/blogs`)
       .then((response) => {
         console.log("✅ Blog data:", response.data);
         setBlogs(response.data);
       })
       .catch((error) => {
         console.error('❌ Error fetching blogs:', error);
+      })
+      .finally(() => {
+        setLoading(false);
       });
   }, []);
 
   return (
     <div className="p-4 min-h-screen bg-gray-50">
       <h1 className="text-3xl font-bold mb-6">Blogs</h1>
-      {blogs.length === 0 ? (
+
+      {loading ? (
         <p>Loading blogs...</p>
+      ) : blogs.length === 0 ? (
+        <p>No blog posts found.</p>
       ) : (
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
           {blogs.map((post) => (
