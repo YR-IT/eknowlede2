@@ -4,17 +4,16 @@ const cors = require('cors');
 const app = express();
 const PORT = process.env.PORT || 3001;
 
-// ✅ Allow local + production frontend URLs
+// ✅ Allow both local and deployed frontend origins
 const allowedOrigins = [
-  'http://localhost:5173', // local dev
-  'https://eknowledge.vercel.app' // production frontend
+  'http://localhost:5173',           // Local dev
+  'https://eknowledge.vercel.app'    // Production (Vercel)
 ];
 
 // ✅ CORS middleware with dynamic origin check
 app.use(cors({
   origin: function (origin, callback) {
-    // allow requests with no origin (like mobile apps or curl)
-    if (!origin) return callback(null, true);
+    if (!origin) return callback(null, true); // Allow Postman, curl, etc.
     if (allowedOrigins.includes(origin)) {
       return callback(null, true);
     } else {
@@ -51,9 +50,9 @@ const blogPosts = [
   }
 ];
 
-// ✅ Test root
-app.get("/", (req, res) => {
-  res.send("Backend is working ✅");
+// ✅ Test route
+app.get('/', (req, res) => {
+  res.send('Backend is working ✅');
 });
 
 // ✅ Blog API route
