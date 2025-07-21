@@ -80,7 +80,7 @@ const AdminDashboard: React.FC = () => {
     });
   };
 
-  const handleImageUpload = (e: React.ChangeEvent<HTMLInputElement>, isEdt: boolean = false) => {
+  const handleImageUpload = (e: React.ChangeEvent<HTMLInputElement>, isEdit: boolean = false) => {
     const file = e.target.files?.[0];
     if (file) {
       const reader = new FileReader();
@@ -420,15 +420,16 @@ const AdminDashboard: React.FC = () => {
 
                   <div className="space-y-2">
                     <label className="block text-slate-800 font-semibold text-sm sm:text-base lg:text-lg">Header Image</label>
-                    <div className="flex flex-col sm:flex-row gap-3 sm:gap-4">
-                      <input
-                        type="text"
-                        name="headerImage"
-                        value={formData.headerImage}
-                        onChange={handleInputChange}
-                        placeholder="Enter image URL or upload image"
-                        className="flex-1 p-3 sm:p-4 border-2 border-slate-200 rounded-xl focus:ring-4 focus:ring-blue-100 focus:border-blue-500 outline-none transition-all duration-300 text-sm sm:text-base lg:text-lg hover:border-slate-300"
-                      />
+                    <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 items-start">
+                      {formData.headerImage && (
+                        <div className="w-32 h-24 sm:w-40 sm:h-28 rounded-lg overflow-hidden border-2 border-slate-200 shadow-sm">
+                          <img
+                            src={formData.headerImage}
+                            alt="Preview"
+                            className="w-full h-full object-cover"
+                          />
+                        </div>
+                      )}
                       <input
                         type="file"
                         ref={fileInputRef}
@@ -439,10 +440,10 @@ const AdminDashboard: React.FC = () => {
                       <button 
                         type="button"
                         onClick={() => triggerImageUpload(false)}
-                        className="px-4 sm:px-6 py-3 sm:py-4 border-2 border-dashed border-slate-300 rounded-xl hover:border-blue-500 hover:bg-blue-50 transition-all duration-300 flex items-center justify-center gap-2 text-sm sm:text-base lg:text-lg font-medium group"
+                        className="flex-1 sm:flex-none px-4 sm:px-6 py-3 sm:py-4 border-2 border-dashed border-slate-300 rounded-xl hover:border-blue-500 hover:bg-blue-50 transition-all duration-300 flex items-center justify-center gap-2 text-sm sm:text-base lg:text-lg font-medium group"
                       >
                         <Upload className="w-4 h-4 sm:w-5 sm:h-5 group-hover:text-blue-600 transition-colors duration-300" />
-                        Upload Image
+                        {formData.headerImage ? 'Change Image' : 'Upload Image'}
                       </button>
                     </div>
                   </div>
@@ -545,15 +546,16 @@ const AdminDashboard: React.FC = () => {
 
                   <div className="space-y-2">
                     <label className="block text-slate-800 font-semibold text-sm sm:text-base lg:text-lg">Header Image</label>
-                    <div className="flex flex-col sm:flex-row gap-3 sm:gap-4">
-                      <input
-                        type="text"
-                        name="headerImage"
-                        value={formData.headerImage}
-                        onChange={handleInputChange}
-                        placeholder="Enter image URL or upload image"
-                        className="flex-1 p-3 sm:p-4 border-2 border-slate-200 rounded-xl focus:ring-4 focus:ring-amber-100 focus:border-amber-500 outline-none transition-all duration-300 text-sm sm:text-base lg:text-lg hover:border-slate-300"
-                      />
+                    <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 items-start">
+                      {formData.headerImage && (
+                        <div className="w-32 h-24 sm:w-40 sm:h-28 rounded-lg overflow-hidden border-2 border-slate-200 shadow-sm">
+                          <img
+                            src={formData.headerImage}
+                            alt="Preview"
+                            className="w-full h-full object-cover"
+                          />
+                        </div>
+                      )}
                       <input
                         type="file"
                         ref={editFileInputRef}
@@ -564,10 +566,10 @@ const AdminDashboard: React.FC = () => {
                       <button 
                         type="button"
                         onClick={() => triggerImageUpload(true)}
-                        className="px-4 sm:px-6 py-3 sm:py-4 border-2 border-dashed border-slate-300 rounded-xl hover:border-amber-500 hover:bg-amber-50 transition-all duration-300 flex items-center justify-center gap-2 text-sm sm:text-base lg:text-lg font-medium group"
+                        className="flex-1 sm:flex-none px-4 sm:px-6 py-3 sm:py-4 border-2 border-dashed border-slate-300 rounded-xl hover:border-amber-500 hover:bg-amber-50 transition-all duration-300 flex items-center justify-center gap-2 text-sm sm:text-base lg:text-lg font-medium group"
                       >
                         <Upload className="w-4 h-4 sm:w-5 sm:h-5 group-hover:text-amber-600 transition-colors duration-300" />
-                        Upload Image
+                        {formData.headerImage ? 'Change Image' : 'Upload Image'}
                       </button>
                     </div>
                   </div>
