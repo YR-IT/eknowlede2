@@ -8,6 +8,8 @@ import Pricing from './pages/Pricing';
 import Blog from './pages/Blog';
 import Contact from './pages/Contact';
 import EnrollNow from './pages/EnrollNow';
+import AdminDashboard from './admin/AdminDashboard'; 
+
 
 
 
@@ -25,12 +27,12 @@ function App() {
 // New layout component that controls Header/Footer visibility
 const AppLayout = () => {
   const location = useLocation();
-  const isEnrollPage = location.pathname === '/enroll';
+  const hideHeaderFooter = location.pathname === '/enroll' || location.pathname === '/admin-dashboard';
+
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-slate-50 via-blue-50 to-indigo-100">
-      {!isEnrollPage && <Header />}
-      
+       {!hideHeaderFooter && <Header />}
       <main>
         <Routes>
           <Route path="/" element={<Home />} />
@@ -39,10 +41,14 @@ const AppLayout = () => {
           <Route path="/blog" element={<Blog />} />
           <Route path="/contact" element={<Contact />} />
           <Route path="/enroll" element={<EnrollNow />} />
+          <Route path="/admin-dashboard" element={<AdminDashboard />} />
         </Routes>
       </main>
 
-      {!isEnrollPage && <Footer />}
+      {!hideHeaderFooter && <Header />}
+
+{!hideHeaderFooter && <Footer />}
+
     </div>
   );
 };
