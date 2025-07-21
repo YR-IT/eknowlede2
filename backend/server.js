@@ -1,23 +1,28 @@
 const express = require('express');
 const cors = require('cors');
-const app = express();
-const PORT = 3001;
 
-// ✅ Allow local + Vercel frontend domains
+const app = express();
+const PORT = process.env.PORT || 3001;
+
+// ✅ Allow local + production frontend URLs
 const allowedOrigins = [
   'http://localhost:5173', // local dev
-  'https://eknowledge-mk52.onrender.com' // deployed frontend
+  'https://eknowledge2.vercel.app' // production frontend
 ];
 
+// ✅ CORS middleware with dynamic origin check
 app.use(cors({
-  origin: allowedOrigins,
+  origin: function (origin, callback) {
+    // allow requests with no origin (like mobile apps or curl)
+    if (!origin) return callback(null, true);
+    if (allowedOrigins.includes(origin)) {
+      return callback(null, true);
+    } else {
+      return callback(new Error('Not allowed by CORS'));
+    }
+  },
   credentials: true
 }));
-app.use(cors({
-  origin: 'https://eknowledge2.vercel.app',
-  credentials: true,
-}));
-
 
 app.use(express.json());
 
@@ -46,17 +51,17 @@ const blogPosts = [
   }
 ];
 
-// Test root
+// ✅ Test root
 app.get("/", (req, res) => {
-  res.send("Backend is working");
+  res.send("Backend is working ✅");
 });
 
-// Blog API route
+// ✅ Blog API route
 app.get('/api/blogs', (req, res) => {
   res.json(blogPosts);
 });
 
-// Start server
+// ✅ Start server
 app.listen(PORT, () => {
   console.log(`🚀 Server running on http://localhost:${PORT}`);
 });
