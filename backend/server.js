@@ -1,30 +1,18 @@
 const express = require('express');
 const cors = require('cors');
-
 const app = express();
-const PORT = process.env.PORT || 3001; // ✅ Use dynamic port for Vercel
+const PORT = 3001;
 
-// ✅ Allow requests from your frontend domain
-const allowedOrigins = [
-  'http://localhost:5173',
- ' https://eknowledge.vercel.app/blog', // 🔁 Replace with actual frontend domain
-];
-
-app.use(cors({
-  origin: function (origin, callback) {
-    // allow requests with no origin (like mobile apps, curl, etc.)
-    if (!origin) return callback(null, true);
-    if (allowedOrigins.includes(origin)) {
-      return callback(null, true);
-    }
-    return callback(new Error('Not allowed by CORS'));
-  },
-  credentials: true,
-}));
+// Middleware
 
 app.use(express.json());
+app.use(cors({
+    origin: 'http://localhost:5173', // Or 3000, depending on your frontend port
+    credentials: true,
+  }));
+  
 
-// ✅ Dummy blog data
+// Dummy blog data
 const blogPosts = [
   {
     id: 1,
@@ -48,18 +36,17 @@ const blogPosts = [
     featured: true
   }
 ];
+app.get("/", (req, res) => {
+    res.send("Backend is working");
+  });
+  
 
-// ✅ Root route
-app.get('/', (req, res) => {
-  res.send('✅ Backend is working');
-});
-
-// ✅ API route
+// Route to get blogs
 app.get('/api/blogs', (req, res) => {
   res.json(blogPosts);
 });
 
-// ✅ Start server
+// Start server
 app.listen(PORT, () => {
-  console.log(`🚀 Server running on port ${PORT}`);
+  console.log(`🚀 Server running on http://localhost:${PORT}`);
 });

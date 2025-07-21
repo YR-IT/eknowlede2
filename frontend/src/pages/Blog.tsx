@@ -14,22 +14,15 @@ type Blog = {
 
 console.log("✅ BlogPage component rendered");
 
-// ✅ Read env variable
+// ✅ Dynamic API base from Vite env
 const API_BASE = import.meta.env.VITE_API_URL;
-console.log("🌐 API_BASE =", API_BASE);
 
 const BlogPage = () => {
   const [blogs, setBlogs] = useState<Blog[]>([]);
   const [loading, setLoading] = useState(true);
-  const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
-    if (!API_BASE) {
-      console.error("❌ VITE_API_URL is undefined. Check your .env file.");
-      setError("API URL is not configured.");
-      setLoading(false);
-      return;
-    }
+    console.log("🌐 API_BASE =", API_BASE);
 
     axios
       .get(`${API_BASE}/api/blogs`)
@@ -37,9 +30,8 @@ const BlogPage = () => {
         console.log("✅ Blog data:", response.data);
         setBlogs(response.data);
       })
-      .catch((err) => {
-        console.error("❌ Error fetching blogs:", err);
-        setError("Failed to fetch blogs. Check console for details.");
+      .catch((error) => {
+        console.error("❌ Error fetching blogs:", error);
       })
       .finally(() => {
         setLoading(false);
@@ -52,8 +44,6 @@ const BlogPage = () => {
 
       {loading ? (
         <p>Loading blogs...</p>
-      ) : error ? (
-        <p className="text-red-500">{error}</p>
       ) : blogs.length === 0 ? (
         <p>No blog posts found.</p>
       ) : (
