@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import { Plus, Eye, Edit, Trash2, X, Upload, Save } from 'lucide-react';
+import React, { useState, useEffect, useRef } from 'react';
+import { Plus, Eye, Edit, Trash2, X, Upload, Save, AlertTriangle } from 'lucide-react';
 
 interface Blog {
   id: number;
@@ -12,32 +12,20 @@ interface Blog {
 }
 
 const AdminDashboard: React.FC = () => {
-  const [blogs, setBlogs] = useState<Blog[]>([
-    {
-      id: 1,
-      title: "Stringent Penal Laws Like UP Gangsters Act Can't Be Used As Tool Of Harassment : Supreme Court",
-      author: "By Yatish Kumar Goel, Advocate",
-      summary: "The Supreme Court cautioned against the routine invocation of stringent extraordinary legislation like the UP Gangsters Act ('Act'), stating that such...",
-      content: "The Supreme Court cautioned against the routine invocation of stringent extraordinary legislation like the UP Gangsters Act ('Act'), stating that such laws must be invoked judiciously based on relevant facts and circumstances. The court emphasized that these laws should not be used as tools of harassment against individuals.",
-      headerImage: "https://images.pexels.com/photos/5668772/pexels-photo-5668772.jpeg?auto=compress&cs=tinysrgb&w=800",
-      date: "19/06/2025"
-    },
-    {
-      id: 2,
-      title: "Understanding Digital Privacy Rights in Modern Legal Framework",
-      author: "By Sarah Johnson, Legal Expert",
-      summary: "An in-depth analysis of how digital privacy rights are evolving in the current legal landscape and what it means for individuals...",
-      content: "Digital privacy has become one of the most pressing legal issues of our time. With the rapid advancement of technology and the increasing digitization of personal data, courts worldwide are grappling with how to balance individual privacy rights with legitimate business and security interests.",
-      headerImage: "https://images.pexels.com/photos/5380664/pexels-photo-5380664.jpeg?auto=compress&cs=tinysrgb&w=800",
-      date: "18/06/2025"
-    }
-  ]);
-
+  const [blogs, setBlogs] = useState<Blog[]>(() => {
+    const savedBlogs = localStorage.getItem('adminDashboardBlogs');
+    return savedBlogs ? JSON.parse(savedBlogs) : [];
+  });
   const [showCreateModal, setShowCreateModal] = useState(false);
   const [showPreviewModal, setShowPreviewModal] = useState(false);
   const [showEditModal, setShowEditModal] = useState(false);
+  const [showDeleteConfirmModal, setShowDeleteConfirmModal] = useState(false);
   const [selectedBlog, setSelectedBlog] = useState<Blog | null>(null);
   const [editingBlog, setEditingBlog] = useState<Blog | null>(null);
+  const [deletingBlogId, setDeletingBlogId] = useState<number | null>(null);
+
+  const fileInputRef = useRef<HTMLInputElement>(null);
+  const editFileInputRef = useRef<HTMLInputElement>(null);
 
   const [formData, setFormData] = useState({
     title: '',
@@ -47,6 +35,11 @@ const AdminDashboard: React.FC = () => {
     headerImage: ''
   });
 
+  // Save blogs to localStorage whenever blogs state changes
+  useEffect(() => {
+    localStorage.setItem('adminDashboardBlogs', JSON.stringify(blogs));
+  }, [blogs]);
+
   // Auto-generate summary from content
   const generateSummary = (content: string): string => {
     if (!content.trim()) return '';
@@ -55,19 +48,19 @@ const AdminDashboard: React.FC = () => {
     const cleanText = content.replace(/<[^>]*>/g, '').trim();
     
     // Split into sentences
-    const sentences = cleanText.split(/[.!?]+/).filter(s => s.trim().length > 10);
+    const sentences = cleanText.split(/[.!?]+/).filter(s => s.trim().length > 5);
     
     if (sentences.length === 0) return '';
     
-    // Take first 2-3 sentences or up to 150 characters
+    // Take first 2-3 sentences or up to 200 characters
     let summary = '';
     for (let i = 0; i < Math.min(3, sentences.length); i++) {
       const sentence = sentences[i].trim();
-      if (summary.length + sentence.length > 150) break;
+      if (summary.length + sentence.length > 200) break;
       summary += (summary ? '. ' : '') + sentence;
     }
     
-    return summary + (summary.endsWith('.') ? '..' : '...');
+    return summary + (summary.endsWith('.') ? '' : '.');
   };
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
@@ -79,7 +72,7 @@ const AdminDashboard: React.FC = () => {
       };
       
       // Auto-generate summary when content changes
-      if (name === 'content' && value.trim()) {
+      if (name === 'content') {
         updatedFormData.summary = generateSummary(value);
       }
       
@@ -87,15 +80,38 @@ const AdminDashboard: React.FC = () => {
     });
   };
 
+  const handleImageUpload = (e: React.ChangeEvent<HTMLInputElement>, isEdt: boolean = false) => {
+    const file = e.target.files?.[0];
+    if (file) {
+      const reader = new FileReader();
+      reader.onload = (event) => {
+        const imageUrl = event.target?.result as string;
+        setFormData(prev => ({
+          ...prev,
+          headerImage: imageUrl
+        }));
+      };
+      reader.readAsDataURL(file);
+    }
+  };
+
+  const triggerImageUpload = (isEdit: boolean = false) => {
+    if (isEdit) {
+      editFileInputRef.current?.click();
+    } else {
+      fileInputRef.current?.click();
+    }
+  };
+
   const handleCreateBlog = () => {
     if (formData.title && formData.author && formData.summary && formData.content) {
       const newBlog: Blog = {
-        id: blogs.length + 1,
+        id: Date.now(), // Use timestamp for unique ID
         title: formData.title,
         author: formData.author,
         summary: formData.summary,
         content: formData.content,
-        headerImage: formData.headerImage || "https://images.pexels.com/photos/5668772/pexels-photo-5668772.jpeg?auto=compress&cs=tinysrgb&w=800",
+        headerImage: formData.headerImage,
         date: new Date().toLocaleDateString('en-GB')
       };
       setBlogs([newBlog, ...blogs]);
@@ -126,7 +142,21 @@ const AdminDashboard: React.FC = () => {
   };
 
   const handleDeleteBlog = (id: number) => {
-    setBlogs(blogs.filter(blog => blog.id !== id));
+    setDeletingBlogId(id);
+    setShowDeleteConfirmModal(true);
+  };
+
+  const confirmDeleteBlog = () => {
+    if (deletingBlogId) {
+      setBlogs(blogs.filter(blog => blog.id !== deletingBlogId));
+      setShowDeleteConfirmModal(false);
+      setDeletingBlogId(null);
+    }
+  };
+
+  const cancelDeleteBlog = () => {
+    setShowDeleteConfirmModal(false);
+    setDeletingBlogId(null);
   };
 
   const openPreview = (blog: Blog) => {
@@ -157,9 +187,15 @@ const AdminDashboard: React.FC = () => {
     setShowCreateModal(false);
     setShowPreviewModal(false);
     setShowEditModal(false);
+    setShowDeleteConfirmModal(false);
     setSelectedBlog(null);
     setEditingBlog(null);
+    setDeletingBlogId(null);
     setFormData({ title: '', author: '', summary: '', content: '', headerImage: '' });
+  };
+
+  const getBlogToDelete = () => {
+    return blogs.find(blog => blog.id === deletingBlogId);
   };
 
   return (
@@ -183,74 +219,144 @@ const AdminDashboard: React.FC = () => {
         </div>
 
         {/* Blogs Grid */}
-        <div className="space-y-4 sm:space-y-6 lg:space-y-8">
-          {blogs.map((blog, index) => (
-            <div key={blog.id} className={`bg-white rounded-xl sm:rounded-2xl shadow-lg hover:shadow-2xl transition-all duration-500 overflow-hidden border border-slate-200/50 transform hover:-translate-y-1 sm:hover:-translate-y-2 ${index % 2 === 0 ? 'animate-slide-in-left' : 'animate-slide-in-right'}`}>
-              <div className="flex flex-col lg:flex-row">
-                {/* Content */}
-                <div className="flex-1 p-4 sm:p-5 lg:p-6">
-                  <div className="flex flex-wrap items-center gap-2 sm:gap-3 lg:gap-4 text-xs sm:text-sm text-slate-500 mb-3 sm:mb-4">
-                    <div className="flex items-center gap-1 sm:gap-2 bg-slate-100 px-2 sm:px-3 py-1 rounded-full">
-                      <div className="w-2 h-2 bg-blue-500 rounded-full"></div>
-                      <span className="truncate max-w-[120px] sm:max-w-none">{blog.author}</span>
+        {blogs.length === 0 ? (
+          <div className="text-center py-16 sm:py-20 lg:py-24">
+            <div className="max-w-md mx-auto">
+              <div className="w-16 h-16 sm:w-20 sm:h-20 bg-gradient-to-r from-blue-100 to-indigo-100 rounded-full flex items-center justify-center mx-auto mb-6 sm:mb-8">
+                <Plus className="w-8 h-8 sm:w-10 sm:h-10 text-blue-600" />
+              </div>
+              <h3 className="text-xl sm:text-2xl font-bold text-slate-900 mb-3 sm:mb-4">No Blog Posts Yet</h3>
+              <p className="text-slate-600 mb-6 sm:mb-8 text-sm sm:text-base">Get started by creating your first blog post to share your insights with the world.</p>
+              <button
+                onClick={() => setShowCreateModal(true)}
+                className="bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 text-white px-6 sm:px-8 py-3 sm:py-4 rounded-xl font-semibold flex items-center justify-center gap-2 sm:gap-3 shadow-lg hover:shadow-xl transform hover:-translate-y-0.5 transition-all duration-300 group mx-auto text-sm sm:text-base"
+              >
+                <Plus className="w-4 h-4 sm:w-5 sm:h-5 group-hover:rotate-90 transition-transform duration-300" />
+                <span>Create Your First Blog Post</span>
+              </button>
+            </div>
+          </div>
+        ) : (
+          <div className="space-y-4 sm:space-y-6 lg:space-y-8">
+            {blogs.map((blog, index) => (
+              <div key={blog.id} className={`bg-white rounded-xl sm:rounded-2xl shadow-lg hover:shadow-2xl transition-all duration-500 overflow-hidden border border-slate-200/50 transform hover:-translate-y-1 sm:hover:-translate-y-2 ${index % 2 === 0 ? 'animate-slide-in-left' : 'animate-slide-in-right'}`}>
+                <div className="flex flex-col lg:flex-row">
+                  {/* Content */}
+                  <div className="flex-1 p-4 sm:p-5 lg:p-6">
+                    <div className="flex flex-wrap items-center gap-2 sm:gap-3 lg:gap-4 text-xs sm:text-sm text-slate-500 mb-3 sm:mb-4">
+                      <div className="flex items-center gap-1 sm:gap-2 bg-slate-100 px-2 sm:px-3 py-1 rounded-full">
+                        <div className="w-2 h-2 bg-blue-500 rounded-full"></div>
+                        <span className="truncate max-w-[120px] sm:max-w-none">{blog.author}</span>
+                      </div>
+                      <div className="flex items-center gap-1 sm:gap-2 bg-slate-100 px-2 sm:px-3 py-1 rounded-full">
+                        <div className="w-2 h-2 bg-green-500 rounded-full"></div>
+                        {blog.date}
+                      </div>
                     </div>
-                    <div className="flex items-center gap-1 sm:gap-2 bg-slate-100 px-2 sm:px-3 py-1 rounded-full">
-                      <div className="w-2 h-2 bg-green-500 rounded-full"></div>
-                      {blog.date}
+                    
+                    <h2 className="text-lg sm:text-xl font-bold text-slate-900 mb-2 sm:mb-3 leading-tight hover:text-blue-700 transition-colors duration-300 cursor-pointer line-clamp-2">
+                      {blog.title}
+                    </h2>
+                    
+                    <p className="text-slate-600 mb-3 sm:mb-4 leading-relaxed text-sm sm:text-base line-clamp-2">
+                      {blog.summary}
+                    </p>
+                    
+                    {/* Show more content preview */}
+                    <div className="text-slate-500 mb-3 sm:mb-4 leading-relaxed text-xs sm:text-sm line-clamp-2 sm:line-clamp-3">
+                      {blog.content.replace(/<[^>]*>/g, '').substring(0, 200)}...
+                    </div>
+                    
+                    <div className="flex flex-wrap gap-2 sm:gap-3">
+                      <button
+                        onClick={() => openPreview(blog)}
+                        className="flex items-center gap-1 sm:gap-2 px-3 sm:px-4 py-2 text-blue-600 hover:text-white hover:bg-blue-600 border-2 border-blue-600 rounded-lg transition-all duration-300 font-medium transform hover:scale-105 text-xs sm:text-sm"
+                      >
+                        <Eye className="w-3 h-3 sm:w-4 sm:h-4" />
+                        Preview
+                      </button>
+                      <button
+                        onClick={() => openEdit(blog)}
+                        className="flex items-center gap-1 sm:gap-2 px-3 sm:px-4 py-2 text-amber-600 hover:text-white hover:bg-amber-600 border-2 border-amber-600 rounded-lg transition-all duration-300 font-medium transform hover:scale-105 text-xs sm:text-sm"
+                      >
+                        <Edit className="w-3 h-3 sm:w-4 sm:h-4" />
+                        Edit
+                      </button>
+                      <button
+                        onClick={() => handleDeleteBlog(blog.id)}
+                        className="flex items-center gap-1 sm:gap-2 px-3 sm:px-4 py-2 text-red-600 hover:text-white hover:bg-red-600 border-2 border-red-600 rounded-lg transition-all duration-300 font-medium transform hover:scale-105 text-xs sm:text-sm"
+                      >
+                        <Trash2 className="w-3 h-3 sm:w-4 sm:h-4" />
+                        Delete
+                      </button>
                     </div>
                   </div>
                   
-                  <h2 className="text-lg sm:text-xl font-bold text-slate-900 mb-2 sm:mb-3 leading-tight hover:text-blue-700 transition-colors duration-300 cursor-pointer line-clamp-2">
-                    {blog.title}
-                  </h2>
-                  
-                  <p className="text-slate-600 mb-3 sm:mb-4 leading-relaxed text-sm sm:text-base line-clamp-2">
-                    {blog.summary}
-                  </p>
-                  
-                  {/* Show more content preview */}
-                  <div className="text-slate-500 mb-3 sm:mb-4 leading-relaxed text-xs sm:text-sm line-clamp-2 sm:line-clamp-3">
-                    {blog.content.replace(/<[^>]*>/g, '').substring(0, 200)}...
+                  {/* Smaller Header Image */}
+                  <div className="w-full lg:w-64 xl:w-72 h-40 sm:h-48 lg:h-auto relative overflow-hidden group">
+                    <img
+                      src={blog.headerImage}
+                      alt={blog.title}
+                      className="w-full h-full object-cover transform group-hover:scale-105 sm:group-hover:scale-110 transition-transform duration-700"
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
                   </div>
-                  
-                  <div className="flex flex-wrap gap-2 sm:gap-3">
-                    <button
-                      onClick={() => openPreview(blog)}
-                      className="flex items-center gap-1 sm:gap-2 px-3 sm:px-4 py-2 text-blue-600 hover:text-white hover:bg-blue-600 border-2 border-blue-600 rounded-lg transition-all duration-300 font-medium transform hover:scale-105 text-xs sm:text-sm"
-                    >
-                      <Eye className="w-3 h-3 sm:w-4 sm:h-4" />
-                      Preview
-                    </button>
-                    <button
-                      onClick={() => openEdit(blog)}
-                      className="flex items-center gap-1 sm:gap-2 px-3 sm:px-4 py-2 text-amber-600 hover:text-white hover:bg-amber-600 border-2 border-amber-600 rounded-lg transition-all duration-300 font-medium transform hover:scale-105 text-xs sm:text-sm"
-                    >
-                      <Edit className="w-3 h-3 sm:w-4 sm:h-4" />
-                      Edit
-                    </button>
-                    <button
-                      onClick={() => handleDeleteBlog(blog.id)}
-                      className="flex items-center gap-1 sm:gap-2 px-3 sm:px-4 py-2 text-red-600 hover:text-white hover:bg-red-600 border-2 border-red-600 rounded-lg transition-all duration-300 font-medium transform hover:scale-105 text-xs sm:text-sm"
-                    >
-                      <Trash2 className="w-3 h-3 sm:w-4 sm:h-4" />
-                      Delete
-                    </button>
+                </div>
+              </div>
+            ))}
+          </div>
+        )}
+
+        {/* Delete Confirmation Modal */}
+        {showDeleteConfirmModal && (
+          <div className="fixed inset-0 bg-black/60 backdrop-blur-sm flex items-center justify-center p-2 sm:p-4 z-50 animate-fade-in">
+            <div className="bg-white rounded-xl sm:rounded-2xl shadow-2xl max-w-md w-full transform animate-scale-in">
+              <div className="p-4 sm:p-6 lg:p-8">
+                <div className="flex items-center gap-3 sm:gap-4 mb-4 sm:mb-6">
+                  <div className="w-10 h-10 sm:w-12 sm:h-12 bg-red-100 rounded-full flex items-center justify-center">
+                    <AlertTriangle className="w-5 h-5 sm:w-6 sm:h-6 text-red-600" />
+                  </div>
+                  <div>
+                    <h3 className="text-lg sm:text-xl font-bold text-slate-900">Delete Blog Post</h3>
+                    <p className="text-slate-600 text-sm sm:text-base">This action cannot be undone</p>
                   </div>
                 </div>
                 
-                {/* Smaller Header Image */}
-                <div className="w-full lg:w-64 xl:w-72 h-40 sm:h-48 lg:h-auto relative overflow-hidden group">
-                  <img
-                    src={blog.headerImage}
-                    alt={blog.title}
-                    className="w-full h-full object-cover transform group-hover:scale-105 sm:group-hover:scale-110 transition-transform duration-700"
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                <div className="mb-6 sm:mb-8">
+                  <p className="text-slate-700 mb-3 sm:mb-4 text-sm sm:text-base">
+                    Are you sure you want to delete this blog post?
+                  </p>
+                  {getBlogToDelete() && (
+                    <div className="bg-slate-50 p-3 sm:p-4 rounded-lg border-l-4 border-red-500">
+                      <p className="font-semibold text-slate-900 text-sm sm:text-base line-clamp-2">
+                        "{getBlogToDelete()?.title}"
+                      </p>
+                      <p className="text-slate-600 text-xs sm:text-sm mt-1">
+                        by {getBlogToDelete()?.author}
+                      </p>
+                    </div>
+                  )}
+                </div>
+                
+                <div className="flex flex-col sm:flex-row gap-3 sm:gap-4">
+                  <button
+                    onClick={cancelDeleteBlog}
+                    className="flex-1 px-4 sm:px-6 py-3 sm:py-4 border-2 border-slate-300 text-slate-700 rounded-xl hover:bg-slate-50 hover:border-slate-400 transition-all duration-300 font-semibold text-sm sm:text-base"
+                  >
+                    Cancel
+                  </button>
+                  <button
+                    onClick={confirmDeleteBlog}
+                    className="flex-1 px-4 sm:px-6 py-3 sm:py-4 bg-gradient-to-r from-red-600 to-red-700 hover:from-red-700 hover:to-red-800 text-white rounded-xl font-semibold flex items-center justify-center gap-2 shadow-lg hover:shadow-xl transform hover:-translate-y-0.5 transition-all duration-300 text-sm sm:text-base"
+                  >
+                    <Trash2 className="w-4 h-4" />
+                    Delete Post
+                  </button>
                 </div>
               </div>
             </div>
-          ))}
-        </div>
+          </div>
+        )}
 
         {/* Create Blog Modal */}
         {showCreateModal && (
@@ -323,7 +429,18 @@ const AdminDashboard: React.FC = () => {
                         placeholder="Enter image URL or upload image"
                         className="flex-1 p-3 sm:p-4 border-2 border-slate-200 rounded-xl focus:ring-4 focus:ring-blue-100 focus:border-blue-500 outline-none transition-all duration-300 text-sm sm:text-base lg:text-lg hover:border-slate-300"
                       />
-                      <button className="px-4 sm:px-6 py-3 sm:py-4 border-2 border-dashed border-slate-300 rounded-xl hover:border-blue-500 hover:bg-blue-50 transition-all duration-300 flex items-center justify-center gap-2 text-sm sm:text-base lg:text-lg font-medium group">
+                      <input
+                        type="file"
+                        ref={fileInputRef}
+                        onChange={(e) => handleImageUpload(e, false)}
+                        accept="image/*"
+                        className="hidden"
+                      />
+                      <button 
+                        type="button"
+                        onClick={() => triggerImageUpload(false)}
+                        className="px-4 sm:px-6 py-3 sm:py-4 border-2 border-dashed border-slate-300 rounded-xl hover:border-blue-500 hover:bg-blue-50 transition-all duration-300 flex items-center justify-center gap-2 text-sm sm:text-base lg:text-lg font-medium group"
+                      >
                         <Upload className="w-4 h-4 sm:w-5 sm:h-5 group-hover:text-blue-600 transition-colors duration-300" />
                         Upload Image
                       </button>
@@ -437,7 +554,18 @@ const AdminDashboard: React.FC = () => {
                         placeholder="Enter image URL or upload image"
                         className="flex-1 p-3 sm:p-4 border-2 border-slate-200 rounded-xl focus:ring-4 focus:ring-amber-100 focus:border-amber-500 outline-none transition-all duration-300 text-sm sm:text-base lg:text-lg hover:border-slate-300"
                       />
-                      <button className="px-4 sm:px-6 py-3 sm:py-4 border-2 border-dashed border-slate-300 rounded-xl hover:border-amber-500 hover:bg-amber-50 transition-all duration-300 flex items-center justify-center gap-2 text-sm sm:text-base lg:text-lg font-medium group">
+                      <input
+                        type="file"
+                        ref={editFileInputRef}
+                        onChange={(e) => handleImageUpload(e, true)}
+                        accept="image/*"
+                        className="hidden"
+                      />
+                      <button 
+                        type="button"
+                        onClick={() => triggerImageUpload(true)}
+                        className="px-4 sm:px-6 py-3 sm:py-4 border-2 border-dashed border-slate-300 rounded-xl hover:border-amber-500 hover:bg-amber-50 transition-all duration-300 flex items-center justify-center gap-2 text-sm sm:text-base lg:text-lg font-medium group"
+                      >
                         <Upload className="w-4 h-4 sm:w-5 sm:h-5 group-hover:text-amber-600 transition-colors duration-300" />
                         Upload Image
                       </button>
