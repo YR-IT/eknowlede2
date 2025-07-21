@@ -7,7 +7,7 @@ const PORT = process.env.PORT || 3001;
 // ✅ Allow local + production frontend URLs
 const allowedOrigins = [
   'http://localhost:5173', // local dev
-  'https://eknowledge2.vercel.app' // production frontend
+  'https://eknowledge.vercel.app' // production frontend
 ];
 
 // ✅ CORS middleware with dynamic origin check
