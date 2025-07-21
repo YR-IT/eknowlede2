@@ -3,16 +3,25 @@ const cors = require('cors');
 const app = express();
 const PORT = 3001;
 
-// Middleware
+// ✅ Allow local + Vercel frontend domains
+const allowedOrigins = [
+  'http://localhost:5173', // local dev
+  'https://eknowledge-mk52.onrender.com' // deployed frontend
+];
+
+app.use(cors({
+  origin: allowedOrigins,
+  credentials: true
+}));
+app.use(cors({
+  origin: 'https://eknowledge2.vercel.app',
+  credentials: true,
+}));
+
 
 app.use(express.json());
-app.use(cors({
-    origin: 'http://localhost:5173', // Or 3000, depending on your frontend port
-    credentials: true,
-  }));
-  
 
-// Dummy blog data
+// ✅ Dummy blog data
 const blogPosts = [
   {
     id: 1,
@@ -36,12 +45,13 @@ const blogPosts = [
     featured: true
   }
 ];
-app.get("/", (req, res) => {
-    res.send("Backend is working");
-  });
-  
 
-// Route to get blogs
+// Test root
+app.get("/", (req, res) => {
+  res.send("Backend is working");
+});
+
+// Blog API route
 app.get('/api/blogs', (req, res) => {
   res.json(blogPosts);
 });
