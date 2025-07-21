@@ -22,6 +22,8 @@ const BlogPage = () => {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
+    console.log("🌐 API_BASE =", API_BASE);
+
     axios
       .get(`${API_BASE}/api/blogs`)
       .then((response) => {
