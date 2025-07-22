@@ -55,10 +55,15 @@ router.post('/', upload.single('image'), async (req, res) => {
     let imageUrl = '';
 
     if (req.file?.buffer) {
-      const uploadResult = await uploadToCloudinary(req.file.buffer);
-      imageUrl = uploadResult.secure_url;
+      try {
+        const uploadResult = await uploadToCloudinary(req.file.buffer);
+        imageUrl = uploadResult.secure_url;
+      } catch (uploadError) {
+        console.error('❌ Cloudinary Upload Error:', uploadError);
+        return res.status(500).json({ message: 'Cloudinary upload failed' });
+      }
     }
-
+    
     const newBlog = new Blog({
       title,
       author,
