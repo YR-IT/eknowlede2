@@ -2,7 +2,6 @@ import express from 'express';
 import cors from 'cors';
 import mongoose from 'mongoose';
 import dotenv from 'dotenv';
-import multer from 'multer';
 import blogRoutes from './routes/blogRoutes.js';
 
 dotenv.config();
@@ -10,12 +9,15 @@ dotenv.config();
 const app = express();
 const PORT = process.env.PORT || 3001;
 
-// ✅ CORS Setup
-const allowedOrigins = [
-  'http://localhost:5173',
-  'https://eknowledge.vercel.app'
-];
+// ✅ Check environment
+console.log('🌐 Cloudinary ENV:', {
+  name: process.env.CLOUDINARY_CLOUD_NAME,
+  key: process.env.CLOUDINARY_API_KEY,
+  secret: process.env.CLOUDINARY_API_SECRET ? 'Exists ✅' : 'Missing ❌'
+});
 
+// ✅ CORS Setup
+const allowedOrigins = ['http://localhost:5173', 'https://eknowledge.vercel.app'];
 app.use(cors({
   origin: function (origin, callback) {
     if (!origin || allowedOrigins.includes(origin)) {
@@ -27,34 +29,19 @@ app.use(cors({
   credentials: true
 }));
 
-// ✅ Middleware for JSON
+// ✅ JSON parsing
 app.use(express.json());
-
-// ✅ Multer setup for file uploads
-const storage = multer.memoryStorage(); // you can switch to diskStorage if needed
-const upload = multer({ storage });
 
 // ✅ MongoDB connection
 mongoose.connect(process.env.MONGO_URI)
   .then(() => console.log("✅ MongoDB connected"))
   .catch(err => console.error("❌ MongoDB connection error:", err));
 
-// ✅ Upload route (basic test route)
-app.post('/api/upload', upload.single('image'), (req, res) => {
-  if (!req.file) return res.status(400).json({ error: 'No file uploaded' });
-  console.log('✅ File received:', req.file.originalname);
-  res.json({ message: 'Upload successful' });
-});
+// ✅ Routes
+app.use('/api/blogs', blogRoutes);
 
-// ✅ Blog routes
-app.use('/api/blogs', upload.single('image'), blogRoutes); // if blogRoutes uses image
+// ✅ Health Check
+app.get("/", (req, res) => res.send("Backend running ✅"));
 
-// ✅ Health check
-app.get("/", (req, res) => {
-  res.send("Backend is working ✅");
-});
-
-// ✅ Start server
-app.listen(PORT, () => {
-  console.log(`🚀 Server running on http://localhost:${PORT}`);
-});
+// ✅ Start Server
+app.listen(PORT, () => console.log(`🚀 Server running on http://localhost:${PORT}`));

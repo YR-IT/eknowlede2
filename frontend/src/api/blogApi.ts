@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const BASE_URL = "http://localhost:3001/api/blogs"; // or your deployed URL
+const BASE_URL = "http://localhost:3001/api/blogs";
 
 export const fetchBlogs = async () => {
   const res = await axios.get(BASE_URL);
@@ -8,7 +8,23 @@ export const fetchBlogs = async () => {
 };
 
 export const createBlog = async (blogData: any) => {
-  const res = await axios.post(BASE_URL, blogData);
+  const formData = new FormData();
+
+  formData.append("title", blogData.title);
+  formData.append("author", blogData.author);
+  formData.append("summary", blogData.summary);
+  formData.append("content", blogData.content);
+
+  if (blogData.image) {
+    formData.append("image", blogData.image); // File object
+  }
+
+  const res = await axios.post(BASE_URL, formData, {
+    headers: {
+      "Content-Type": "multipart/form-data"
+    }
+  });
+
   return res.data;
 };
 

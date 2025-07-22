@@ -1,5 +1,3 @@
-// models/Blog.js
-
 import mongoose from 'mongoose';
 
 const blogSchema = new mongoose.Schema({
@@ -7,7 +5,7 @@ const blogSchema = new mongoose.Schema({
   author: String,
   summary: String,
   content: String,
-  image: Buffer, // or image: String (if storing image URLs)
+  image: String, // Store Cloudinary image URL
 }, {
   timestamps: true
 });

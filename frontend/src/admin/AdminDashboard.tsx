@@ -11,6 +11,8 @@ const AdminDashboard: React.FC = () => {
   const [successMessage, setSuccessMessage] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
 
+  const BACKEND_URL = import.meta.env.VITE_BACKEND_URL || "http://localhost:3001";
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setLoading(true);
@@ -25,26 +27,34 @@ const AdminDashboard: React.FC = () => {
       formData.append("content", content);
       if (image) formData.append("image", image);
 
-      const response = await axios.post("http://localhost:3001/api/blogs", formData, {
-        headers: {
-          "Content-Type": "multipart/form-data",
-        },
+      const response = await axios.post(`${BACKEND_URL}/api/blogs`, formData, {
+        headers: { "Content-Type": "multipart/form-data" },
       });
 
       setSuccessMessage("✅ Blog post uploaded successfully!");
+      // Reset form
       setTitle("");
       setAuthor("Yatish Kumar Goel, Advocate");
       setSummary("");
       setContent("");
       setImage(null);
     } catch (error: any) {
-      console.error("Error uploading blog:", error);
-      setErrorMessage(
-        error.response?.data?.message || "❌ Upload failed. Check backend logs."
-      );
+      console.error("❌ Upload error:", error);
+      const fallbackMsg = "❌ Upload failed. Check backend logs.";
+      setErrorMessage(error.response?.data?.message || fallbackMsg);
+    } finally {
+      setLoading(false);
     }
+  };
 
-    setLoading(false);
+  const handleCancel = () => {
+    setTitle("");
+    setAuthor("Yatish Kumar Goel, Advocate");
+    setSummary("");
+    setContent("");
+    setImage(null);
+    setSuccessMessage("");
+    setErrorMessage("");
   };
 
   return (
@@ -55,13 +65,12 @@ const AdminDashboard: React.FC = () => {
         </h1>
 
         <form onSubmit={handleSubmit} className="space-y-5">
+          {/* Title */}
           <div>
-            <label className="block text-gray-700 font-semibold mb-1">
-              Blog Title
-            </label>
+            <label className="block text-gray-700 font-semibold mb-1">Blog Title</label>
             <input
               type="text"
-              placeholder="Enter a compelling title for your blog..."
+              placeholder="Enter a compelling title..."
               value={title}
               onChange={(e) => setTitle(e.target.value)}
               required
@@ -69,10 +78,9 @@ const AdminDashboard: React.FC = () => {
             />
           </div>
 
+          {/* Author */}
           <div>
-            <label className="block text-gray-700 font-semibold mb-1">
-              Author
-            </label>
+            <label className="block text-gray-700 font-semibold mb-1">Author</label>
             <input
               type="text"
               value={author}
@@ -81,73 +89,73 @@ const AdminDashboard: React.FC = () => {
             />
           </div>
 
+          {/* Summary */}
           <div>
-            <label className="block text-gray-700 font-semibold mb-1">
-              Blog Summary
-            </label>
+            <label className="block text-gray-700 font-semibold mb-1">Blog Summary</label>
             <textarea
-              placeholder="Summary will be auto-generated from your content, or you can write your own..."
+              placeholder="Write a short summary..."
               value={summary}
               onChange={(e) => setSummary(e.target.value)}
               className="w-full px-4 py-2 border rounded-lg h-24 resize-none focus:outline-none focus:ring-2 focus:ring-blue-500"
-            ></textarea>
+            />
           </div>
 
+          {/* Image */}
           <div>
-            <label className="block text-gray-700 font-semibold mb-1">
-              Header Image
-            </label>
+            <label className="block text-gray-700 font-semibold mb-1">Header Image</label>
             <input
               type="file"
               accept="image/*"
               onChange={(e) => setImage(e.target.files?.[0] || null)}
               className="block w-full text-sm text-gray-700 file:mr-4 file:py-2 file:px-4 file:border-0 file:rounded-lg file:bg-blue-100 hover:file:bg-blue-200"
             />
+            {image && (
+              <img
+                src={URL.createObjectURL(image)}
+                alt="Preview"
+                className="mt-3 max-h-52 object-contain rounded-lg border"
+              />
+            )}
           </div>
 
+          {/* Content */}
           <div>
-            <label className="block text-gray-700 font-semibold mb-1">
-              Blog Content
-            </label>
+            <label className="block text-gray-700 font-semibold mb-1">Blog Content</label>
             <textarea
               placeholder="Write your full blog content here..."
               value={content}
               onChange={(e) => setContent(e.target.value)}
               required
               className="w-full px-4 py-2 border rounded-lg h-40 resize-none focus:outline-none focus:ring-2 focus:ring-blue-500"
-            ></textarea>
+            />
             <p className="text-sm text-gray-500 mt-1">
-              💡 You can use HTML formatting like <code>&lt;h2&gt;</code>,{" "}
-              <code>&lt;p&gt;</code>, <code>&lt;ul&gt;</code>, etc.
+              💡 You can use HTML formatting like <code>&lt;h2&gt;</code>, <code>&lt;p&gt;</code>, etc.
             </p>
           </div>
 
+          {/* Buttons */}
           <div className="flex justify-between mt-6">
             <button
               type="button"
-              onClick={() => {
-                setTitle("");
-                setAuthor("Yatish Kumar Goel, Advocate");
-                setSummary("");
-                setContent("");
-                setImage(null);
-                setErrorMessage("");
-                setSuccessMessage("");
-              }}
+              onClick={handleCancel}
               className="px-4 py-2 bg-gray-200 text-gray-800 rounded-lg hover:bg-gray-300"
+              disabled={loading}
             >
               Cancel
             </button>
             <button
               type="submit"
               disabled={loading}
-              className="px-6 py-2 bg-blue-600 text-white rounded-lg font-semibold hover:bg-blue-700 transition"
+              className={`px-6 py-2 bg-blue-600 text-white rounded-lg font-semibold transition ${
+                loading ? "opacity-50 cursor-not-allowed" : "hover:bg-blue-700"
+              }`}
             >
               {loading ? "Uploading..." : "Upload Blog Post"}
             </button>
           </div>
         </form>
 
+        {/* Messages */}
         {successMessage && (
           <p className="mt-4 text-green-600 font-semibold text-center">
             {successMessage}
