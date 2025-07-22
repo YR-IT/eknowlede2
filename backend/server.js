@@ -2,20 +2,20 @@ import express from 'express';
 import cors from 'cors';
 import mongoose from 'mongoose';
 import dotenv from 'dotenv';
-import blogRoutes from './routes/blogRoutes.js'; // ✅ .js extension required
+import multer from 'multer';
+import blogRoutes from './routes/blogRoutes.js';
 
-dotenv.config(); // Load .env variables
+dotenv.config();
 
 const app = express();
 const PORT = process.env.PORT || 3001;
 
-// ✅ Allowed origins
+// ✅ CORS Setup
 const allowedOrigins = [
   'http://localhost:5173',
   'https://eknowledge.vercel.app'
 ];
 
-// ✅ CORS
 app.use(cors({
   origin: function (origin, callback) {
     if (!origin || allowedOrigins.includes(origin)) {
@@ -27,19 +27,29 @@ app.use(cors({
   credentials: true
 }));
 
+// ✅ Middleware for JSON
 app.use(express.json());
 
+// ✅ Multer setup for file uploads
+const storage = multer.memoryStorage(); // you can switch to diskStorage if needed
+const upload = multer({ storage });
+
 // ✅ MongoDB connection
-mongoose.connect(process.env.MONGO_URI, {
-  useNewUrlParser: true,
-  useUnifiedTopology: true
-})
-.then(() => console.log("✅ MongoDB connected"))
-.catch(err => console.error("❌ MongoDB connection error:", err));
+mongoose.connect(process.env.MONGO_URI)
+  .then(() => console.log("✅ MongoDB connected"))
+  .catch(err => console.error("❌ MongoDB connection error:", err));
 
-// ✅ Routes
-app.use('/api/blogs', blogRoutes);
+// ✅ Upload route (basic test route)
+app.post('/api/upload', upload.single('image'), (req, res) => {
+  if (!req.file) return res.status(400).json({ error: 'No file uploaded' });
+  console.log('✅ File received:', req.file.originalname);
+  res.json({ message: 'Upload successful' });
+});
 
+// ✅ Blog routes
+app.use('/api/blogs', upload.single('image'), blogRoutes); // if blogRoutes uses image
+
+// ✅ Health check
 app.get("/", (req, res) => {
   res.send("Backend is working ✅");
 });
