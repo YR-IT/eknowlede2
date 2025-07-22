@@ -1,10 +1,10 @@
 import axios from "axios";
 
-// Use the environment variable for deployed and local setups
-const BASE_URL = import.meta.env.VITE_API_URL;
+// ✅ Append /blogs to the base URL
+const BASE_URL = `${import.meta.env.VITE_API_URL}/blogs`;
 
 export const fetchBlogs = async () => {
-  const res = await axios.get(BASE_URL);
+  const res = await axios.get(BASE_URL); // GET https://.../blogs
   return res.data;
 };
 
@@ -17,7 +17,7 @@ export const createBlog = async (blogData: any) => {
   formData.append("content", blogData.content);
 
   if (blogData.image) {
-    formData.append("image", blogData.image); // File object
+    formData.append("image", blogData.image); // ✅ File input
   }
 
   const res = await axios.post(BASE_URL, formData, {
