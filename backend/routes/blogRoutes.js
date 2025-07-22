@@ -15,7 +15,11 @@ const uploadToCloudinary = (buffer) => {
     const stream = cloudinary.uploader.upload_stream(
       { folder: 'blogs' },
       (error, result) => {
-        if (error) return reject(error);
+        if (error) {
+          console.error('❌ Cloudinary Upload Error:', error);
+          return reject(error);
+        }
+        console.log('✅ Cloudinary Upload Success:', result.secure_url);
         resolve(result);
       }
     );
@@ -37,7 +41,10 @@ router.get('/', async (req, res) => {
 // ✅ POST create blog
 router.post('/', upload.single('image'), async (req, res) => {
   try {
+    console.log('📥 Blog POST Request received');
     const { title, author, summary, content } = req.body;
+    console.log('📝 Data:', { title, author, summary, content });
+    console.log('📷 File:', req.file?.originalname);
 
     if (!title || !author || !content) {
       return res.status(400).json({ message: 'Missing required fields.' });
@@ -50,8 +57,10 @@ router.post('/', upload.single('image'), async (req, res) => {
         const uploadResult = await uploadToCloudinary(req.file.buffer);
         imageUrl = uploadResult.secure_url;
       } catch (uploadError) {
-        console.error('❌ Cloudinary Upload Error:', uploadError);
-        return res.status(500).json({ message: 'Cloudinary upload failed' });
+        return res.status(500).json({
+          message: 'Cloudinary upload failed',
+          error: uploadError?.message || 'Unknown error',
+        });
       }
     }
 
@@ -60,15 +69,20 @@ router.post('/', upload.single('image'), async (req, res) => {
       author,
       summary,
       content,
-      image: imageUrl
+      image: imageUrl,
     });
 
     await newBlog.save();
+    console.log('✅ Blog saved to MongoDB:', newBlog._id);
+
     res.status(201).json({ message: '✅ Blog created', blog: newBlog });
 
   } catch (err) {
     console.error('❌ Blog creation error:', err);
-    res.status(500).json({ message: 'Internal server error' });
+    res.status(500).json({
+      message: 'Internal server error',
+      error: err?.message || 'Unknown error',
+    });
   }
 });
 

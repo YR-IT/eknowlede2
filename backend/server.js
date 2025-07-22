@@ -18,9 +18,10 @@ console.log('🌐 Cloudinary ENV:', {
 
 // ✅ Allow frontend URL via ENV
 const allowedOrigins = [
-  'http://localhost:5173',
-  process.env.CLIENT_ORIGIN // <- Set this in Render to: https://eknowledge.vercel.app
+  'http://localhost:5173', // local dev
+  'https://eknowledge.vercel.app', // your Vercel frontend
 ];
+
 
 app.use(cors({
   origin: function (origin, callback) {
