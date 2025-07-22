@@ -8,18 +8,18 @@ dotenv.config();
 
 const router = express.Router();
 
-// Multer in-memory setup
+// ✅ Multer in-memory setup
 const storage = multer.memoryStorage();
 const upload = multer({ storage });
 
-// Cloudinary setup
+// ✅ Cloudinary config
 cloudinary.config({
   cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
   api_key: process.env.CLOUDINARY_API_KEY,
   api_secret: process.env.CLOUDINARY_API_SECRET
 });
 
-// Upload helper
+// ✅ Cloudinary upload helper
 const uploadToCloudinary = (buffer) => {
   return new Promise((resolve, reject) => {
     const stream = cloudinary.uploader.upload_stream({ folder: 'blogs' }, (error, result) => {
@@ -30,7 +30,18 @@ const uploadToCloudinary = (buffer) => {
   });
 };
 
-// POST /api/blogs
+// ✅ GET all blogs: GET /api/blogs
+router.get('/', async (req, res) => {
+  try {
+    const blogs = await Blog.find().sort({ createdAt: -1 });
+    res.json(blogs);
+  } catch (err) {
+    console.error('❌ Error fetching blogs:', err);
+    res.status(500).json({ message: 'Internal server error' });
+  }
+});
+
+// ✅ Create a blog post: POST /api/blogs
 router.post('/', upload.single('image'), async (req, res) => {
   try {
     const { title, author, summary, content } = req.body;

@@ -1,8 +1,7 @@
 import axios from "axios";
 
+// Use the environment variable for deployed and local setups
 const BASE_URL = import.meta.env.VITE_API_URL;
-
-
 
 export const fetchBlogs = async () => {
   const res = await axios.get(BASE_URL);
