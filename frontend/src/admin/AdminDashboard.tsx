@@ -26,7 +26,7 @@ const AdminDashboard: React.FC = () => {
       if (image) formData.append("image", image);
 
       const response = await axios.post(
-        import.meta.env.VITE_BACKEND_URL + "/api/blogs",
+        `${import.meta.env.VITE_BACKEND_URL}/api/blogs`,
         formData,
         {
           headers: { "Content-Type": "multipart/form-data" },
