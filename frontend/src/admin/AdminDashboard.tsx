@@ -25,11 +25,14 @@ const AdminDashboard: React.FC = () => {
       formData.append("content", content);
       if (image) formData.append("image", image);
 
-      const response = await axios.post("http://localhost:3001/api/blogs", formData, {
-        headers: {
-          "Content-Type": "multipart/form-data",
-        },
-      });
+      const response = await axios.post(
+        import.meta.env.VITE_BACKEND_URL + "/api/blogs",
+        formData,
+        {
+          headers: { "Content-Type": "multipart/form-data" },
+        }
+      );
+      
 
       setSuccessMessage("✅ Blog post uploaded successfully!");
       setTitle("");
