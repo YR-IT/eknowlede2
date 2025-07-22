@@ -1,6 +1,6 @@
 import express from 'express';
 import multer from 'multer';
-import { v2 as cloudinary } from 'cloudinary';
+import cloudinary from '../utils/cloudinary.js'; // ✅ assumes config is done there
 import Blog from '../models/Blog.js';
 import dotenv from 'dotenv';
 
