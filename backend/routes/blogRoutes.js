@@ -4,18 +4,27 @@ import Blog from '../models/Blog.js';
 
 const router = express.Router();
 
-// Multer config (in-memory storage)
-const storage = multer.memoryStorage(); 
-const upload = multer({ storage });
+// ✅ Multer config (in-memory)
+const storage = multer.memoryStorage();
+const upload = multer({ 
+  storage,
+  limits: { fileSize: 5 * 1024 * 1024 }, // optional: limit to 5MB
+});
 
-// POST /api/blogs
+// ✅ Blog creation route
 router.post('/', upload.single('image'), async (req, res) => {
   try {
     const { title, author, summary, content } = req.body;
-    const imageBuffer = req.file ? req.file.buffer : null;
+    const file = req.file;
 
+    // ✅ Basic validation
     if (!title || !author || !content) {
       return res.status(400).json({ message: "Missing required fields" });
+    }
+
+    // ✅ Optional: ensure image is uploaded
+    if (!file) {
+      return res.status(400).json({ message: "Image file is required" });
     }
 
     const newBlog = new Blog({
@@ -23,11 +32,13 @@ router.post('/', upload.single('image'), async (req, res) => {
       author,
       summary,
       content,
-      image: imageBuffer, // store as Buffer (or store as URL if uploaded elsewhere)
+      image: file.buffer, // Buffer saved directly
     });
 
     await newBlog.save();
-    res.status(201).json({ message: "✅ Blog created successfully" });
+    console.log("✅ Blog saved to MongoDB");
+
+    res.status(201).json({ message: "Blog created successfully" });
   } catch (err) {
     console.error("❌ Error saving blog:", err);
     res.status(500).json({ message: "Internal server error" });
