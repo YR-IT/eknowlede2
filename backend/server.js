@@ -15,6 +15,13 @@ console.log('🌐 Cloudinary ENV:', {
   key: process.env.CLOUDINARY_API_KEY,
   secret: process.env.CLOUDINARY_API_SECRET ? 'Exists ✅' : 'Missing ❌'
 });
+app.use(cors({
+  origin: true, // Allow any origin for now (can restrict later)
+  credentials: true
+}));
+app.use(express.json({ limit: "10mb" }));
+app.use(express.urlencoded({ extended: true, limit: "10mb" }));
+
 
 // ✅ CORS Setup
 const allowedOrigins = ['http://localhost:5173', 'https://eknowledge.vercel.app'];

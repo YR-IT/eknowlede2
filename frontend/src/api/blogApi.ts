@@ -1,10 +1,10 @@
 import axios from "axios";
 
-// ✅ Append /blogs to the base URL
-const BASE_URL = `${import.meta.env.VITE_API_URL}/blogs`;
+// ✅ Safe base URL with fallback
+const BASE_URL = `${import.meta.env.VITE_API_URL || "http://localhost:5000"}/blogs`;
 
 export const fetchBlogs = async () => {
-  const res = await axios.get(BASE_URL); // GET https://.../blogs
+  const res = await axios.get(BASE_URL);
   return res.data;
 };
 
@@ -16,17 +16,24 @@ export const createBlog = async (blogData: any) => {
   formData.append("summary", blogData.summary);
   formData.append("content", blogData.content);
 
+  // ✅ Optional: Add file if it exists
   if (blogData.image) {
-    formData.append("image", blogData.image); // ✅ File input
+    formData.append("image", blogData.image);
   }
 
-  const res = await axios.post(BASE_URL, formData, {
-    headers: {
-      "Content-Type": "multipart/form-data"
-    }
-  });
+  try {
+    const res = await axios.post(BASE_URL, formData, {
+      headers: {
+        "Content-Type": "multipart/form-data"
+      },
+      withCredentials: true // ✅ Optional, if backend uses cookies/sessions
+    });
 
-  return res.data;
+    return res.data;
+  } catch (err: any) {
+    console.error("❌ Blog upload failed:", err.response?.data || err.message);
+    throw err;
+  }
 };
 
 export const updateBlog = async (id: string, blogData: any) => {
