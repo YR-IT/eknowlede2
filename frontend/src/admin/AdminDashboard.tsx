@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { Plus, Eye, Edit, Trash2, X, Upload, Save, AlertTriangle, Loader2 } from 'lucide-react';
 import * as blogApi from "../api/blogApi";
+import axios from 'axios';
 
 
 // Define the Blog interface
@@ -14,7 +15,13 @@ interface Blog {
   date: string;
   createdAt: number; // Timestamp for sorting
 }
-console.log("👉 API Base URL:", import.meta.env.VITE_API_URL);
+
+const BASE_URL = `${import.meta.env.VITE_API_URL}/api/blogs`;
+const res = await axios.post(BASE_URL, FormData, {
+  headers: { "Content-Type": "multipart/form-data" }
+});
+
+
 
 const AdminDashboard: React.FC = () => {
   // State variables for managing blogs and UI modals
