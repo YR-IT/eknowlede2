@@ -1,7 +1,8 @@
 import axios from "axios";
 
 // ✅ Base API URL (MUST be set in .env as VITE_API_URL, e.g., https://eknowledge-mk52.onrender.com)
-const BASE_URL = `${import.meta.env.VITE_API_URL}/api/blogs`;
+const BASE_URL = `${import.meta.env.VITE_API_URL}`;
+
 
 
 
