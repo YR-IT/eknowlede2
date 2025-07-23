@@ -1,7 +1,11 @@
 import axios from "axios";
 
-// ✅ Base API URL (ensure VITE_API_URL is set in .env file)
-const BASE_URL = `${import.meta.env.VITE_API_URL ?? "http://localhost:3001"}/api/blogs`;
+// ✅ Base API URL - uses VITE_API_URL from .env or defaults to localhost
+const BASE_URL =
+  import.meta.env.MODE === 'development'
+    ? 'http://localhost:3001/api/blogs'
+    : `${import.meta.env.VITE_API_URL}/api/blogs`;
+
 
 // ✅ Interface for sending data
 export interface BlogApiData {
