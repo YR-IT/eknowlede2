@@ -1,10 +1,9 @@
 import axios from "axios";
 
-// ✅ Base API URL - uses VITE_API_URL from .env or defaults to localhost
- const BASE_URL = `${import.meta.env.VITE_API_URL}/api/blogs`;
-  ;
+// ✅ Base API URL (MUST be set in .env as VITE_API_URL, e.g., https://eknowledge-mk52.onrender.com)
+const BASE_URL = `${import.meta.env.VITE_API_URL}/api/blogs`;
 
-    console.log("👉 API Base URL:", import.meta.env.VITE_API_URL);
+console.log("👉 API Base URL:", BASE_URL); // ✅ Remove this in production
 
 // ✅ Interface for sending data
 export interface BlogApiData {
@@ -12,8 +11,8 @@ export interface BlogApiData {
   author: string;
   summary: string;
   content: string;
-  image?: File | null;          // New file upload
-  headerImage?: string;         // Existing image URL (optional fallback)
+  image?: File | null;        // For new file upload
+  headerImage?: string;       // Existing URL fallback
   date?: string;
   createdAt?: number;
 }
@@ -38,11 +37,11 @@ export const fetchBlogs = async (): Promise<BlogApiResponse[]> => {
     return res.data;
   } catch (err: any) {
     console.error("❌ Error fetching blogs:", err.response?.data || err.message);
-    throw err;
+    throw new Error("Failed to fetch blogs");
   }
 };
 
-// ✅ Create new blog
+// ✅ Create blog
 export const createBlog = async (blogData: BlogApiData): Promise<BlogApiResponse> => {
   const formData = new FormData();
   formData.append("title", blogData.title);
@@ -52,7 +51,7 @@ export const createBlog = async (blogData: BlogApiData): Promise<BlogApiResponse
   formData.append("date", blogData.date || new Date().toLocaleDateString("en-GB"));
   formData.append("createdAt", (blogData.createdAt ?? Date.now()).toString());
 
-  // ⬇️ Attach image or fallback
+  // Upload image or fallback
   if (blogData.image) {
     formData.append("image", blogData.image);
   } else if (blogData.headerImage) {
@@ -66,11 +65,11 @@ export const createBlog = async (blogData: BlogApiData): Promise<BlogApiResponse
     return res.data.blog;
   } catch (err: any) {
     console.error("❌ Blog creation failed:", err.response?.data || err.message);
-    throw err;
+    throw new Error("Failed to create blog");
   }
 };
 
-// ✅ Update blog by ID
+// ✅ Update blog
 export const updateBlog = async (id: string, blogData: BlogApiData): Promise<BlogApiResponse> => {
   const formData = new FormData();
   formData.append("title", blogData.title);
@@ -91,7 +90,7 @@ export const updateBlog = async (id: string, blogData: BlogApiData): Promise<Blo
     return res.data.blog;
   } catch (err: any) {
     console.error("❌ Blog update failed:", err.response?.data || err.message);
-    throw err;
+    throw new Error("Failed to update blog");
   }
 };
 
@@ -102,6 +101,6 @@ export const deleteBlog = async (id: string): Promise<{ message: string; id: str
     return res.data;
   } catch (err: any) {
     console.error("❌ Blog deletion failed:", err.response?.data || err.message);
-    throw err;
+    throw new Error("Failed to delete blog");
   }
 };
