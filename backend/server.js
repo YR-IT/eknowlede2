@@ -9,17 +9,20 @@ dotenv.config();
 const app = express();
 const PORT = process.env.PORT || 3001;
 
-// ✅ Environment Check
+// ✅ Log cloudinary env
 console.log('🌐 Cloudinary ENV:', {
   name: process.env.CLOUDINARY_CLOUD_NAME,
   key: process.env.CLOUDINARY_API_KEY,
-  secret: process.env.CLOUDINARY_API_SECRET ? 'Exists ✅' : 'Missing ❌'
+  secret: process.env.CLOUDINARY_API_SECRET ? 'Exists ✅' : 'Missing ❌',
 });
 
-// ✅ Allow frontend URL via ENV
+// ✅ Log current NODE_ENV
+console.log("🔧 Running in:", process.env.NODE_ENV || 'development');
+
+// ✅ Allow frontend URLs via CORS
 const allowedOrigins = [
-  'http://localhost:5173', // local dev
-  'https://eknowledge.vercel.app', // your Vercel frontend
+  'http://localhost:5173',
+  'https://eknowledge.vercel.app'
 ];
 
 app.use(cors({
@@ -27,26 +30,33 @@ app.use(cors({
     if (!origin || allowedOrigins.includes(origin)) {
       callback(null, true);
     } else {
-      callback(new Error('❌ Not allowed by CORS'));
+      console.warn(`❌ Blocked by CORS: ${origin}`);
+      callback(new Error('Not allowed by CORS'));
     }
   },
-  credentials: true
+  credentials: true,
 }));
 
-// ✅ Body parsing
+// ✅ Body parsing middleware
 app.use(express.json({ limit: '10mb' }));
 app.use(express.urlencoded({ extended: true, limit: '10mb' }));
 
 // ✅ Routes
 app.use('/api/blogs', blogRoutes);
 
-// ✅ Health check
-app.get("/", (req, res) => res.send("Backend running ✅"));
+// ✅ Health check route
+app.get("/", (req, res) => {
+  res.send("Backend running ✅");
+});
 
-// ✅ Connect MongoDB
+// ✅ Connect to MongoDB
 mongoose.connect(process.env.MONGO_URI)
   .then(() => console.log("✅ MongoDB connected"))
   .catch(err => console.error("❌ MongoDB connection error:", err));
 
 // ✅ Start server
-app.listen(PORT, () => console.log(`🚀 Server running on port ${PORT}`));
+app.listen(PORT, () => {
+  console.log(`🚀 Server running on port ${PORT}`);
+}).on('error', (err) => {
+  console.error('❌ Server failed to start:', err);
+});
