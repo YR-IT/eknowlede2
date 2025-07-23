@@ -22,7 +22,6 @@ const allowedOrigins = [
   'https://eknowledge.vercel.app', // your Vercel frontend
 ];
 
-
 app.use(cors({
   origin: function (origin, callback) {
     if (!origin || allowedOrigins.includes(origin)) {

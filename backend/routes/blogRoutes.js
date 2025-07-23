@@ -4,12 +4,9 @@ import cloudinary from '../utils/cloudinary.js';
 import Blog from '../models/Blog.js';
 
 const router = express.Router();
-
-// ✅ Multer in-memory setup
 const storage = multer.memoryStorage();
 const upload = multer({ storage });
 
-// ✅ Cloudinary upload helper
 const uploadToCloudinary = (buffer) => {
   return new Promise((resolve, reject) => {
     const stream = cloudinary.uploader.upload_stream(
@@ -17,10 +14,10 @@ const uploadToCloudinary = (buffer) => {
       (error, result) => {
         if (error) {
           console.error('❌ Cloudinary Upload Error:', error);
-          return reject(error);
+          reject(error);
+        } else {
+          resolve(result);
         }
-        console.log('✅ Cloudinary Upload Success:', result.secure_url);
-        resolve(result);
       }
     );
     stream.end(buffer);
@@ -38,30 +35,21 @@ router.get('/', async (req, res) => {
   }
 });
 
-// ✅ POST create blog
+// ✅ CREATE new blog
 router.post('/', upload.single('image'), async (req, res) => {
   try {
-    console.log('📥 Blog POST Request received');
-    const { title, author, summary, content } = req.body;
-    console.log('📝 Data:', { title, author, summary, content });
-    console.log('📷 File:', req.file?.originalname);
-
-    if (!title || !author || !content) {
-      return res.status(400).json({ message: 'Missing required fields.' });
-    }
-
+    const { title, author, summary, content, createdAt, date, headerImage } = req.body;
     let imageUrl = '';
 
+    console.log("📥 Incoming blog:", { title, author, summary });
+
     if (req.file?.buffer) {
-      try {
-        const uploadResult = await uploadToCloudinary(req.file.buffer);
-        imageUrl = uploadResult.secure_url;
-      } catch (uploadError) {
-        return res.status(500).json({
-          message: 'Cloudinary upload failed',
-          error: uploadError?.message || 'Unknown error',
-        });
-      }
+      const result = await uploadToCloudinary(req.file.buffer);
+      imageUrl = result.secure_url;
+    } else if (headerImage) {
+      imageUrl = headerImage;
+    } else {
+      imageUrl = 'https://placehold.co/600x400/e2e8f0/64748b?text=No+Image';
     }
 
     const newBlog = new Blog({
@@ -69,20 +57,57 @@ router.post('/', upload.single('image'), async (req, res) => {
       author,
       summary,
       content,
-      image: imageUrl,
+      headerImage: imageUrl,
+      createdAt: Number(createdAt) || Date.now(),
+      date: date || new Date().toLocaleDateString('en-GB')
     });
 
     await newBlog.save();
-    console.log('✅ Blog saved to MongoDB:', newBlog._id);
-
     res.status(201).json({ message: '✅ Blog created', blog: newBlog });
-
   } catch (err) {
     console.error('❌ Blog creation error:', err);
-    res.status(500).json({
-      message: 'Internal server error',
-      error: err?.message || 'Unknown error',
-    });
+    res.status(500).json({ message: 'Failed to create blog', error: err.message });
+  }
+});
+
+// ✅ UPDATE blog
+router.put('/:id', upload.single('image'), async (req, res) => {
+  try {
+    const { title, author, summary, content, headerImage } = req.body;
+    const blog = await Blog.findById(req.params.id);
+
+    if (!blog) return res.status(404).json({ message: 'Blog not found' });
+
+    blog.title = title || blog.title;
+    blog.author = author || blog.author;
+    blog.summary = summary || blog.summary;
+    blog.content = content || blog.content;
+
+    if (req.file?.buffer) {
+      const result = await uploadToCloudinary(req.file.buffer);
+      blog.headerImage = result.secure_url;
+    } else if (headerImage !== undefined) {
+      blog.headerImage = headerImage;
+    }
+
+    await blog.save();
+    res.json({ message: '✅ Blog updated', blog });
+  } catch (err) {
+    console.error('❌ Blog update error:', err);
+    res.status(500).json({ message: 'Failed to update blog', error: err.message });
+  }
+});
+
+// ✅ DELETE blog
+router.delete('/:id', async (req, res) => {
+  try {
+    const blog = await Blog.findByIdAndDelete(req.params.id);
+    if (!blog) return res.status(404).json({ message: 'Blog not found' });
+
+    res.json({ message: '✅ Blog deleted', id: blog._id });
+  } catch (err) {
+    console.error('❌ Blog deletion error:', err);
+    res.status(500).json({ message: 'Internal server error', error: err.message });
   }
 });
 
