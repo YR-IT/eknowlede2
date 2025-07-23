@@ -1,7 +1,7 @@
 import axios from "axios";
 
 // ✅ Base API URL (MUST be set in .env as VITE_API_URL, e.g., https://eknowledge-mk52.onrender.com)
-const BASE_URL = "https://eknowledge-mk52.onrender.com"; // Replace with your actual backend URL
+const BASE_URL = "https://eknowledge-backend.onrender.com/api/blogs"; // Replace with your actual backend URL
 
 
 
