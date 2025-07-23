@@ -104,16 +104,16 @@ const Contact = () => {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-16">
           {contactInfo.map((info, index) => (
             <div
-              key={index}
-              className="group bg-white rounded-2xl p-6 shadow-lg hover:shadow-2xl transform hover:scale-105 transition-all duration-300 text-center"
-            >
-              <div className={`w-12 h-12 bg-gradient-to-r ${info.color} rounded-xl flex items-center justify-center mb-4`}>
-                <info.icon className="h-6 w-6 text-white" />
-              </div>
-              <h3 className="text-lg font-semibold text-gray-800 mb-2">{info.title}</h3>
-              <p className="text-[#7a0025] font-medium whitespace-pre-line">{info.details}</p>
-              <p className="text-sm text-gray-500">{info.subtext}</p>
-            </div>
+  key={index}
+  className="group bg-white rounded-2xl p-6 shadow-lg hover:shadow-2xl transform hover:scale-105 transition-all duration-300 text-center flex flex-col items-center"
+>
+  <div className={`w-12 h-12 bg-gradient-to-r ${info.color} rounded-xl flex items-center justify-center mb-4`}>
+    <info.icon className="h-6 w-6 text-white" />
+  </div>
+  <h3 className="text-lg font-semibold text-gray-800 mb-2">{info.title}</h3>
+  <p className="text-[#7a0025] font-medium whitespace-pre-line text-sm">{info.details}</p>
+  <p className="text-sm text-gray-500">{info.subtext}</p>
+</div>
           ))}
         </div>
 
