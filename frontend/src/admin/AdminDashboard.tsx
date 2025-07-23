@@ -14,6 +14,7 @@ interface Blog {
   date: string;
   createdAt: number; // Timestamp for sorting
 }
+console.log("👉 API Base URL:", import.meta.env.VITE_API_URL);
 
 const AdminDashboard: React.FC = () => {
   // State variables for managing blogs and UI modals
