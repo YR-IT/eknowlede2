@@ -25,14 +25,12 @@ const AdminDashboard: React.FC = () => {
       formData.append("content", content);
       if (image) formData.append("image", image);
       
-      const response = await axios.post("https://eknowledge-mk52.onrender.com/api/blogs", formData, {
+      const response = await axios.post("https://eknowlede.onrender.com/api/blogs", formData, {
         headers: {
           "Content-Type": "multipart/form-data",
         },
       });
       
-      
-
       setSuccessMessage("✅ Blog post uploaded successfully!");
       setTitle("");
       setAuthor("Yatish Kumar Goel, Advocate");
