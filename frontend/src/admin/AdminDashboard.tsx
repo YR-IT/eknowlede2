@@ -65,6 +65,7 @@ const AdminDashboard: React.FC = () => {
   };
   // Fetch blogs on component mount
   useEffect(() => {
+    console.log("👉 Full URL:", `${import.meta.env.VITE_API_URL}/api/blogs`);
     fetchBlogs();
   }, []); // Empty dependency array means this runs once on mount
 
