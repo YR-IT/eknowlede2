@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { Plus, Eye, Edit, Trash2, X, Upload, Save, AlertTriangle, Loader2 } from 'lucide-react';
 import * as blogApi from "../api/blogApi";
-import axios from 'axios';
+
 
 
 // Define the Blog interface
@@ -17,9 +17,6 @@ interface Blog {
 }
 
 
-const response = await axios.post("https://eknowledge-mk52.onrender.com", FormData, {
-  headers: { "Content-Type": "multipart/form-data" }
-});
 
 
 
