@@ -17,7 +17,7 @@ interface Blog {
 }
 
 
-const res = await axios.post("https://eknowledge-mk52.onrender.com", FormData, {
+const response = await axios.post("https://eknowledge-mk52.onrender.com", FormData, {
   headers: { "Content-Type": "multipart/form-data" }
 });
 
