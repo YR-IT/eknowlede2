@@ -16,8 +16,8 @@ interface Blog {
   createdAt: number; // Timestamp for sorting
 }
 
-const BASE_URL = `${import.meta.env.VITE_API_URL}/api/blogs`;
-const res = await axios.post(BASE_URL, FormData, {
+
+const res = await axios.post("https://eknowledge-mk52.onrender.com", FormData, {
   headers: { "Content-Type": "multipart/form-data" }
 });
 
