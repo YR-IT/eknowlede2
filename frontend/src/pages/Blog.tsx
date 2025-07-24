@@ -6,14 +6,6 @@ import {
 } from 'lucide-react';
 
 
-import { fetchBlogs } from "../api/blogApi"; // Adjust path accordingly
-
-useEffect(() => {
-  fetchBlogs()
-    .then(setBlogs)
-    .catch(err => console.error("❌ Error fetching blogs:", err))
-    .finally(() => setLoading(false));
-}, []);
 
 
 type Blog = {
@@ -160,11 +152,3 @@ const BlogPage = () => {
 };
 
 export default BlogPage;
-function setBlogs(value: BlogApiResponse[]): BlogApiResponse[] | PromiseLike<BlogApiResponse[]> {
-  throw new Error('Function not implemented.');
-}
-
-function setLoading(arg0: boolean): void {
-  throw new Error('Function not implemented.');
-}
-
