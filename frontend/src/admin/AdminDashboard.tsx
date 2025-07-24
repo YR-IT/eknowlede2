@@ -62,6 +62,22 @@ const AdminDashboard: React.FC = () => {
   const [successMessage, setSuccessMessage] = useState<string | null>(null);
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
 
+useEffect(() => {
+  const fetchBlogs = async () => {
+    try {
+      const res = await fetch(`${import.meta.env.VITE_API_URL}/api/blogs`);
+      if (!res.ok) throw new Error("Failed to fetch blogs");
+      const data = await res.json();
+      setBlogs(data);
+    } catch (err: any) {
+      console.error("❌ Error fetching blogs:", err);
+      setError(err.message || "Something went wrong");
+    }
+  };
+
+  fetchBlogs();
+}, []);
+
   // --- Function to fetch blogs from backend API ---
   const fetchBlogs = async () => {
     setLoading(true);
