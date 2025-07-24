@@ -17,6 +17,19 @@ interface Blog {
 }
 
 
+useEffect(() => {
+  const fetchBlogs = async () => {
+    try {
+      const res = await fetch(`${import.meta.env.VITE_API_URL}/api/blogs`);
+      const data = await res.json();
+      console.log('✅ Blogs:', data);
+    } catch (error) {
+      console.error('❌ Error fetching blogs:', error);
+    }
+  };
+
+  fetchBlogs();
+}, []);
 
 
 const AdminDashboard: React.FC = () => {
