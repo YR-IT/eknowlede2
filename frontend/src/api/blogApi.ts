@@ -1,5 +1,6 @@
 import axios from "axios";
 
+
 // 🔧 Base API URL (supports both local & Vercel)
 const API_ROOT = (import.meta.env.VITE_API_URL || "http://localhost:3001").replace(/\/+$/, "");
 const BASE_URL = `${API_ROOT}/api/blogs`;
