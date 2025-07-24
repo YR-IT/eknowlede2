@@ -21,10 +21,12 @@ useEffect(() => {
   const fetchBlogs = async () => {
     try {
       const res = await fetch(`${import.meta.env.VITE_API_URL}/api/blogs`);
+      if (!res.ok) throw new Error("Failed to fetch blogs");
       const data = await res.json();
-      console.log('✅ Blogs:', data);
-    } catch (error) {
-      console.error('❌ Error fetching blogs:', error);
+      setBlogs(data);
+    } catch (err: any) {
+      console.error("❌ Error fetching blogs:", err);
+      setError(err.message || "Something went wrong");
     }
   };
 
@@ -869,3 +871,12 @@ const AdminDashboard: React.FC = () => {
 };
 
 export default AdminDashboard;
+
+function setBlogs(data: any) {
+  throw new Error('Function not implemented.');
+}
+
+
+function setError(arg0: any) {
+  throw new Error('Function not implemented.');
+}
