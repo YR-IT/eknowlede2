@@ -1,22 +1,25 @@
 import axios from "axios";
 
-// ✅ Base API URL from Vite environment variables
+// ✅ Base API URL (MUST be set in .env as VITE_API_URL, e.g., https://your-backend.onrender.com)
 const BASE_URL = `${import.meta.env.VITE_API_URL}/api/blogs`;
+axios.get('https://eknowledge-mk52.onrender.com/api/blogs')
 
-console.log("👉 API Base URL:", BASE_URL); // Debugging (optional in dev)
 
-// ✅ Interfaces
+console.log("👉 API Base URL:", BASE_URL); // ✅ Useful for debugging. Remove in production.
+
+// ✅ Interface for sending data
 export interface BlogApiData {
   title: string;
   author: string;
   summary: string;
   content: string;
-  image?: File | null;
-  headerImage?: string;
+  image?: File | null;        // New uploaded file
+  headerImage?: string;       // Existing Cloudinary URL
   date?: string;
   createdAt?: number;
 }
 
+// ✅ Interface for receiving blog response
 export interface BlogApiResponse {
   _id: string;
   title: string;
@@ -40,7 +43,7 @@ export const fetchBlogs = async (): Promise<BlogApiResponse[]> => {
   }
 };
 
-// ✅ Create a new blog
+// ✅ Create blog
 export const createBlog = async (blogData: BlogApiData): Promise<BlogApiResponse> => {
   const formData = new FormData();
   formData.append("title", blogData.title);
@@ -58,7 +61,9 @@ export const createBlog = async (blogData: BlogApiData): Promise<BlogApiResponse
 
   try {
     const res = await axios.post(BASE_URL, formData, {
-      headers: { "Content-Type": "multipart/form-data" }
+      headers: {
+        "Content-Type": "multipart/form-data"
+      }
     });
     return res.data.blog;
   } catch (err: any) {
@@ -67,7 +72,7 @@ export const createBlog = async (blogData: BlogApiData): Promise<BlogApiResponse
   }
 };
 
-// ✅ Update an existing blog
+// ✅ Update blog
 export const updateBlog = async (id: string, blogData: BlogApiData): Promise<BlogApiResponse> => {
   const formData = new FormData();
   formData.append("title", blogData.title);
@@ -83,7 +88,9 @@ export const updateBlog = async (id: string, blogData: BlogApiData): Promise<Blo
 
   try {
     const res = await axios.put(`${BASE_URL}/${id}`, formData, {
-      headers: { "Content-Type": "multipart/form-data" }
+      headers: {
+        "Content-Type": "multipart/form-data"
+      }
     });
     return res.data.blog;
   } catch (err: any) {
@@ -92,7 +99,7 @@ export const updateBlog = async (id: string, blogData: BlogApiData): Promise<Blo
   }
 };
 
-// ✅ Delete a blog
+// ✅ Delete blog
 export const deleteBlog = async (id: string): Promise<{ message: string; id: string }> => {
   try {
     const res = await axios.delete(`${BASE_URL}/${id}`);

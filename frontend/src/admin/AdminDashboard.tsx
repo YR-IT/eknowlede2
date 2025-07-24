@@ -3,7 +3,7 @@ import { Plus, Eye, Edit, Trash2, X, Upload, Save, AlertTriangle, Loader2 } from
 import * as blogApi from "../api/blogApi";
 import axios from 'axios';
 
-
+const BASE_URL = `${import.meta.env.VITE_API_URL}/api/blogs`;
 
 // Define the Blog interface
 interface Blog {
