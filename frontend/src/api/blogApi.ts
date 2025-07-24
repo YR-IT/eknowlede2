@@ -1,13 +1,14 @@
 import axios from "axios";
 
-const API_ROOT = (import.meta.env.VITE_API_URL || 'http://localhost:3001').replace(/\/+$/, '');
+// 🔧 Base API URL (supports both local & Vercel)
+const API_ROOT = (import.meta.env.VITE_API_URL || "http://localhost:3001").replace(/\/+$/, "");
 const BASE_URL = `${API_ROOT}/api/blogs`;
 
+if (import.meta.env.DEV) {
+  console.log("👉 API Base URL (DEV):", BASE_URL); // Remove or silence in prod
+}
 
-
-console.log("👉 API Base URL:", BASE_URL); // ✅ Useful for debugging. Remove in production.
-
-// ✅ Interface for sending data
+// ✅ Interfaces
 export interface BlogApiData {
   title: string;
   author: string;
@@ -19,7 +20,6 @@ export interface BlogApiData {
   createdAt?: number;
 }
 
-// ✅ Interface for receiving blog response
 export interface BlogApiResponse {
   _id: string;
   title: string;
@@ -62,8 +62,8 @@ export const createBlog = async (blogData: BlogApiData): Promise<BlogApiResponse
   try {
     const res = await axios.post(BASE_URL, formData, {
       headers: {
-        "Content-Type": "multipart/form-data"
-      }
+        "Content-Type": "multipart/form-data",
+      },
     });
     return res.data.blog;
   } catch (err: any) {
@@ -89,8 +89,8 @@ export const updateBlog = async (id: string, blogData: BlogApiData): Promise<Blo
   try {
     const res = await axios.put(`${BASE_URL}/${id}`, formData, {
       headers: {
-        "Content-Type": "multipart/form-data"
-      }
+        "Content-Type": "multipart/form-data",
+      },
     });
     return res.data.blog;
   } catch (err: any) {
