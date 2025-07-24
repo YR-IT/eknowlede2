@@ -1,8 +1,9 @@
 import axios from "axios";
 
 // 🔧 Base API URL (supports both local & Vercel)
-const API_ROOT = (import.meta.env.VITE_API_URL || "http://localhost:3001").replace(/\/+$/, "");
-const BASE_URL = `${API_ROOT}/api/blogs`;
+const API_ROOT = import.meta.env.VITE_API_URL || "http://localhost:3001";
+const BASE_URL = `${API_ROOT.replace(/\/$/, "")}/api/blogs`;
+
 
 if (import.meta.env.DEV) {
   console.log("👉 API Base URL (DEV):", BASE_URL); // Remove or silence in prod
