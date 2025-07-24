@@ -339,7 +339,7 @@ useEffect(() => {
         <div className="flex flex-col lg:flex-row lg:justify-between lg:items-start gap-4 sm:gap-6 mb-8 sm:mb-10 lg:mb-12">
           <div className="space-y-1 sm:space-y-2 flex-1">
             <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold bg-gradient-to-r from-slate-900 via-blue-900 to-indigo-900 bg-clip-text text-transparent leading-tight">
-              Content Management
+              Admin Dashboard
             </h1>
             <p className="text-slate-600 text-sm sm:text-base md:text-lg">Create, edit, and manage your Blog with ease</p>
           </div>
@@ -410,7 +410,7 @@ useEffect(() => {
                       <div className="flex flex-wrap items-center gap-2 sm:gap-3 lg:gap-4 text-xs sm:text-sm text-slate-500 mb-3 sm:mb-4">
                         <div className="flex items-center gap-1 sm:gap-2 bg-slate-100 px-2 sm:px-3 py-1 rounded-full">
                           <div className="w-2 h-2 bg-blue-500 rounded-full"></div>
-                          <span className="truncate max-w-[120px] sm:max-w-none">{blog.author}</span>
+                          <span className="truncate max-w-[120px] sm:max-w-none">By {blog.author}</span>
                         </div>
                         <div className="flex items-center gap-1 sm:gap-2 bg-slate-100 px-2 sm:px-3 py-1 rounded-full">
                           <div className="w-2 h-2 bg-green-500 rounded-full"></div>
@@ -418,13 +418,13 @@ useEffect(() => {
                         </div>
                       </div>
 
-                      <h2 className="text-lg sm:text-xl font-bold text-slate-900 mb-2 sm:mb-3 leading-tight hover:text-blue-700 transition-colors duration-300 cursor-pointer line-clamp-2">
+                      <h2 className="text-lg sm:text-2xl font-bold text-slate-900 mb-2 sm:mb-3 leading-tight hover:text-blue-700 transition-colors duration-300 cursor-pointer line-clamp-2">
                         {blog.title}
                       </h2>
 
-                      <p className="text-slate-600 mb-3 sm:mb-4 leading-relaxed text-sm sm:text-base line-clamp-2">
+                      {/* <p className="text-slate-600 mb-3 sm:mb-4 leading-relaxed text-sm sm:text-base line-clamp-2">
                         {blog.summary}
-                      </p>
+                      </p> */}
 
                       {/* Show more content preview */}
                       <div className="text-slate-500 mb-3 sm:mb-4 leading-relaxed text-xs sm:text-sm line-clamp-2 sm:line-clamp-3">
@@ -457,20 +457,19 @@ useEffect(() => {
                     </div>
 
                     {/* Smaller Header Image */}
-                    <div className="w-full max-w-sm overflow-hidden rounded-xl shadow-lg">
+                    <div className="w-full max-w-sm overflow-hidden  shadow-lg">
   <img
-  
     src={blog.headerImage || 'https://placehold.co/600x400/e2e8f0/64748b?text=No+Image'}
     alt={blog.title}
-    className="w-full h-48 object-cover"
+    className="w-full h-full object-cover"
     onError={(e) => {
       e.currentTarget.src = 'https://placehold.co/600x400/e2e8f0/64748b?text=Image+Error';
     }}
   />
-  <div className="p-4">
+  {/* <div className="p-4">
     <h2 className="text-lg font-semibold">{blog.title}</h2>
     <p className="text-sm text-gray-600">{blog.summary}</p>
-  </div>
+  </div> */}
 </div>
 
                   </div>
