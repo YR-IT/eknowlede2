@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { Plus, Eye, Edit, Trash2, X, Upload, Save, AlertTriangle, Loader2 } from 'lucide-react';
 import * as blogApi from "../api/blogApi";
+import axios from 'axios';
 
 
 
@@ -15,6 +16,7 @@ interface Blog {
   date: string;
   createdAt: number; // Timestamp for sorting
 }
+axios.get('https://eknowledge-mk52.onrender.com/api/blogs')
 
 
 

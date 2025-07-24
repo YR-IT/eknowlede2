@@ -15,11 +15,7 @@ const uploadToCloudinary = (buffer) => {
     const stream = cloudinary.uploader.upload_stream(
       { folder: 'blogs' },
       (error, result) => {
-        if (error) {
-          console.error('❌ Cloudinary Upload Error:', error);
-          return reject(error);
-        }
-        console.log('✅ Cloudinary Upload Success:', result.secure_url);
+        if (error) return reject(error);
         resolve(result);
       }
     );
@@ -33,7 +29,7 @@ router.get('/', async (req, res) => {
     const blogs = await Blog.find().sort({ createdAt: -1 });
     res.json(blogs);
   } catch (err) {
-    console.error('❌ Error fetching blogs:', err);
+    console.error('❌ GET /blogs error:', err);
     res.status(500).json({ message: 'Internal server error' });
   }
 });
@@ -48,7 +44,6 @@ router.post('/', upload.single('image'), async (req, res) => {
     }
 
     let imageUrl = headerImage || '';
-
     if (req.file?.buffer) {
       const uploadResult = await uploadToCloudinary(req.file.buffer);
       imageUrl = uploadResult.secure_url;
@@ -68,18 +63,18 @@ router.post('/', upload.single('image'), async (req, res) => {
     res.status(201).json({ message: '✅ Blog created', blog: newBlog });
 
   } catch (err) {
-    console.error('❌ Blog creation error:', err);
+    console.error('❌ POST /blogs error:', err);
     res.status(500).json({ message: 'Internal server error', error: err?.message });
   }
 });
 
-// ✅ PUT update blog by ID
+// ✅ PUT update blog
 router.put('/:id', upload.single('image'), async (req, res) => {
   try {
     const blogId = req.params.id;
     const { title, author, summary, content, headerImage, date } = req.body;
 
-    let updatedFields = {
+    const updateFields = {
       title,
       author,
       summary,
@@ -87,45 +82,40 @@ router.put('/:id', upload.single('image'), async (req, res) => {
       date: date || new Date().toLocaleDateString('en-GB'),
     };
 
-    // Optional image update
     if (req.file?.buffer) {
       const uploadResult = await uploadToCloudinary(req.file.buffer);
-      updatedFields.headerImage = uploadResult.secure_url;
+      updateFields.headerImage = uploadResult.secure_url;
     } else if (headerImage) {
-      updatedFields.headerImage = headerImage;
+      updateFields.headerImage = headerImage;
     }
 
-    const updatedBlog = await Blog.findByIdAndUpdate(blogId, updatedFields, {
+    const updatedBlog = await Blog.findByIdAndUpdate(blogId, updateFields, {
       new: true,
       runValidators: true,
     });
 
-    if (!updatedBlog) {
-      return res.status(404).json({ message: 'Blog not found' });
-    }
+    if (!updatedBlog) return res.status(404).json({ message: 'Blog not found' });
 
     res.json({ message: '✅ Blog updated', blog: updatedBlog });
 
   } catch (err) {
-    console.error('❌ Blog update error:', err);
+    console.error('❌ PUT /blogs/:id error:', err);
     res.status(500).json({ message: 'Internal server error', error: err?.message });
   }
 });
 
-// ✅ DELETE blog by ID
+// ✅ DELETE blog
 router.delete('/:id', async (req, res) => {
   try {
     const blogId = req.params.id;
     const deletedBlog = await Blog.findByIdAndDelete(blogId);
 
-    if (!deletedBlog) {
-      return res.status(404).json({ message: 'Blog not found' });
-    }
+    if (!deletedBlog) return res.status(404).json({ message: 'Blog not found' });
 
     res.json({ message: '✅ Blog deleted', id: deletedBlog._id });
 
   } catch (err) {
-    console.error('❌ Blog deletion error:', err);
+    console.error('❌ DELETE /blogs/:id error:', err);
     res.status(500).json({ message: 'Internal server error' });
   }
 });
