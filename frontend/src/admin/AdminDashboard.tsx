@@ -17,6 +17,9 @@ interface Blog {
 }
 
 
+
+const AdminDashboard: React.FC = () => {
+
 useEffect(() => {
   const fetchBlogs = async () => {
     try {
@@ -33,8 +36,6 @@ useEffect(() => {
   fetchBlogs();
 }, []);
 
-
-const AdminDashboard: React.FC = () => {
   // State variables for managing blogs and UI modals
   const [blogs, setBlogs] = useState<Blog[]>([]);
   const [showCreateModal, setShowCreateModal] = useState(false);
@@ -61,22 +62,7 @@ const AdminDashboard: React.FC = () => {
   const [loading, setLoading] = useState(true);
   const [successMessage, setSuccessMessage] = useState<string | null>(null);
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
-
-useEffect(() => {
-  const fetchBlogs = async () => {
-    try {
-      const res = await fetch(`${import.meta.env.VITE_API_URL}/api/blogs`);
-      if (!res.ok) throw new Error("Failed to fetch blogs");
-      const data = await res.json();
-      setBlogs(data);
-    } catch (err: any) {
-      console.error("❌ Error fetching blogs:", err);
-      setError(err.message || "Something went wrong");
-    }
-  };
-
-  fetchBlogs();
-}, []);
+  
 
   // --- Function to fetch blogs from backend API ---
   const fetchBlogs = async () => {
@@ -888,11 +874,8 @@ useEffect(() => {
 
 export default AdminDashboard;
 
-function setBlogs(data: any) {
-  throw new Error('Function not implemented.');
-}
 
 
-function setError(arg0: any) {
+function setError(_arg0: any) {
   throw new Error('Function not implemented.');
 }
