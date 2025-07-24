@@ -16,16 +16,6 @@ interface Blog {
   createdAt: number; // Timestamp for sorting
 }
 
-const fetchBlogs = async () => {
-  try {
-    const response = await fetch(`${import.meta.env.VITE_API_URL}/api/blogs`);
-    const data = await response.json();
-    setBlogs(data);
-  } catch (err) {
-    console.error("❌ Failed to fetch blogs:", err);
-  }
-};
-
 
 
 
@@ -866,7 +856,3 @@ const AdminDashboard: React.FC = () => {
 };
 
 export default AdminDashboard;
-
-function setBlogs(data: any) {
-  throw new Error('Function not implemented.');
-}

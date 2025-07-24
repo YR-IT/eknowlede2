@@ -45,6 +45,7 @@ const AppLayout = () => {
           <Route path="/admin-dashboard" element={<AdminDashboard />} />
 
         </Routes>
+        
       </main>
 
       {!hideHeaderFooter && <Header />}
@@ -53,6 +54,7 @@ const AppLayout = () => {
 
     </div>
   );
+  
 };
 
 export default App;

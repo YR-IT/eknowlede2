@@ -38,20 +38,19 @@ router.get('/', async (req, res) => {
   }
 });
 
-// ✅ POST create blog
+// ✅ POST create blog (with or without image)
 router.post('/', upload.single('image'), async (req, res) => {
   try {
     console.log('📥 Blog POST Request received');
-    const { title, author, summary, content } = req.body;
-    console.log('📝 Data:', { title, author, summary, content });
-    console.log('📷 File:', req.file?.originalname);
+    const { title, author, summary, content, headerImage, date, createdAt } = req.body;
 
     if (!title || !author || !content) {
       return res.status(400).json({ message: 'Missing required fields.' });
     }
 
-    let imageUrl = '';
+    let imageUrl = headerImage || ''; // fallback URL
 
+    // If file uploaded, upload to Cloudinary
     if (req.file?.buffer) {
       try {
         const uploadResult = await uploadToCloudinary(req.file.buffer);
@@ -69,7 +68,9 @@ router.post('/', upload.single('image'), async (req, res) => {
       author,
       summary,
       content,
-      image: imageUrl,
+      headerImage: imageUrl,
+      date: date || new Date().toLocaleDateString('en-GB'),
+      createdAt: createdAt ? Number(createdAt) : Date.now(),
     });
 
     await newBlog.save();
