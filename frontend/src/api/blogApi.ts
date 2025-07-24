@@ -1,9 +1,9 @@
 import axios from "axios";
 
-// ✅ Base API URL (MUST be set in .env as VITE_API_URL, e.g., https://eknowledge-mk52.onrender.com)
+// ✅ Base API URL (MUST be set in .env as VITE_API_URL, e.g., https://your-backend.onrender.com)
 const BASE_URL = `${import.meta.env.VITE_API_URL}/api/blogs`;
 
-console.log("👉 API Base URL:", BASE_URL); // ✅ Remove this in production
+console.log("👉 API Base URL:", BASE_URL); // ✅ Useful for debugging. Remove in production.
 
 // ✅ Interface for sending data
 export interface BlogApiData {
@@ -11,13 +11,13 @@ export interface BlogApiData {
   author: string;
   summary: string;
   content: string;
-  image?: File | null;        // For new file upload
-  headerImage?: string;       // Existing URL fallback
+  image?: File | null;        // New uploaded file
+  headerImage?: string;       // Existing Cloudinary URL
   date?: string;
   createdAt?: number;
 }
 
-// ✅ Interface for receiving data
+// ✅ Interface for receiving blog response
 export interface BlogApiResponse {
   _id: string;
   title: string;
@@ -37,7 +37,7 @@ export const fetchBlogs = async (): Promise<BlogApiResponse[]> => {
     return res.data;
   } catch (err: any) {
     console.error("❌ Error fetching blogs:", err.response?.data || err.message);
-    throw new Error("Failed to fetch blogs");
+    throw new Error(err.response?.data?.message || "Failed to fetch blogs");
   }
 };
 
@@ -51,7 +51,6 @@ export const createBlog = async (blogData: BlogApiData): Promise<BlogApiResponse
   formData.append("date", blogData.date || new Date().toLocaleDateString("en-GB"));
   formData.append("createdAt", (blogData.createdAt ?? Date.now()).toString());
 
-  // Upload image or fallback
   if (blogData.image) {
     formData.append("image", blogData.image);
   } else if (blogData.headerImage) {
@@ -60,12 +59,14 @@ export const createBlog = async (blogData: BlogApiData): Promise<BlogApiResponse
 
   try {
     const res = await axios.post(BASE_URL, formData, {
-      headers: { "Content-Type": "multipart/form-data" }
+      headers: {
+        "Content-Type": "multipart/form-data"
+      }
     });
     return res.data.blog;
   } catch (err: any) {
     console.error("❌ Blog creation failed:", err.response?.data || err.message);
-    throw new Error("Failed to create blog");
+    throw new Error(err.response?.data?.message || "Failed to create blog");
   }
 };
 
@@ -85,12 +86,14 @@ export const updateBlog = async (id: string, blogData: BlogApiData): Promise<Blo
 
   try {
     const res = await axios.put(`${BASE_URL}/${id}`, formData, {
-      headers: { "Content-Type": "multipart/form-data" }
+      headers: {
+        "Content-Type": "multipart/form-data"
+      }
     });
     return res.data.blog;
   } catch (err: any) {
     console.error("❌ Blog update failed:", err.response?.data || err.message);
-    throw new Error("Failed to update blog");
+    throw new Error(err.response?.data?.message || "Failed to update blog");
   }
 };
 
@@ -101,6 +104,6 @@ export const deleteBlog = async (id: string): Promise<{ message: string; id: str
     return res.data;
   } catch (err: any) {
     console.error("❌ Blog deletion failed:", err.response?.data || err.message);
-    throw new Error("Failed to delete blog");
+    throw new Error(err.response?.data?.message || "Failed to delete blog");
   }
 };
