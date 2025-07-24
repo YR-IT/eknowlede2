@@ -1,8 +1,8 @@
 import axios from "axios";
 
-// ✅ Base API URL (MUST be set in .env as VITE_API_URL, e.g., https://your-backend.onrender.com)
-const BASE_URL = `${import.meta.env.VITE_API_URL}/api/blogs`;
-axios.get('https://eknowledge-mk52.onrender.com/api/blogs')
+const API_ROOT = (import.meta.env.VITE_API_URL || 'http://localhost:3001').replace(/\/+$/, '');
+const BASE_URL = `${API_ROOT}/api/blogs`;
+
 
 
 console.log("👉 API Base URL:", BASE_URL); // ✅ Useful for debugging. Remove in production.
@@ -13,8 +13,8 @@ export interface BlogApiData {
   author: string;
   summary: string;
   content: string;
-  image?: File | null;        // New uploaded file
-  headerImage?: string;       // Existing Cloudinary URL
+  image?: File | null;
+  headerImage?: string;
   date?: string;
   createdAt?: number;
 }
