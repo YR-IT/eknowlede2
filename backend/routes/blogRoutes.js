@@ -38,29 +38,20 @@ router.get('/', async (req, res) => {
   }
 });
 
-// ✅ POST create blog (with or without image)
+// ✅ POST create blog
 router.post('/', upload.single('image'), async (req, res) => {
   try {
-    console.log('📥 Blog POST Request received');
     const { title, author, summary, content, headerImage, date, createdAt } = req.body;
 
     if (!title || !author || !content) {
       return res.status(400).json({ message: 'Missing required fields.' });
     }
 
-    let imageUrl = headerImage || ''; // fallback URL
+    let imageUrl = headerImage || '';
 
-    // If file uploaded, upload to Cloudinary
     if (req.file?.buffer) {
-      try {
-        const uploadResult = await uploadToCloudinary(req.file.buffer);
-        imageUrl = uploadResult.secure_url;
-      } catch (uploadError) {
-        return res.status(500).json({
-          message: 'Cloudinary upload failed',
-          error: uploadError?.message || 'Unknown error',
-        });
-      }
+      const uploadResult = await uploadToCloudinary(req.file.buffer);
+      imageUrl = uploadResult.secure_url;
     }
 
     const newBlog = new Blog({
@@ -74,16 +65,68 @@ router.post('/', upload.single('image'), async (req, res) => {
     });
 
     await newBlog.save();
-    console.log('✅ Blog saved to MongoDB:', newBlog._id);
-
     res.status(201).json({ message: '✅ Blog created', blog: newBlog });
 
   } catch (err) {
     console.error('❌ Blog creation error:', err);
-    res.status(500).json({
-      message: 'Internal server error',
-      error: err?.message || 'Unknown error',
+    res.status(500).json({ message: 'Internal server error', error: err?.message });
+  }
+});
+
+// ✅ PUT update blog by ID
+router.put('/:id', upload.single('image'), async (req, res) => {
+  try {
+    const blogId = req.params.id;
+    const { title, author, summary, content, headerImage, date } = req.body;
+
+    let updatedFields = {
+      title,
+      author,
+      summary,
+      content,
+      date: date || new Date().toLocaleDateString('en-GB'),
+    };
+
+    // Optional image update
+    if (req.file?.buffer) {
+      const uploadResult = await uploadToCloudinary(req.file.buffer);
+      updatedFields.headerImage = uploadResult.secure_url;
+    } else if (headerImage) {
+      updatedFields.headerImage = headerImage;
+    }
+
+    const updatedBlog = await Blog.findByIdAndUpdate(blogId, updatedFields, {
+      new: true,
+      runValidators: true,
     });
+
+    if (!updatedBlog) {
+      return res.status(404).json({ message: 'Blog not found' });
+    }
+
+    res.json({ message: '✅ Blog updated', blog: updatedBlog });
+
+  } catch (err) {
+    console.error('❌ Blog update error:', err);
+    res.status(500).json({ message: 'Internal server error', error: err?.message });
+  }
+});
+
+// ✅ DELETE blog by ID
+router.delete('/:id', async (req, res) => {
+  try {
+    const blogId = req.params.id;
+    const deletedBlog = await Blog.findByIdAndDelete(blogId);
+
+    if (!deletedBlog) {
+      return res.status(404).json({ message: 'Blog not found' });
+    }
+
+    res.json({ message: '✅ Blog deleted', id: deletedBlog._id });
+
+  } catch (err) {
+    console.error('❌ Blog deletion error:', err);
+    res.status(500).json({ message: 'Internal server error' });
   }
 });
 
