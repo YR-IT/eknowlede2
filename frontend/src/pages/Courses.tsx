@@ -31,22 +31,29 @@ const VideoCard: React.FC<{
     >
       <div className="bg-white rounded-3xl p-4 shadow-xl flex flex-col h-full overflow-hidden">
         <div className="relative rounded-xl overflow-hidden aspect-video mb-4">
-          {thumbnail ? (
-            <img
-              src={thumbnail}
-              alt={title}
-              className="absolute inset-0 w-full h-full object-cover"
-            />
-          ) : videoUrl && isPlaying ? (
+          {isPlaying && videoUrl ? (
             <video className="absolute inset-0 w-full h-full object-cover" controls autoPlay>
               <source src={videoUrl} type="video/mp4" />
               Your browser does not support the video tag.
             </video>
           ) : (
-            <div className="absolute inset-0 bg-gradient-to-br from-pink-100 to-rose-100 flex flex-col items-center justify-center text-center px-4">
-              <Play className="w-10 h-10 text-rose-700 mb-2" />
-              <h3 className="text-sm font-semibold text-rose-900 leading-snug">{title}</h3>
-            </div>
+            <>
+              {thumbnail ? (
+                <img
+                  src={thumbnail}
+                  alt={title}
+                  className="absolute inset-0 w-full h-full object-cover"
+                />
+              ) : (
+                <div className="absolute inset-0 bg-gradient-to-br from-pink-100 to-rose-100 flex flex-col items-center justify-center text-center px-4">
+                  <Play className="w-10 h-10 text-rose-700 mb-2" />
+                  <h3 className="text-sm font-semibold text-rose-900 leading-snug">{title}</h3>
+                </div>
+              )}
+              <div className="absolute inset-0 flex items-center justify-center bg-black/40">
+                <Play className="w-12 h-12 text-white opacity-90" />
+              </div>
+            </>
           )}
           <div className="absolute top-2 right-2 bg-white text-rose-700 text-xs font-semibold px-2 py-0.5 rounded shadow">
             {duration}
@@ -82,17 +89,11 @@ const Courses: React.FC = () => {
 
   return (
     <div className="pt-0 min-h-screen bg-gradient-to-br from-rose-50 via-pink-50 to-fuchsia-50">
-      {/* Header Section */}
       <div className="relative bg-gradient-to-br from-rose-900 via-pink-800 to-fuchsia-900 text-white overflow-hidden">
         <div className="absolute inset-0 opacity-30 bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-pink-600 via-rose-700 to-fuchsia-900" />
         <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 flex flex-col-reverse md:flex-row items-center justify-between gap-12">
           <div className="w-full md:w-2/3 text-center md:text-left mt-8 sm:mt-10">
-            <motion.div
-              className="flex items-center justify-center md:justify-start gap-4 mb-6"
-              initial={{ opacity: 0, y: -20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6 }}
-            >
+            <motion.div className="flex items-center justify-center md:justify-start gap-4 mb-6" initial={{ opacity: 0, y: -20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6 }}>
               <div className="w-12 h-12 sm:w-14 sm:h-14 p-2 bg-gradient-to-r from-amber-400 via-yellow-500 to-orange-500 rounded-full flex items-center justify-center shadow-lg">
                 <GraduationCap className="w-6 h-6 sm:w-7 sm:h-7 text-white" />
               </div>
@@ -101,34 +102,19 @@ const Courses: React.FC = () => {
               </div>
             </motion.div>
 
-            <motion.h1
-              className="text-4xl sm:text-6xl font-bold leading-tight mb-4"
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8, delay: 0.1 }}
-            >
+            <motion.h1 className="text-4xl sm:text-6xl font-bold leading-tight mb-4" initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.8, delay: 0.1 }}>
               Certificate Course On
               <span className="block bg-gradient-to-r from-amber-400 to-orange-500 bg-clip-text text-transparent">
                 Export Management
               </span>
             </motion.h1>
 
-            <motion.p
-              className="text-base sm:text-lg text-white/90 mb-6"
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ duration: 0.7, delay: 0.2 }}
-            >
+            <motion.p className="text-base sm:text-lg text-white/90 mb-6" initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 0.7, delay: 0.2 }}>
               Developed by the <span className="font-semibold text-amber-300">All India Chamber of Commerce (AICC)</span>, recognized by the Government of India.
             </motion.p>
 
             <Link to="/enroll" className="inline-block">
-              <motion.button
-                className="inline-flex items-center gap-2 px-5 sm:px-6 py-3 rounded-full bg-gradient-to-r from-amber-400 to-orange-500 text-black font-bold hover:scale-105 transition-transform"
-                initial={{ opacity: 0, scale: 0.9 }}
-                animate={{ opacity: 1, scale: 1 }}
-                transition={{ duration: 0.5, delay: 0.4 }}
-              >
+              <motion.button className="inline-flex items-center gap-2 px-5 sm:px-6 py-3 rounded-full bg-gradient-to-r from-amber-400 to-orange-500 text-black font-bold hover:scale-105 transition-transform" initial={{ opacity: 0, scale: 0.9 }} animate={{ opacity: 1, scale: 1 }} transition={{ duration: 0.5, delay: 0.4 }}>
                 <span>ENROLL NOW</span>
                 <ArrowRight className="w-5 h-5" />
               </motion.button>
@@ -146,7 +132,6 @@ const Courses: React.FC = () => {
         </div>
       </div>
 
-      {/* Course Content Section */}
       <div className="py-16 px-4 sm:px-6 lg:px-8">
         <div className="max-w-7xl mx-auto">
           <div className="text-center mb-12">
