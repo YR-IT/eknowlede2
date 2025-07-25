@@ -28,7 +28,7 @@ function App() {
 // New layout component that controls Header/Footer visibility
 const AppLayout = () => {
   const location = useLocation();
-  const hideHeaderFooter = location.pathname === '/enroll' || location.pathname === '/admin-dashboard';
+  const hideHeaderFooter = location.pathname === '/enroll' || location.pathname === '/admin';
 
 
   return (
@@ -42,7 +42,7 @@ const AppLayout = () => {
           <Route path="/blog" element={<Blog />} />
           <Route path="/contact" element={<Contact />} />
           <Route path="/enroll" element={<EnrollNow />} />
-          <Route path="/admin-dashboard" element={<AdminDashboard />} />
+          <Route path="/admin" element={<AdminDashboard />} />
 
         </Routes>
         
