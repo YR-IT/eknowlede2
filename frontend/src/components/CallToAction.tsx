@@ -2,7 +2,8 @@ import { Link } from "react-router-dom";
 
 const CallToAction = () => {
   return (
-    <section className="py-12 bg-gradient-to-r from-cyan-100 via-blue-200 to-purple-200 relative overflow-hidden">
+    <section className="py-12 bg-gradient-to-r from-[#fffdfc] via-[#fffaf8] to-[#fffefc] relative overflow-hidden">
+
       <div className="absolute inset-0 bg-white/20"></div> {/* lighter overlay */}
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center relative z-10">
         <h2 className="text-3xl md:text-5xl font-bold text-gray-900 mb-8">
