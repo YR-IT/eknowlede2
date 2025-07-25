@@ -83,36 +83,38 @@ const Footer = () => {
           </div>
 
           {/* App Download Section */}
-          <div className="flex flex-col items-center sm:items-start bg-white/10 p-5 rounded-lg">
-            <h3 className="text-lg font-semibold mb-4 text-white text-center sm:text-left">
-              Download App From
-            </h3>
+         {/* App Download Section */}
+<div className="flex flex-col items-center bg-white/10 p-5 rounded-lg">
+  <h3 className="text-lg font-semibold mb-4 text-white text-center">
+    Download App From
+  </h3>
 
-            <a
-              href="https://play.google.com/store/apps/details?id=co.davos.yuoty"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              <img
-                src="https://upload.wikimedia.org/wikipedia/commons/7/78/Google_Play_Store_badge_EN.svg"
-                alt="Download on Google Play"
-                className="h-14 mb-2"
-              />
-            </a>
+  <a
+    href="https://play.google.com/store/apps/details?id=co.davos.yuoty"
+    target="_blank"
+    rel="noopener noreferrer"
+  >
+    <img
+      src="https://upload.wikimedia.org/wikipedia/commons/7/78/Google_Play_Store_badge_EN.svg"
+      alt="Download on Google Play"
+      className="h-14 mb-2"
+    />
+  </a>
 
-            <span className="text-white/60 text-xs my-2">OR</span>
+  <span className="text-white/60 text-xs my-2 text-center w-full">OR</span>
 
-            <div className="flex flex-col items-center bg-white/10 px-4 py-3 rounded-md">
-              <img
-                src="/playstore_qr.png"
-                alt="QR code to download app"
-                className="h-24 w-24 object-contain rounded-md border border-white/30"
-              />
-              <p className="text-xs text-white/70 mt-2 text-center">
-                Scan the QR code to download the app instantly.
-              </p>
-            </div>
-          </div>
+  <div className="flex flex-col items-center bg-white/10 px-4 py-3 rounded-md">
+    <img
+      src="/playstore_qr.png"
+      alt="QR code to download app"
+      className="h-24 w-24 object-contain rounded-md border border-white/30"
+    />
+    <p className="text-xs text-white/70 mt-2 text-center">
+      Scan the QR code to download the app instantly.
+    </p>
+  </div>
+</div>
+
         </div>
 
         {/* Bottom Bar */}
