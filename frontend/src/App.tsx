@@ -9,6 +9,7 @@ import Blog from './pages/Blog';
 import Contact from './pages/Contact';
 import EnrollNow from './pages/EnrollNow';
 import AdminDashboard from './admin/AdminDashboard'; 
+import AdminCourses from './admin/AdminCourses';
 
 
 
@@ -43,6 +44,7 @@ const AppLayout = () => {
           <Route path="/contact" element={<Contact />} />
           <Route path="/enroll" element={<EnrollNow />} />
           <Route path="/admin" element={<AdminDashboard />} />
+          <Route path="/admin/courses" element={<AdminCourses />} />
 
         </Routes>
         

@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Play, Award, GraduationCap, ArrowRight } from 'lucide-react';
 import { motion } from 'framer-motion';
 import { Link } from 'react-router-dom';
+import axios from 'axios';
 
 const VideoCard: React.FC<{
   title: string;
@@ -41,46 +42,28 @@ const VideoCard: React.FC<{
           </div>
         </div>
 
-    <div className="flex-1 flex flex-col justify-between">
-  <h4 className="text-base font-bold text-gray-800 text-center mb-4 px-2">{title}</h4>
-  
-  <Link to="/enroll" className="mt-auto">
-    <button className="w-full bg-gradient-to-r from-pink-600 to-rose-600 text-white py-2 rounded-full text-sm font-semibold shadow-md hover:from-pink-700 hover:to-rose-700 transition-all">
-      ENROLL NOW
-    </button>
-  </Link>
-</div>
+        <div className="flex-1 flex flex-col justify-between">
+          <h4 className="text-base font-bold text-gray-800 text-center mb-4 px-2">{title}</h4>
+          <Link to="/enroll" className="mt-auto">
+            <button className="w-full bg-gradient-to-r from-pink-600 to-rose-600 text-white py-2 rounded-full text-sm font-semibold shadow-md hover:from-pink-700 hover:to-rose-700 transition-all">
+              ENROLL NOW
+            </button>
+          </Link>
+        </div>
       </div>
     </div>
   );
 };
 
 const Courses: React.FC = () => {
+  const [courses, setCourses] = useState<any[]>([]);
+
   useEffect(() => {
     window.scrollTo(0, 0);
+    axios.get('/api/courses')
+      .then(res => setCourses(res.data))
+      .catch(err => console.error(err));
   }, []);
-
-  const videoTopics = [
-    "INCO TERMS",
-    "METHODS OF RECEIVING PAYMENTS",
-    "LETTER OF CREDIT",
-    "STEPS IN EXPORT SHIPMENT",
-    "TARIFF CLASSIFICATION",
-    "GST",
-    "HOW TO GET DUTY FREE INPUTS FOR EXPORTS",
-    "INCENTIVE SCHEMES",
-    "HOW TO ADDRESS QUALITY COMPLAINTS",
-    "CAPITAL GOODS",
-    "CERTIFICATE OF ORIGIN",
-    "DIFFERENCE BETWEEN DTA, EOU & SEZS",
-    "DOING BUSINESS IN INDIA",
-    "FREE TRADE AGREEMENTS",
-    "HOW TO START EXPORTS",
-    "HOW TO FINANCE EXPORT BUSINESS",
-    "HOW TO PACKAGE EXPORT GOODS"
-  ];
-
-  const videoUrls: Record<string, string | null> = {};
 
   return (
     <div className="pt-0 min-h-screen bg-gradient-to-br from-rose-50 via-pink-50 to-fuchsia-50">
@@ -88,7 +71,6 @@ const Courses: React.FC = () => {
       <div className="relative bg-gradient-to-br from-rose-900 via-pink-800 to-fuchsia-900 text-white overflow-hidden">
         <div className="absolute inset-0 opacity-30 bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-pink-600 via-rose-700 to-fuchsia-900" />
         <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 flex flex-col-reverse md:flex-row items-center justify-between gap-12">
-          {/* Text and CTA */}
           <div className="w-full md:w-2/3 text-center md:text-left mt-8 sm:mt-10">
             <motion.div
               className="flex items-center justify-center md:justify-start gap-4 mb-6"
@@ -125,20 +107,19 @@ const Courses: React.FC = () => {
               Developed by the <span className="font-semibold text-amber-300">All India Chamber of Commerce (AICC)</span>, recognized by the Government of India.
             </motion.p>
 
-          <Link to="/enroll" className="inline-block">
-  <motion.button
-    className="inline-flex items-center gap-2 px-5 sm:px-6 py-3 rounded-full bg-gradient-to-r from-amber-400 to-orange-500 text-black font-bold hover:scale-105 transition-transform"
-    initial={{ opacity: 0, scale: 0.9 }}
-    animate={{ opacity: 1, scale: 1 }}
-    transition={{ duration: 0.5, delay: 0.4 }}
-  >
-    <span>ENROLL NOW</span>
-    <ArrowRight className="w-5 h-5" />
-  </motion.button>
-</Link>
+            <Link to="/enroll" className="inline-block">
+              <motion.button
+                className="inline-flex items-center gap-2 px-5 sm:px-6 py-3 rounded-full bg-gradient-to-r from-amber-400 to-orange-500 text-black font-bold hover:scale-105 transition-transform"
+                initial={{ opacity: 0, scale: 0.9 }}
+                animate={{ opacity: 1, scale: 1 }}
+                transition={{ duration: 0.5, delay: 0.4 }}
+              >
+                <span>ENROLL NOW</span>
+                <ArrowRight className="w-5 h-5" />
+              </motion.button>
+            </Link>
           </div>
 
-          {/* Icons Right Side */}
           <div className="w-full md:w-1/3 hidden md:flex flex-col items-center gap-6">
             <div className="w-24 h-24 bg-white/10 border border-white/20 rounded-2xl flex items-center justify-center shadow-lg">
               <GraduationCap className="w-10 h-10 text-amber-400" />
@@ -161,8 +142,13 @@ const Courses: React.FC = () => {
           </div>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
-            {videoTopics.map((topic, index) => (
-              <VideoCard key={index} title={topic} duration="00:46" videoUrl={videoUrls[topic] || null} />
+            {courses.map((course, index) => (
+              <VideoCard
+                key={index}
+                title={course.title}
+                duration={course.duration}
+                videoUrl={course.videoUrl}
+              />
             ))}
           </div>
 
@@ -177,14 +163,14 @@ const Courses: React.FC = () => {
               <p className="text-white/80 text-lg mb-8 max-w-2xl mx-auto">
                 Join thousands of successful exporters who have transformed their business with our comprehensive certification program.
               </p>
-             <Link to="/enroll" className="inline-block">
-  <button className="bg-gradient-to-r from-amber-400 to-orange-500 text-black font-bold px-8 py-4 rounded-full hover:scale-105 transition-transform">
-    <div className="flex items-center gap-2">
-      <span>ENROLL NOW</span>
-      <ArrowRight className="w-5 h-5" />
-    </div>
-  </button>
-</Link>
+              <Link to="/enroll" className="inline-block">
+                <button className="bg-gradient-to-r from-amber-400 to-orange-500 text-black font-bold px-8 py-4 rounded-full hover:scale-105 transition-transform">
+                  <div className="flex items-center gap-2">
+                    <span>ENROLL NOW</span>
+                    <ArrowRight className="w-5 h-5" />
+                  </div>
+                </button>
+              </Link>
             </div>
           </div>
         </div>

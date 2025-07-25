@@ -2,8 +2,10 @@ import express from 'express';
 import cors from 'cors';
 import mongoose from 'mongoose';
 import dotenv from 'dotenv';
+
 import blogRoutes from './routes/blogRoutes.js';
-import cloudinary from './utils/cloudinary.js'; // ✅ Import Cloudinary config
+import courseRoutes from './routes/courseRoutes.js';
+import cloudinary from './utils/cloudinary.js'; // Cloudinary config
 
 dotenv.config();
 
@@ -17,7 +19,7 @@ console.log('🌐 Cloudinary ENV:', {
   secret: process.env.CLOUDINARY_API_SECRET ? 'Exists ✅' : 'Missing ❌'
 });
 
-// ✅ Allow specific frontend origins
+// ✅ CORS setup: allow local & deployed frontend
 const allowedOrigins = [
   'http://localhost:5173',
   'https://eknowledge.vercel.app'
@@ -34,20 +36,26 @@ app.use(cors({
   credentials: true
 }));
 
-// ✅ Body parsing middleware
-app.use(express.json({ limit: '10mb' }));
-app.use(express.urlencoded({ extended: true, limit: '10mb' }));
+// ✅ Middleware: handle large payloads (for video)
+app.use(express.json({ limit: '100mb' }));
+app.use(express.urlencoded({ extended: true, limit: '100mb' }));
 
-// ✅ API Routes
+// ✅ Routes
 app.use('/api/blogs', blogRoutes);
+app.use('/api/courses', courseRoutes);
 
-// ✅ Health check endpoint
-app.get("/", (req, res) => res.send("Backend running ✅"));
+// ✅ Health check
+app.get('/', (req, res) => res.send('✅ Backend running!'));
 
-// ✅ Connect to MongoDB
-mongoose.connect(process.env.MONGO_URI)
-  .then(() => console.log("✅ MongoDB connected"))
-  .catch(err => console.error("❌ MongoDB connection error:", err));
+// ✅ MongoDB connection
+mongoose.connect(process.env.MONGO_URI, {
+  useNewUrlParser: true,
+  useUnifiedTopology: true
+})
+  .then(() => console.log('✅ MongoDB connected'))
+  .catch(err => console.error('❌ MongoDB connection error:', err));
 
 // ✅ Start server
-app.listen(PORT, () => console.log(`🚀 Server running on port ${PORT}`));
+app.listen(PORT, () => {
+  console.log(`🚀 Server running on http://localhost:${PORT}`);
+});
