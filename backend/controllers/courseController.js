@@ -1,4 +1,4 @@
-import Course from '../models/Course.js';
+import Course from './models/Course.js';
 import cloudinary from '../utils/cloudinary.js';
 
 // Create a new course with Cloudinary video upload

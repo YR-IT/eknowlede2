@@ -1,5 +1,4 @@
 import mongoose from 'mongoose';
-import Course from 'Course.js'
 
 const courseSchema = new mongoose.Schema({
   title: {
@@ -17,5 +16,7 @@ const courseSchema = new mongoose.Schema({
   },
 });
 
-const Course = mongoose.model('Course', courseSchema);
+// ✅ Prevent redefining the model on hot-reload
+const Course = mongoose.models.Course || mongoose.model('Course', courseSchema);
+
 export default Course;
