@@ -42,51 +42,49 @@ const Testimonials = () => {
   }, []);
 
   return (
-    <section className="py-8 bg-pink-50 text-gray-800 relative overflow-hidden border-t border-pink-100">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-        <div className="text-center mb-8">
-          <h2 className="text-4xl md:text-5xl font-bold text-gray-900">
+    <section className="py-12 bg-pink-50 text-gray-800 border-t border-pink-100">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="text-center mb-12">
+          <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-gray-900">
             What Our Students Say
           </h2>
-          <p className="sm:text-lg text-base text-gray-600 max-w-3xl mx-auto mt-4">
+          <p className="text-sm sm:text-base text-gray-600 max-w-3xl mx-auto mt-4">
             Join thousands of successful learners who have transformed their careers with E-Knowledge.
           </p>
         </div>
 
         <div className="relative max-w-4xl mx-auto">
           <div className="bg-white rounded-3xl p-6 md:p-10 text-center border border-gray-200 shadow-lg">
-            <Quote className="h-12 w-12 text-pink-500 mx-auto mb-2" />
+            <Quote className="h-12 w-12 text-pink-500 mx-auto mb-4" />
 
-            <div className="mb-2">
-              <p className="text-lg md:text-2xl text-gray-700 mb-4 leading-relaxed font-light">
-                "{testimonials[currentTestimonial].content}"
-              </p>
+            <p className="text-sm sm:text-base md:text-lg text-gray-700 mb-6 leading-relaxed font-light">
+              "{testimonials[currentTestimonial].content}"
+            </p>
 
-              <div className="flex justify-center mb-4">
-                {[...Array(testimonials[currentTestimonial].rating)].map((_, i) => (
-                  <Star key={i} className="h-6 w-6 text-amber-400 fill-current" />
-                ))}
-              </div>
+            <div className="flex justify-center mb-6">
+              {[...Array(testimonials[currentTestimonial].rating)].map((_, i) => (
+                <Star key={i} className="h-5 w-5 text-amber-400 fill-current" />
+              ))}
             </div>
 
-            <div className="flex items-center justify-center space-x-6">
+            <div className="flex items-center justify-center space-x-5">
               <img
                 src={testimonials[currentTestimonial].image}
                 alt={testimonials[currentTestimonial].name}
-                className="w-20 h-20 rounded-full object-cover border-4 border-pink-300 shadow-md"
+                className="w-16 h-16 rounded-full object-cover border-4 border-pink-300 shadow-md"
               />
               <div className="text-left">
-                <h4 className="text-xl font-bold text-gray-900">
+                <h4 className="text-base sm:text-lg font-semibold text-gray-900">
                   {testimonials[currentTestimonial].name}
                 </h4>
-                <p className="text-pink-500 text-base">
+                <p className="text-sm text-pink-500">
                   {testimonials[currentTestimonial].role}
                 </p>
               </div>
             </div>
           </div>
 
-          {/* Testimonial Indicators */}
+          {/* Indicators */}
           <div className="flex justify-center space-x-3 mt-6">
             {testimonials.map((_, index) => (
               <button

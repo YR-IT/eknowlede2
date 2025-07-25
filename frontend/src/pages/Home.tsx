@@ -5,6 +5,7 @@ import WhyChooseUS from "../components/WhyChooseUs";
 import Testimonials from "../components/Testimonials";
 import CallToAction from "../components/CallToAction";
 import GetStarted from "../components/GetStarted";
+import { Link } from "react-router-dom";
 
 const slides = [
   {
@@ -101,10 +102,13 @@ const Home = () => {
                 transition={{ duration: 0.6, delay: 0.4 }}
                 className="mt-4 md:mt-8 flex flex-col sm:flex-row sm:flex-wrap items-center justify-center md:justify-start gap-4 w-full"
               >
-                <button className="bg-[#C21E53] text-white px-5 py-2 rounded-full font-semibold text-base shadow-lg transition-all duration-300 ">
-                  Start Learning
-                  <ChevronRight className="inline ml-2 w-5 h-5" />
-                </button>
+                <Link
+  to="/courses"
+  className="bg-[#C21E53] text-white px-6 py-2 rounded-full font-semibold text-base shadow-lg transition-all duration-300 inline-flex items-center"
+>
+  Start Learning
+  <ChevronRight className="ml-2 w-5 h-5" />
+</Link>
                 <a
                   href="https://play.google.com/store/apps/details?id=co.davos.yuoty"
                   target="_blank"

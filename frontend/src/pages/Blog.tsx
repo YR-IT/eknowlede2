@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import axios from 'axios';
 import {
-  BookOpen, Calendar, ArrowRight, Sparkles, Star,
+  BookOpen, ArrowRight, Sparkles, Star,
   Dot
 } from 'lucide-react';
 
@@ -148,12 +148,13 @@ const BlogPage = () => {
                 <strong>{new Date(article.createdAt).toLocaleDateString()}</strong>
               </p>
             </div>
-            <button
+      <button
   onClick={() => openArticle(article)}
-  className="inline-flex items-center gap-2 bg-pink-500 hover:bg-pink-600 text-white px-4 py-2 rounded-full font-semibold hover:scale-105 w-auto mt-4"
+  className="flex justify-center items-center gap-2 bg-pink-500 hover:bg-pink-600 text-white px-4 py-2 rounded-full font-semibold hover:scale-105 w-full sm:w-auto mt-4 text-center"
 >
   Read Article <ArrowRight className="w-5 h-5" />
 </button>
+
           </div>
         </div>
       </div>
