@@ -1,4 +1,5 @@
 import mongoose from 'mongoose';
+import Course from 'Course.js'
 
 const courseSchema = new mongoose.Schema({
   title: {
