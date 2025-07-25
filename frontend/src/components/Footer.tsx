@@ -13,8 +13,8 @@ import logo from "/e-learning-app_logo.jpg";
 
 const Footer = () => {
   return (
-    <footer className="bg-[#C21E53] text-white">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
+    <footer className="bg-[#C21E53]/95 text-white">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-10">
           {/* Logo and Description */}
           <div className="flex flex-col">
@@ -71,19 +71,23 @@ const Footer = () => {
                 </a>
               </div>
               <div className="flex items-start space-x-3">
-                <MapPin className="h-5 w-5 text-red-300 mt-1" />
-                <p className="text-white/80 text-sm leading-relaxed">
-                  Unit No. 339, 3rd Floor, <br />
-                  Tower B-3, Spaze Itech-Park, <br />
-                  Sector-49, Sohna Road, <br />
-                  Gurgaon – 122001 (HR), India
-                </p>
-              </div>
+  <MapPin className="h-5 w-5 text-red-300 mt-1" />
+  <a
+    href="https://www.google.com/maps?q=Unit+No.+339,+3rd+Floor,+Tower+B-3,+Spaze+Itech-Park,+Sector-49,+Sohna+Road,+Gurgaon+122001"
+    target="_blank"
+    rel="noopener noreferrer"
+    className="text-white/80 text-sm leading-relaxed hover:underline"
+  >
+    Unit No. 339, 3rd Floor, <br />
+    Tower B-3, Spaze Itech-Park, <br />
+    Sector-49, Sohna Road, <br />
+    Gurgaon – 122001 (HR), India
+  </a>
+</div>
             </div>
           </div>
 
           {/* App Download Section */}
-         {/* App Download Section */}
 <div className="flex flex-col items-center bg-white/10 p-5 rounded-lg">
   <h3 className="text-lg font-semibold mb-4 text-white text-center">
     Download App From
