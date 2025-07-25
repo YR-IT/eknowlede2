@@ -8,10 +8,15 @@ const VideoCard: React.FC<{
   title: string;
   duration?: string;
   videoUrl?: string | null;
+  thumbnail?: string | null;
   className?: string;
-}> = ({ title, duration = "00:46", videoUrl = null, className = "" }) => {
+}> = ({ title, duration = "00:46", videoUrl = null, thumbnail = null, className = "" }) => {
   const [, setIsHovered] = useState(false);
   const [isPlaying, setIsPlaying] = useState(false);
+
+  useEffect(() => {
+    console.log("VideoCard Props:", { title, thumbnail, videoUrl });
+  }, []);
 
   const handleVideoClick = () => {
     if (videoUrl) setIsPlaying(true);
@@ -26,7 +31,13 @@ const VideoCard: React.FC<{
     >
       <div className="bg-white rounded-3xl p-4 shadow-xl flex flex-col h-full overflow-hidden">
         <div className="relative rounded-xl overflow-hidden aspect-video mb-4">
-          {videoUrl && isPlaying ? (
+          {thumbnail ? (
+            <img
+              src={thumbnail}
+              alt={title}
+              className="absolute inset-0 w-full h-full object-cover"
+            />
+          ) : videoUrl && isPlaying ? (
             <video className="absolute inset-0 w-full h-full object-cover" controls autoPlay>
               <source src={videoUrl} type="video/mp4" />
               Your browser does not support the video tag.
@@ -60,10 +71,13 @@ const Courses: React.FC = () => {
 
   useEffect(() => {
     window.scrollTo(0, 0);
-    axios.get(`${import.meta.env.VITE_API_URL}/api/courses`)
-
-      .then(res => setCourses(res.data))
-      .catch(err => console.error(err));
+    axios
+      .get(`${import.meta.env.VITE_API_URL}/api/courses`)
+      .then(res => {
+        console.log("Fetched Courses:", res.data);
+        setCourses(res.data);
+      })
+      .catch(err => console.error("Error fetching courses:", err));
   }, []);
 
   return (
@@ -149,6 +163,7 @@ const Courses: React.FC = () => {
                 title={course.title}
                 duration={course.duration}
                 videoUrl={course.videoUrl}
+                thumbnail={course.thumbnail}
               />
             ))}
           </div>
