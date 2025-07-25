@@ -60,7 +60,8 @@ const Courses: React.FC = () => {
 
   useEffect(() => {
     window.scrollTo(0, 0);
-    axios.get('/api/courses')
+    axios.get(`${import.meta.env.VITE_API_URL}/api/courses`)
+
       .then(res => setCourses(res.data))
       .catch(err => console.error(err));
   }, []);
