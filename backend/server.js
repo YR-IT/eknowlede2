@@ -23,6 +23,8 @@ console.log('🌐 Cloudinary ENV:', {
 const allowedOrigins = [
   'http://localhost:5173',
   'https://eknowledge.vercel.app',
+  'https://eknowledge-mk52.vercel.app',       // ✅ Preview frontend
+  'https://eknowledge-mk52.onrender.com'      // ✅ Backend server (for self-pings or dashboard)
 ];
 
 app.use(
