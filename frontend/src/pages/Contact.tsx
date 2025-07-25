@@ -1,5 +1,10 @@
 import { useState, useEffect } from 'react';
 import { Mail, Phone, MapPin, Send, MessageCircle, Clock, Globe } from 'lucide-react';
+import { sendContactEmail } from '../../helper/email';
+
+
+
+
 
 const Contact = () => {
   const [formData, setFormData] = useState({
@@ -20,12 +25,23 @@ const Contact = () => {
     });
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    console.log('Form submitted:', formData);
-    alert("Thank you for your message! We'll get back to you soon.");
-    setFormData({ name: '', email: '', subject: '', message: '' });
-  };
+ const handleSubmit = async (e: React.FormEvent) => {
+  e.preventDefault();
+
+  try {
+    const response = await sendContactEmail(formData);
+    if (response.success) {
+      alert(response.message);
+      setFormData({ name: '', email: '', subject: '', message: '' });
+    } else {
+      alert(response.message);
+    }
+  } catch (error) {
+    console.error("Email sending failed:", error);
+    alert("Something went wrong. Please try again later.");
+  }
+};
+
 
   const contactInfo = [
     {
@@ -153,19 +169,20 @@ const Contact = () => {
               <div>
                 <label className="block text-sm font-medium text-gray-700 mb-2">Subject</label>
                 <select
-                  name="subject"
-                  value={formData.subject}
-                  onChange={handleChange}
-                  required
-                  className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#7a0025]"
-                >
-                  <option value="">Select a subject</option>
-                  <option value="general">General Inquiry</option>
-                  <option value="courses">Course Information</option>
-                  <option value="technical">Technical Support</option>
-                  <option value="billing">Billing & Payments</option>
-                  <option value="partnership">Partnership</option>
-                </select>
+  name="subject"
+  value={formData.subject}
+  onChange={handleChange}
+  required
+  className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#7a0025]"
+>
+  <option value="">Select a subject</option>
+  <option value="General Inquiry">General Inquiry</option>
+  <option value="Course Information">Course Information</option>
+  <option value="Technical Support">Technical Support</option>
+  <option value="Billing & Payments">Billing & Payments</option>
+  <option value="Partnership">Partnership</option>
+</select>
+
               </div>
 
               <div>
