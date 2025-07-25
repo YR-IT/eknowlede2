@@ -15,6 +15,7 @@ router.get('/', async (req, res) => {
   }
 });
 
+
 // ✅ POST simple course (no video)
 router.post('/', async (req, res) => {
   try {
