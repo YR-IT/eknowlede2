@@ -8,13 +8,9 @@ import Pricing from './pages/Pricing';
 import Blog from './pages/Blog';
 import Contact from './pages/Contact';
 import EnrollNow from './pages/EnrollNow';
-
 import AdminCourses from './admin/CourseManager';
 import AdminDashboard from './admin/AdminDashboard';
-
-
-
-
+import AdminLogin from './admin/AdminLogin';
 
 // Main App Component
 function App() {
@@ -32,7 +28,6 @@ const AppLayout = () => {
   const location = useLocation();
   const hideHeaderFooter = location.pathname === '/enroll' || location.pathname === '/admin';
 
-
   return (
     <div className="min-h-screen bg-gradient-to-br from-slate-50 via-blue-50 to-indigo-100">
        {!hideHeaderFooter && <Header />}
@@ -46,19 +41,13 @@ const AppLayout = () => {
           <Route path="/enroll" element={<EnrollNow />} />
           <Route path="/admin" element={<AdminDashboard />} />
           <Route path="/admin/courses" element={<AdminCourses />} />
-         
-
+          <Route path="/admin/login" element={<AdminLogin />} />
         </Routes>
         
       </main>
-
       {!hideHeaderFooter && <Header />}
-
 {!hideHeaderFooter && <Footer />}
-
     </div>
   );
-  
 };
-
 export default App;

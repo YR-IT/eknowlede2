@@ -1,9 +1,17 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import BlogManager from './blogManager';
 import CourseManager from './CourseManager';
+import { useNavigate } from 'react-router-dom';
 
 const AdminDashboard = () => {
   const [activeTab, setActiveTab] = useState<'blogs' | 'courses'>('blogs');
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    if (sessionStorage.getItem('isAdmin') !== 'true') {
+      navigate('/admin/login');
+    }
+  }, [navigate]);  
 
   return (
     <div className="min-h-screen bg-gray-100 px-4 py-8">
