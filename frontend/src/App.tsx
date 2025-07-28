@@ -8,8 +8,9 @@ import Pricing from './pages/Pricing';
 import Blog from './pages/Blog';
 import Contact from './pages/Contact';
 import EnrollNow from './pages/EnrollNow';
-import AdminDashboard from './admin/AdminDashboard'; 
-import AdminCourses from './admin/AdminCourses';
+
+import AdminCourses from './admin/CourseManager';
+import AdminDashboard from './admin/AdminDashboard';
 
 
 
@@ -45,6 +46,7 @@ const AppLayout = () => {
           <Route path="/enroll" element={<EnrollNow />} />
           <Route path="/admin" element={<AdminDashboard />} />
           <Route path="/admin/courses" element={<AdminCourses />} />
+         
 
         </Routes>
         

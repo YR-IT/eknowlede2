@@ -5,11 +5,11 @@ import Blog from '../models/Blog.js';
 
 const router = express.Router();
 
-// ✅ Multer in-memory setup
+// ✅ Multer in-memory config
 const storage = multer.memoryStorage();
 const upload = multer({ storage });
 
-// ✅ Cloudinary upload helper
+// ✅ Helper: Upload buffer to Cloudinary
 const uploadToCloudinary = (buffer) => {
   return new Promise((resolve, reject) => {
     const stream = cloudinary.uploader.upload_stream(
@@ -23,7 +23,7 @@ const uploadToCloudinary = (buffer) => {
   });
 };
 
-// ✅ GET all blogs
+// ✅ GET /api/blogs — fetch all blogs
 router.get('/', async (req, res) => {
   try {
     const blogs = await Blog.find().sort({ createdAt: -1 });
@@ -34,12 +34,12 @@ router.get('/', async (req, res) => {
   }
 });
 
-// ✅ POST create blog
+// ✅ POST /api/blogs — create new blog
 router.post('/', upload.single('image'), async (req, res) => {
   try {
     const { title, author, summary, content, headerImage, date, createdAt } = req.body;
 
-    if (!title || !author || !content) {
+    if (!title || !author || !summary || !content) {
       return res.status(400).json({ message: 'Missing required fields.' });
     }
 
@@ -54,7 +54,7 @@ router.post('/', upload.single('image'), async (req, res) => {
       author,
       summary,
       content,
-      headerImage: imageUrl,
+      headerImage: imageUrl || undefined,
       date: date || new Date().toLocaleDateString('en-GB'),
       createdAt: createdAt ? Number(createdAt) : Date.now(),
     });
@@ -64,15 +64,19 @@ router.post('/', upload.single('image'), async (req, res) => {
 
   } catch (err) {
     console.error('❌ POST /blogs error:', err);
-    res.status(500).json({ message: 'Internal server error', error: err?.message });
+    res.status(500).json({ message: 'Internal server error', error: err.message });
   }
 });
 
-// ✅ PUT update blog
+// ✅ PUT /api/blogs/:id — update existing blog
 router.put('/:id', upload.single('image'), async (req, res) => {
   try {
-    const blogId = req.params.id;
     const { title, author, summary, content, headerImage, date } = req.body;
+    const blogId = req.params.id;
+
+    if (!title || !author || !summary || !content) {
+      return res.status(400).json({ message: 'Missing required fields.' });
+    }
 
     const updateFields = {
       title,
@@ -100,11 +104,11 @@ router.put('/:id', upload.single('image'), async (req, res) => {
 
   } catch (err) {
     console.error('❌ PUT /blogs/:id error:', err);
-    res.status(500).json({ message: 'Internal server error', error: err?.message });
+    res.status(500).json({ message: 'Internal server error', error: err.message });
   }
 });
 
-// ✅ DELETE blog
+// ✅ DELETE /api/blogs/:id — remove blog
 router.delete('/:id', async (req, res) => {
   try {
     const blogId = req.params.id;

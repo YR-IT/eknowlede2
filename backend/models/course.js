@@ -1,22 +1,23 @@
 import mongoose from 'mongoose';
 
-const courseSchema = new mongoose.Schema({
-  title: {
-    type: String,
-    required: true,
+const courseSchema = new mongoose.Schema(
+  {
+    title: {
+      type: String,
+      required: [true, 'Course title is required'],
+      trim: true,
+    },
+    videoUrl: {
+      type: String,
+      required: [true, 'Video URL is required'],
+    },
   },
-  subtitle: String,
-  duration: String, // e.g. "00:46"
-  videoUrl: String,
-  order: Number,
-  thumbnail: String, // Optional image URL
-  createdAt: {
-    type: Date,
-    default: Date.now,
-  },
-});
+  {
+    timestamps: true, // Automatically adds createdAt and updatedAt
+  }
+);
 
-// ✅ Prevent redefining the model on hot-reload
+// ✅ Prevent model overwrite in development (hot reload safe)
 const Course = mongoose.models.Course || mongoose.model('Course', courseSchema);
 
 export default Course;

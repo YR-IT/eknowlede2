@@ -19,14 +19,14 @@ const blogSchema = new mongoose.Schema(
     },
     content: {
       type: String,
-      required: [true, 'Content is required'],
+      required: [true, 'Blog content is required'],
     },
     headerImage: {
       type: String,
       default: 'https://placehold.co/600x400/e2e8f0/64748b?text=No+Image',
     },
     date: {
-      type: String, // Format: DD/MM/YYYY (provided from frontend)
+      type: String, // Format: DD/MM/YYYY from frontend
       default: () => new Date().toLocaleDateString('en-GB'),
     },
     createdAt: {
@@ -35,8 +35,9 @@ const blogSchema = new mongoose.Schema(
     },
   },
   {
-    timestamps: true, // Mongoose will also store createdAt & updatedAt as Date types
+    timestamps: true, // Also keeps createdAt and updatedAt as Date objects
   }
 );
 
-export default mongoose.model('Blog', blogSchema);
+// Export model only once to avoid OverwriteModelError in dev environments
+export default mongoose.models.Blog || mongoose.model('Blog', blogSchema);
