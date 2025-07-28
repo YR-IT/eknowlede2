@@ -1,18 +1,37 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { Play, Award, GraduationCap, ArrowRight } from 'lucide-react';
 import { motion } from 'framer-motion';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
 
+const formatDuration = (seconds: number) => {
+  const hrs = Math.floor(seconds / 3600);
+  const mins = Math.floor((seconds % 3600) / 60);
+  const secs = Math.floor(seconds % 60);
+  return hrs > 0
+    ? `${hrs}:${mins.toString().padStart(2, '0')}:${secs.toString().padStart(2, '0')}`
+    : `${mins}:${secs.toString().padStart(2, '0')}`;
+};
+
 const VideoCard: React.FC<{
   title: string;
-  duration?: string;
   videoUrl?: string | null;
   thumbnail?: string | null;
   className?: string;
-}> = ({ title, duration = "00:46", videoUrl = null, thumbnail = null, className = "" }) => {
+}> = ({ title, videoUrl = null, thumbnail = null, className = "" }) => {
   const [, setIsHovered] = useState(false);
   const [isPlaying, setIsPlaying] = useState(false);
+  const [duration, setDuration] = useState("...");
+  const videoRef = useRef<HTMLVideoElement | null>(null);
+
+  const handleLoadedMetadata = () => {
+    if (videoRef.current) {
+      const secs = videoRef.current.duration;
+      if (!isNaN(secs)) {
+        setDuration(formatDuration(secs));
+      }
+    }
+  };
 
   const handleVideoClick = () => {
     if (videoUrl) setIsPlaying(true);
@@ -28,7 +47,11 @@ const VideoCard: React.FC<{
       <div className="bg-white rounded-3xl p-4 shadow-xl flex flex-col h-full overflow-hidden">
         <div className="relative rounded-xl overflow-hidden aspect-video mb-4">
           {isPlaying && videoUrl ? (
-            <video className="absolute inset-0 w-full h-full object-cover" controls autoPlay>
+            <video
+              className="absolute inset-0 w-full h-full object-cover"
+              controls
+              autoPlay
+            >
               <source src={videoUrl} type="video/mp4" />
               Your browser does not support the video tag.
             </video>
@@ -39,10 +62,11 @@ const VideoCard: React.FC<{
                 muted
                 playsInline
                 preload="metadata"
+                ref={videoRef}
+                onLoadedMetadata={handleLoadedMetadata}
                 poster={thumbnail || undefined}
               >
                 {videoUrl && <source src={videoUrl} type="video/mp4" />}
-                Your browser does not support the video tag.
               </video>
               <div className="absolute inset-0 flex items-center justify-center bg-black/40">
                 <Play className="w-12 h-12 text-white opacity-90" />
