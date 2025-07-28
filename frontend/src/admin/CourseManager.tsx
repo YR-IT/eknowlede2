@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
+import { Loader2 } from 'lucide-react'; // Optional: spinner icon
 
 const AdminCourses = () => {
   const [courses, setCourses] = useState([]);
@@ -8,6 +9,9 @@ const AdminCourses = () => {
     title: '',
     video: null as File | null,
   });
+
+  const [loading, setLoading] = useState(false);
+  const [deletingId, setDeletingId] = useState<string | null>(null);
 
   const isEditing = !!form._id;
 
@@ -40,9 +44,10 @@ const AdminCourses = () => {
       return;
     }
 
+    setLoading(true);
+
     try {
       const videoBase64 = await toBase64(video);
-
       const payload = { title, videoBase64 };
 
       if (isEditing) {
@@ -58,6 +63,8 @@ const AdminCourses = () => {
     } catch (err: any) {
       console.error('Upload error:', err);
       alert(err?.response?.data?.error || 'Something went wrong during upload.');
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -73,19 +80,22 @@ const AdminCourses = () => {
     setForm({
       _id: course._id,
       title: course.title,
-      video: null, // File input cannot be set programmatically
+      video: null,
     });
   };
 
   const handleDelete = async (id: string) => {
     if (!confirm('Are you sure you want to delete this course?')) return;
 
+    setDeletingId(id);
     try {
       await axios.delete(`${import.meta.env.VITE_API_URL}/api/courses/${id}`);
       fetchCourses();
     } catch (error) {
       console.error('Delete failed:', error);
       alert('❌ Could not delete course.');
+    } finally {
+      setDeletingId(null);
     }
   };
 
@@ -117,9 +127,17 @@ const AdminCourses = () => {
         <div className="flex space-x-4">
           <button
             onClick={handleUploadOrUpdate}
-            className="bg-green-600 text-white px-4 py-2 rounded hover:bg-green-700"
+            disabled={loading}
+            className={`px-4 py-2 rounded text-white ${
+              loading ? 'bg-green-400' : 'bg-green-600 hover:bg-green-700'
+            }`}
           >
-            {isEditing ? 'Update Course' : 'Upload Course'}
+            {loading ? (
+              <span className="flex items-center justify-center gap-2">
+                <Loader2 className="animate-spin" size={18} />
+                Processing...
+              </span>
+            ) : isEditing ? 'Update Course' : 'Upload Course'}
           </button>
 
           {isEditing && (
@@ -152,9 +170,17 @@ const AdminCourses = () => {
               </button>
               <button
                 onClick={() => handleDelete(course._id)}
+                disabled={deletingId === course._id}
                 className="text-red-600 hover:underline"
               >
-                Delete
+                {deletingId === course._id ? (
+                  <span className="flex items-center gap-1">
+                    <Loader2 className="animate-spin" size={14} />
+                    Deleting...
+                  </span>
+                ) : (
+                  'Delete'
+                )}
               </button>
             </div>
           </li>

@@ -14,10 +14,6 @@ const VideoCard: React.FC<{
   const [, setIsHovered] = useState(false);
   const [isPlaying, setIsPlaying] = useState(false);
 
-  useEffect(() => {
-    console.log("VideoCard Props:", { title, thumbnail, videoUrl });
-  }, []);
-
   const handleVideoClick = () => {
     if (videoUrl) setIsPlaying(true);
   };
@@ -38,18 +34,16 @@ const VideoCard: React.FC<{
             </video>
           ) : (
             <>
-              {thumbnail ? (
-                <img
-                  src={thumbnail}
-                  alt={title}
-                  className="absolute inset-0 w-full h-full object-cover"
-                />
-              ) : (
-                <div className="absolute inset-0 bg-gradient-to-br from-pink-100 to-rose-100 flex flex-col items-center justify-center text-center px-4">
-                  <Play className="w-10 h-10 text-rose-700 mb-2" />
-                  <h3 className="text-sm font-semibold text-rose-900 leading-snug">{title}</h3>
-                </div>
-              )}
+              <video
+                className="absolute inset-0 w-full h-full object-cover"
+                muted
+                playsInline
+                preload="metadata"
+                poster={thumbnail || undefined}
+              >
+                {videoUrl && <source src={videoUrl} type="video/mp4" />}
+                Your browser does not support the video tag.
+              </video>
               <div className="absolute inset-0 flex items-center justify-center bg-black/40">
                 <Play className="w-12 h-12 text-white opacity-90" />
               </div>
@@ -81,7 +75,6 @@ const Courses: React.FC = () => {
     axios
       .get(`${import.meta.env.VITE_API_URL}/api/courses`)
       .then(res => {
-        console.log("Fetched Courses:", res.data);
         setCourses(res.data);
       })
       .catch(err => console.error("Error fetching courses:", err));
@@ -89,6 +82,7 @@ const Courses: React.FC = () => {
 
   return (
     <div className="pt-0 min-h-screen bg-gradient-to-br from-rose-50 via-pink-50 to-fuchsia-50">
+      {/* Hero Section */}
       <div className="relative bg-gradient-to-br from-rose-900 via-pink-800 to-fuchsia-900 text-white overflow-hidden">
         <div className="absolute inset-0 opacity-30 bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-pink-600 via-rose-700 to-fuchsia-900" />
         <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 flex flex-col-reverse md:flex-row items-center justify-between gap-12">
@@ -132,6 +126,7 @@ const Courses: React.FC = () => {
         </div>
       </div>
 
+      {/* Course Grid */}
       <div className="py-16 px-4 sm:px-6 lg:px-8">
         <div className="max-w-7xl mx-auto">
           <div className="text-center mb-12">

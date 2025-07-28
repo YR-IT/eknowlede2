@@ -7,19 +7,22 @@ import {
   BlogApiData,
   BlogApiResponse
 } from '../api/blogApi';
+import { Loader2 } from 'lucide-react';
 
 const AdminBlogManager = () => {
   const [blogs, setBlogs] = useState<BlogApiResponse[]>([]);
   const [form, setForm] = useState<BlogApiData>({
     title: '',
-    author: 'By Yatish Kumar Goel, Advocate',
+    author: 'Yatish Kumar Goel, Advocate',
     summary: '',
     content: '',
     image: null,
   });
   const [editingId, setEditingId] = useState<string | null>(null);
+  const [previewBlog, setPreviewBlog] = useState<BlogApiResponse | null>(null);
+  const [loading, setLoading] = useState(false);
+  const [deletingId, setDeletingId] = useState<string | null>(null);
 
-  // Fetch all blogs on mount
   useEffect(() => {
     loadBlogs();
   }, []);
@@ -29,7 +32,6 @@ const AdminBlogManager = () => {
     setBlogs(data);
   };
 
-  // Auto-generate summary
   useEffect(() => {
     if (form.content.length > 20) {
       const generated = form.content.split(' ').slice(0, 25).join(' ') + '...';
@@ -46,6 +48,7 @@ const AdminBlogManager = () => {
   };
 
   const handleSubmit = async () => {
+    setLoading(true);
     try {
       if (editingId) {
         await updateBlog(editingId, form);
@@ -54,17 +57,12 @@ const AdminBlogManager = () => {
         await createBlog(form);
         alert('Blog published!');
       }
-      setForm({
-        title: '',
-        author: 'By Yatish Kumar Goel, Advocate',
-        summary: '',
-        content: '',
-        image: null,
-      });
-      setEditingId(null);
+      resetForm();
       await loadBlogs();
     } catch (err: any) {
       alert(err.message || 'Something went wrong.');
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -83,24 +81,30 @@ const AdminBlogManager = () => {
 
   const handleDelete = async (id: string) => {
     if (!confirm('Are you sure you want to delete this blog?')) return;
-    await deleteBlog(id);
-    await loadBlogs();
+    setDeletingId(id);
+    try {
+      await deleteBlog(id);
+      await loadBlogs();
+    } catch (err) {
+      alert('Delete failed.');
+    } finally {
+      setDeletingId(null);
+    }
   };
 
-  const cancelEdit = () => {
-    setEditingId(null);
+  const resetForm = () => {
     setForm({
       title: '',
-      author: 'By Yatish Kumar Goel, Advocate',
+      author: 'Yatish Kumar Goel, Advocate',
       summary: '',
       content: '',
       image: null,
     });
+    setEditingId(null);
   };
 
   return (
     <div className="min-h-screen bg-gray-100 px-4 py-8">
-      {/* Blog Form */}
       <div className="max-w-2xl mx-auto bg-white rounded-xl shadow-lg p-8 mb-10">
         <h2 className="text-2xl font-bold mb-1">
           {editingId ? '✏️ Edit Blog Post' : '📝 Create New Blog Post'}
@@ -154,13 +158,18 @@ const AdminBlogManager = () => {
           <div className="flex space-x-4">
             <button
               onClick={handleSubmit}
-              className="w-full bg-blue-600 text-white py-2 rounded hover:bg-blue-700"
+              disabled={loading}
+              className={`w-full py-2 rounded text-white ${loading ? 'bg-blue-400' : 'bg-blue-600 hover:bg-blue-700'}`}
             >
-              {editingId ? 'Update Blog' : 'Publish Blog'}
+              {loading ? (
+                <span className="flex items-center justify-center gap-2">
+                  <Loader2 className="animate-spin" size={18} /> Processing...
+                </span>
+              ) : editingId ? 'Update Blog' : 'Publish Blog'}
             </button>
             {editingId && (
               <button
-                onClick={cancelEdit}
+                onClick={resetForm}
                 className="w-full bg-gray-200 text-gray-700 py-2 rounded hover:bg-gray-300"
               >
                 Cancel
@@ -170,7 +179,34 @@ const AdminBlogManager = () => {
         </div>
       </div>
 
-      {/* Blog List */}
+      {/* ✅ Preview Modal with Header Image */}
+      {previewBlog && (
+        <div className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center z-50">
+          <div className="bg-white p-6 rounded-lg max-w-2xl w-full relative overflow-y-auto max-h-[90vh]">
+            <button
+              onClick={() => setPreviewBlog(null)}
+              className="absolute top-2 right-2 text-gray-600 hover:text-black"
+            >
+              ✖
+            </button>
+
+            {previewBlog.headerImage && (
+              <img
+                src={previewBlog.headerImage}
+                alt="Header"
+                className="rounded-md w-full h-60 object-cover mb-4"
+              />
+            )}
+
+            <h2 className="text-2xl font-bold mb-2">{previewBlog.title}</h2>
+            <p className="text-sm text-gray-500 mb-4">
+              By {previewBlog.author} | {new Date(previewBlog.createdAt).toLocaleString()}
+            </p>
+            <p className="text-gray-700 whitespace-pre-wrap">{previewBlog.content}</p>
+          </div>
+        </div>
+      )}
+
       <div className="max-w-4xl mx-auto">
         <h3 className="text-xl font-semibold mb-4">📚 All Blogs</h3>
         {blogs.length === 0 ? (
@@ -180,13 +216,23 @@ const AdminBlogManager = () => {
             {blogs.map((blog) => (
               <li
                 key={blog._id}
-                className="bg-white p-4 rounded shadow flex items-center justify-between"
+                className="bg-white p-4 rounded shadow flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-between"
               >
                 <div>
                   <h4 className="font-bold text-lg">{blog.title}</h4>
                   <p className="text-sm text-gray-600">{blog.summary}</p>
+                  <p className="text-xs text-gray-400 mt-1">
+                    Published: {new Date(blog.createdAt).toLocaleDateString()}{' '}
+                    {new Date(blog.createdAt).toLocaleTimeString()}
+                  </p>
                 </div>
-                <div className="flex gap-4">
+                <div className="flex gap-3">
+                  <button
+                    onClick={() => setPreviewBlog(blog)}
+                    className="text-green-600 hover:underline"
+                  >
+                    Preview
+                  </button>
                   <button
                     onClick={() => handleEdit(blog)}
                     className="text-blue-600 hover:underline"
@@ -196,8 +242,15 @@ const AdminBlogManager = () => {
                   <button
                     onClick={() => handleDelete(blog._id)}
                     className="text-red-600 hover:underline"
+                    disabled={deletingId === blog._id}
                   >
-                    Delete
+                    {deletingId === blog._id ? (
+                      <span className="flex items-center gap-1">
+                        <Loader2 className="animate-spin" size={14} /> Deleting...
+                      </span>
+                    ) : (
+                      'Delete'
+                    )}
                   </button>
                 </div>
               </li>
