@@ -25,7 +25,7 @@ const AdminLogin = () => {
 
   return (
     <div
-      className="h-screen w-full bg-cover bg-center relative flex items-center justify-center"
+      className="h-[90vh] w-full bg-cover bg-center relative flex items-center justify-center"
       style={{
         backgroundImage:
           "url('https://t4.ftcdn.net/jpg/02/43/22/71/360_F_243227135_0MKgZJefxBmaClJmhFdgfSByHI4n8UVy.jpg')",
@@ -39,7 +39,7 @@ const AdminLogin = () => {
         onSubmit={handleLogin}
         className="relative z-10 bg-white p-8 rounded shadow-md w-full max-w-sm"
       >
-        <h2 className="text-xl font-bold mb-4 text-center">Admin Login</h2>
+        <h2 className="text-3xl font-bold mb-4 text-center">Admin Login</h2>
 
         <div className="relative mb-4">
           <input
